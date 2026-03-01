@@ -1,0 +1,217 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap");
+
+:root {
+  --site-bg: #ece4f3;
+  --site-bg-2: #f4eff8;
+  --surface: #fbf8fe;
+  --line: #dbcfe8;
+  --text: #211a2c;
+  --heading: #150f1f;
+  --link: #8f1f57;
+  --link-hover: #611339;
+}
+
+body,
+body.page-wrapper,
+html.dark body,
+html.dark body.page-wrapper {
+  background:
+    radial-gradient(circle at 12% 10%, rgb(215 129 190 / 22%) 0%, transparent 35%),
+    radial-gradient(circle at 84% 0%, rgb(123 66 120 / 18%) 0%, transparent 34%),
+    linear-gradient(180deg, var(--site-bg-2) 0%, var(--site-bg) 100%) !important;
+  color: var(--text) !important;
+  font-family: "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.text-gray-900,
+.dark\:text-white,
+.dark\:text-slate-200,
+.dark\:text-gray-100 {
+  color: var(--heading) !important;
+  font-family: "Fraunces", serif;
+}
+
+a,
+.prose a,
+.nav-link,
+.navbar-brand {
+  color: var(--link) !important;
+}
+
+a:hover,
+.prose a:hover,
+.nav-link:hover,
+.navbar-brand:hover {
+  color: var(--link-hover) !important;
+}
+
+.navbar {
+  backdrop-filter: blur(9px);
+  background: rgb(248 241 252 / 84%) !important;
+  border-bottom: 1px solid rgb(32 14 44 / 12%);
+}
+
+.hbb-section {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+.earthy-hero {
+  min-height: 58vh;
+  border-bottom: 1px solid rgb(26 13 29 / 20%);
+}
+
+.earthy-hero .home-section-bg {
+  background:
+    linear-gradient(112deg, rgb(34 10 37 / 58%), rgb(150 28 69 / 33%)),
+    url("https://commons.wikimedia.org/wiki/Special:FilePath/07_rave_dancing_motion_blur_experimental_digital_photography_by_Rick_Doble.jpg?width=640");
+  background-position: center 45%;
+  background-size: cover;
+}
+
+.earthy-hero h1,
+.earthy-hero .hero-title,
+.earthy-hero p,
+.earthy-hero .hero-subtitle,
+.earthy-hero a {
+  color: #faeff5 !important;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 35%);
+}
+
+.hero-links {
+  margin-top: 0.9rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.hero-links a {
+  text-decoration: none;
+  border-bottom: 1px solid rgb(250 239 245 / 70%);
+}
+
+.hero-links a:hover {
+  border-bottom-color: #ffffff;
+}
+
+.hero-credit {
+  margin-top: 0.8rem;
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+.hero-credit a {
+  color: #fbeaf4 !important;
+  text-decoration: underline;
+}
+
+.home-profile {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.2rem;
+  box-shadow: 0 10px 24px rgb(38 18 57 / 6%);
+}
+
+.home-profile-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid rgb(132 50 101 / 28%);
+}
+
+.home-profile h2 {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+}
+
+.home-profile p {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.home-panels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.home-panel {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgb(38 18 57 / 5%);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.home-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px rgb(38 18 57 / 9%);
+}
+
+.home-panel h3 {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+}
+
+.home-panel p {
+  margin: 0;
+  color: var(--text);
+}
+
+/* Wider content on section and single pages */
+.page-body .max-w-prose,
+.page-body > .max-w-prose,
+.page-body > div.max-w-prose,
+.blox-markdown > .max-w-prose,
+.blox-markdown > div.max-w-prose,
+.blox-markdown > .flex {
+  max-width: min(94vw, 86rem) !important;
+}
+
+.blox-markdown > .flex {
+  align-items: stretch !important;
+}
+
+.page-body article.prose,
+.blox-markdown .prose {
+  max-width: 100% !important;
+}
+
+.prose,
+.prose p,
+.prose li,
+.prose strong,
+.prose em,
+.dark\:prose-invert,
+.bg-\[var\(--color-background\)\],
+.text-\[var\(--color-foreground\)\] {
+  color: var(--text) !important;
+}
+
+@media (max-width: 900px) {
+  .home-panels {
+    grid-template-columns: 1fr;
+  }
+
+  .home-profile {
+    grid-template-columns: 1fr;
+  }
+
+  .home-profile-photo {
+    margin: 0 auto;
+  }
+}

@@ -1,57 +1,46 @@
 ---
+<<<<<<< Updated upstream
 # Leave the homepage title empty to use the site title
 title: ''
 summary: ''
 date: 2022-10-24
+=======
+title: ""
+>>>>>>> Stashed changes
 type: landing
-
-design:
-  # Default section spacing
-  spacing: '6rem'
-
 sections:
-  - block: resume-biography-3
+  - block: hero
     content:
-      # Choose a user profile to display (a folder name within `content/authors/`)
-      username: me
-      text: ''
-      # Show a call-to-action button under your biography? (optional)
-      button:
-        text: Download CV
-        url: uploads/resume.pdf
-      headings:
-        about: ''
-        education: ''
-        interests: ''
+      title: Erick Axxe
+      text: |
+        Assistant Professor of Sociology, Hendrix College
+
+        <div class="hero-links">
+        <a href="/uploads/cv.pdf">CV</a> · <a href="/teaching/">Teaching</a> · <a href="/research/">Research</a> · <a href="/contact/">Contact</a>
+        </div>
+
+        <div class="hero-credit">Background image: <a href="https://commons.wikimedia.org/wiki/File:07_rave_dancing_motion_blur_experimental_digital_photography_by_Rick_Doble.jpg">Rick Doble (Wikimedia Commons)</a></div>
     design:
-      # Use the new Gradient Mesh which automatically adapts to the selected theme colors
-      background:
-        gradient_mesh:
-          enable: true
+      columns: 1
+      css_class: earthy-hero
 
-      # Name heading sizing to accommodate long or short names
-      name:
-        size: md # Options: xs, sm, md, lg (default), xl
-
-      # Avatar customization
-      avatar:
-        size: medium # Options: small (150px), medium (200px, default), large (320px), xl (400px), xxl (500px)
-        shape: circle # Options: circle (default), square, rounded
   - block: markdown
     content:
-      title: '📚 My Research'
-      subtitle: ''
-      text: |-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+      title: ""
+      text: |
+        <section class="home-profile">
+          <img class="home-profile-photo" src="/uploads/headshot.jpg" alt="Headshot of Erick Axxe" />
+          <div>
+            <h2>About</h2>
+            <p>I study inequality, institutions, and the transition to adulthood using longitudinal and mixed-method research.</p>
+            <p>My work examines how organizational contexts shape educational and life-course decisions, with particular attention to race, class, and gender.</p>
+            <p><a href="/research/">Explore research projects</a> or <a href="/contact/">get in touch</a>.</p>
+          </div>
+        </section>
 
-        I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
-
-        Please reach out to collaborate 😃
-    design:
-      columns: '1'
-  - block: collection
-    id: papers
+  - block: markdown
     content:
+<<<<<<< Updated upstream
       title: Featured Publications
       filters:
         folders:
@@ -128,4 +117,22 @@ sections:
         # Card background color (CSS class)
         css_class: 'bg-primary-300 dark:bg-primary-700'
         css_style: ''
+=======
+      title: "At a Glance"
+      text: |
+        <section class="home-panels">
+          <a class="home-panel" href="/research/">
+            <h3>Research</h3>
+            <p>Two major data collection projects anchor my work: FAMELO and the First-Generation Student Study.</p>
+          </a>
+          <a class="home-panel" href="/teaching/">
+            <h3>Teaching</h3>
+            <p>Course materials, syllabi, and mentoring commitments focused on methodological and substantive rigor.</p>
+          </a>
+          <a class="home-panel" href="/contact/">
+            <h3>Contact</h3>
+            <p>For collaboration, speaking, or student advising inquiries, please reach out directly.</p>
+          </a>
+        </section>
+>>>>>>> Stashed changes
 ---
