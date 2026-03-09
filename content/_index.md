@@ -27,7 +27,7 @@ sections:
             <h2>About</h2>
             <p>I study inequality, institutions, and the transition to adulthood using longitudinal and mixed-method research.</p>
             <p>My work examines how organizational contexts shape educational and life-course decisions, with particular attention to race, class, and gender.</p>
-            <p><a href="/research/">Explore research projects</a>, href="/teaching/">view my teaching materials,</a> or <a href="/contact/">get in touch</a>.</p>
+            <p><a href="/research/">Explore research projects</a>, <a href="/teaching/">view my teaching materials </a>, or <a href="/contact/">get in touch</a>.</p>
           </div>
         </section>
 
