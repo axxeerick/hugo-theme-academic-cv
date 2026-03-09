@@ -27,26 +27,6 @@ sections:
             <h2>About</h2>
             <p>I study inequality, institutions, and the transition to adulthood using longitudinal and mixed-method research.</p>
             <p>My work examines how organizational contexts shape educational and life-course decisions, with particular attention to race, class, and gender.</p>
-            <p><a href="/research/">Explore research projects</a> or <a href="/contact/">get in touch</a>.</p>
+            <p><a href="/research/">Explore research projects</a>, href="/teaching/">view my teaching materials,</a> or <a href="/contact/">get in touch</a>.</p>
           </div>
         </section>
-
-  - block: markdown
-    content:
-      title: "At a Glance"
-      text: |
-        <section class="home-panels">
-          <a class="home-panel" href="/research/">
-            <h3>Research</h3>
-            <p>Two major data collection projects anchor my work: FAMELO and the First-Generation Student Study.</p>
-          </a>
-          <a class="home-panel" href="/teaching/">
-            <h3>Teaching</h3>
-            <p>Course materials, syllabi, and mentoring commitments focused on methodological and substantive rigor.</p>
-          </a>
-          <a class="home-panel" href="/contact/">
-            <h3>Contact</h3>
-            <p>For collaboration, speaking, or student advising inquiries, please reach out directly.</p>
-          </a>
-        </section>
----
