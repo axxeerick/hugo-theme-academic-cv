@@ -30,3 +30,5 @@ sections:
             <p><a href="/research/">Explore research projects</a>, href="/teaching/">view my teaching materials,</a> or <a href="/contact/">get in touch</a>.</p>
           </div>
         </section>
+
+---
