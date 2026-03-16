@@ -9,7 +9,7 @@ sections:
         Assistant Professor of Sociology, Hendrix College
 
         <div class="hero-links">
-        <a href="/uploads/cv.pdf">CV</a> · <a href="/teaching/">Research</a> · <a href="/research/">Teaching</a> · <a href="/contact/">Contact</a>
+        <a href="/uploads/cv.pdf">CV</a> · <a href="/research/">Research</a> · <a href="/teaching/">Teaching</a> · <a href="/contact/">Contact</a>
         </div>
 
         <div class="hero-credit">Background image: <a href="https://commons.wikimedia.org/wiki/File:07_rave_dancing_motion_blur_experimental_digital_photography_by_Rick_Doble.jpg">Rick Doble (Wikimedia Commons)</a></div>
