@@ -24,7 +24,7 @@ sections:
         FAMELO examines how family migration shapes children’s and adolescents’ educational trajectories, wellbeing, aspirations, and family formation across distinct migration contexts. Using longitudinal panel data in comparative perspective, the project traces how migration-related resources and constraints intersect with local institutions to shape early life transitions.
 
         **Selected publications**
-        - Axxe, Erick, Sarah R. Hayford, and Natalie D. Eggum. 2022. “Youth’s Family and Non-Family Roles as Predictors of Subjective Adulthood in Three Low-Income Agricultural Settings.” *Journal of Research on Adolescence* 32(4):1546-65. doi:[10.1111/jora.12731](https://doi.org/10.1111/jora.12731).
+        - Alcaraz, Melissa, Erick Axxe, and Jennifer E. Glick. 2026. “Adolescent Migration Goals: An Application of the Aspirations-Capabilities Framework.” *Population Research and Policy Review* 45(2):13. doi:[10.1007/s11113-026-09993-3](https://doi.org/10.1007/s11113-026-09993-3).
         - Axxe, Erick, Sarah R. Hayford, and Dirgha J. Ghimire. 2024. “Household Migration and Adolescent Marriage Choice in Settings with Changing Marriage Systems.” *Journal of Comparative Family Studies* 55(1):4-31. doi:[10.3138/jcfs.55.1.02](https://doi.org/10.3138/jcfs.55.1.02).
       image:
         path: "research/famelo.jpg"
