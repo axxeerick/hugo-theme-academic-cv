@@ -9,7 +9,7 @@ sections:
       text: |
         I am a life course scholar focused on the transition to adulthood: how young people make decisions about education, work, mobility, and family life, and how those decisions are conditioned by institutions and unequal opportunity structures.
 
-        My theoretical orientation centers institutional mediation: the idea that aspirations and choices are not simply individual preferences, but are formed and constrained within organizational environments, social networks, and broader stratification regimes.
+        My theoretical orientation centers institutional mediation: the idea that aspirations, choices, and identities are not simply individual preferences, but are formed and constrained within organizational environments, social networks, and broader stratification regimes.
 
         Much of my work is supported by two large-scale data collection projects: **Family Migration and Early Life Outcomes (FAMELO)** and the **First-Generation Student Study**. Together, these projects let me trace how institutions shape perceived possibilities and lived trajectories over time.
 
