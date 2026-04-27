@@ -70,7 +70,7 @@ a:hover,
 .earthy-hero .home-section-bg {
   background:
     linear-gradient(112deg, rgb(34 10 37 / 58%), rgb(150 28 69 / 33%)),
-    url("https://commons.wikimedia.org/wiki/Special:FilePath/07_rave_dancing_motion_blur_experimental_digital_photography_by_Rick_Doble.jpg?width=640");
+    url("/uploads/640px-07_rave_dancing_motion_blur_experimental_digital_photography_by_Rick_Doble.jpg");
   background-position: center 45%;
   background-size: cover;
 }
