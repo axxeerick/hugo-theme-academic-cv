@@ -1,0 +1,758 @@
+[
+  {
+    "objectID": "data/codebook.html",
+    "href": "data/codebook.html",
+    "title": "Understanding EAMMi2",
+    "section": "",
+    "text": "Throughout this workbook, you will use the EAMMi2 data set to learn about statistical analyses and practice using R. The information that follows provides background about the EAMMi2 study and a codebook to help you navigate and understand the data file.\n\n\n\n\n\n\nWarningImportant note\n\n\n\nAs you progress through this workbook, remember that the analyses and resulting conclusions are for demonstration purposes only.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Understanding EAMMi2"
+    ]
+  },
+  {
+    "objectID": "data/codebook.html#emerging-adulthood-measured-at-multiple-institutions-2",
+    "href": "data/codebook.html#emerging-adulthood-measured-at-multiple-institutions-2",
+    "title": "Understanding EAMMi2",
+    "section": "",
+    "text": "Throughout this workbook, you will use the EAMMi2 data set to learn about statistical analyses and practice using R. The information that follows provides background about the EAMMi2 study and a codebook to help you navigate and understand the data file.\n\n\n\n\n\n\nWarningImportant note\n\n\n\nAs you progress through this workbook, remember that the analyses and resulting conclusions are for demonstration purposes only.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Understanding EAMMi2"
+    ]
+  },
+  {
+    "objectID": "data/codebook.html#what-is-the-eammi2-study",
+    "href": "data/codebook.html#what-is-the-eammi2-study",
+    "title": "Understanding EAMMi2",
+    "section": "What Is The EAMMi2 Study?",
+    "text": "What Is The EAMMi2 Study?\nThe EAMMi2 data set includes responses from undergraduate students at multiple institutions. Participants answered questions across several variables, including basic demographic questions, questions about personal experiences, and questions about well-being. The overarching goal of the study was to learn more about the psychological experiences of 18- to 29-year-olds, the age range associated with the transition from adolescence to adulthood.\nThe final sample size of respondents between the ages of 18 and 29 was 2,073. You can learn more about the EAMMi2 study and view the survey-with-codes PDF.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Understanding EAMMi2"
+    ]
+  },
+  {
+    "objectID": "data/codebook.html#our-data-file",
+    "href": "data/codebook.html#our-data-file",
+    "title": "Understanding EAMMi2",
+    "section": "Our Data File",
+    "text": "Our Data File\nThis workbook uses a reduced version of the original EAMMi2 data. The data file includes a subset of variables selected to allow you to conduct the types of analyses covered in Exploring Statistics.\nThe name of the data file used throughout this workbook is EAMMi2-REDUCED.csv. It is included in the starter files.\nYou are encouraged to save the starter folder somewhere on your computer where you can easily find it throughout your time in this course.\nIf you are new to R, start with Intro to R and run scripts/00-open-and-check-data.R before working through the chapters.\nDownload the starter files here:\nDownload starter files\nIn the next sections, you will find a codebook for the data set. The codebook describes the variables used in the reduced data set and tells you how each variable is represented in the data file.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Understanding EAMMi2"
+    ]
+  },
+  {
+    "objectID": "data/codebook.html#opening-the-data-in-r",
+    "href": "data/codebook.html#opening-the-data-in-r",
+    "title": "Understanding EAMMi2",
+    "section": "Opening The Data In R",
+    "text": "Opening The Data In R\nThe starter files include the data set and the R scripts. Open exploring-statistics-r.Rproj, then run the setup line at the top of a chapter script:\nsource(\"scripts/_setup.R\")\nThe setup line creates a data frame named eammi. Most chapter scripts begin with this same line.\nThe data frame contains 39 variables. A more detailed variable dictionary is available as variable-dictionary.csv.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Understanding EAMMi2"
+    ]
+  },
+  {
+    "objectID": "data/codebook.html#reading-coded-categories",
+    "href": "data/codebook.html#reading-coded-categories",
+    "title": "Understanding EAMMi2",
+    "section": "Reading Coded Categories",
+    "text": "Reading Coded Categories\nSome variables use numbers to stand for categories. For example, the survey codes Adult as 1 = Yes, 2 = Maybe, and 3 = No; Gender as 1 = Male, 2 = Female, and 3 = Other; and Disability as 1 = Yes and 2 = No.\nThe chapter scripts will usually turn these numeric codes into readable labels before making tables or graphs. You do not need to memorize all of the codes. When a chapter uses a coded variable, the chapter will explain the codes needed for that analysis.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Understanding EAMMi2"
+    ]
+  },
+  {
+    "objectID": "data/codebook.html#missing-values",
+    "href": "data/codebook.html#missing-values",
+    "title": "Understanding EAMMi2",
+    "section": "Missing Values",
+    "text": "Missing Values\nMissing values appear as NA in R. NA means that a value is not available for that person on that variable.\nYou can count missing values for a variable with:\nsum(is.na(eammi$Stress))\nEach chapter will point out missing-value checks when they matter for the analysis.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Understanding EAMMi2"
+    ]
+  },
+  {
+    "objectID": "data/codebook.html#survey-documentation",
+    "href": "data/codebook.html#survey-documentation",
+    "title": "Understanding EAMMi2",
+    "section": "Survey Documentation",
+    "text": "Survey Documentation\nFor more detail about the original survey questions and response options, see the EAMMi2 survey-with-codes PDF.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Understanding EAMMi2"
+    ]
+  },
+  {
+    "objectID": "data/codebook.html#eammi2-codebook",
+    "href": "data/codebook.html#eammi2-codebook",
+    "title": "Understanding EAMMi2",
+    "section": "EAMMi2 Codebook",
+    "text": "EAMMi2 Codebook\n\n\n\n\n\n\n\n\nVariable\nBrief description\nResponse options\n\n\n\n\nDuration\nHow many minutes it took each participant to finish the survey\nDuration automatically recorded from survey website\n\n\nFinished\nWhether or not the participant finished the survey\n0 = no; 1 = yes\n\n\nFinanciallyInd\nExtent to which participant reported being financially independent\n1 = no; 2 = somewhat; 3 = yes\n\n\nNoLongerHome\nExtent to which participant has moved out of parents’ home\n1 = no; 2 = somewhat; 3 = yes\n\n\nMOA_ACH\nExtent to which participant has achieved markers of adulthood. Sample item: the extent to which the participant has settled into a long-term career.\n20 items were rated 1 = no; 2 = somewhat; 3 = yes. The final score is the total across all provided markers of adulthood, with a possible range of 20-60.\n\n\nAdult\nAnswer to “Are you an adult?”\n1 = yes; 2 = maybe; 3 = no\n\n\nExploration\nResponses to the Inventory of Dimensions of Emerging Adulthood. This 2-item subscale measured the extent to which this period of life was a time for exploration.\nEach item was rated on a scale of 1 = strongly disagree to 4 = strongly agree. The subscale score represents the average rating across two items.\n\n\nNegativity\nResponses to the Inventory of Dimensions of Emerging Adulthood. This 2-item subscale measured the extent to which this period of life was a time for negativity.\nEach item was rated on a scale of 1 = strongly disagree to 4 = strongly agree. The subscale score represents the average rating across two items.\n\n\nIdentity\nResponses to the Inventory of Dimensions of Emerging Adulthood. This 2-item subscale measured the extent to which this period of life was a time for identity formation.\nEach item was rated on a scale of 1 = strongly disagree to 4 = strongly agree. The subscale score represents the average rating across two items.\n\n\nBetweenStages\nResponses to the Inventory of Dimensions of Emerging Adulthood. This 2-item subscale measured the extent to which this period of life was a time for feeling between stages of life.\nEach item was rated on a scale of 1 = strongly disagree to 4 = strongly agree. The subscale score represents the average rating across two items.\n\n\nPolitics\nSelf-reported political views\n1 = extremely liberal to 7 = extremely conservative\n\n\nPoliticsDichotomous\nSelf-reported political views, dichotomized into liberal and conservative categories\n1 = liberal; 2 = conservative\n\n\nParty\nSelf-reported political party affiliation\n1 = extremely democrat to 7 = extremely republican\n\n\nPartyDichotomous\nSelf-reported political party affiliation, dichotomized into democrat and republican categories\n1 = democrat; 2 = republican\n\n\nSWLS\nAnswers to the 5-item Satisfaction with Life Scale. Sample item: “In most ways my life is close to my ideal.”\nEach item was rated on a scale of 1 = strongly disagree to 7 = strongly agree. The final SWLS score represents the sum of all 5 items, with a possible range of 5-35.\n\n\nMindfulness\nAnswers to the 15-item Mindful Attention Awareness Scale. Sample item: “I do jobs or tasks automatically, without being aware of what I’m doing.”\nEach item was rated on a scale of 1 = almost always to 8 = almost never. The final Mindfulness score is the sum of all 15 items, with a possible range of 15-120.\n\n\nBelonging\nAgreement with statement “I feel like I belong”\n1 = not at all to 5 = very much\n\n\nSelfEfficacy\nAnswers to the 10-item Generalized Self-Efficacy Scale. Sample item: “I can always manage to solve difficult problems if I try hard enough.”\nEach item was rated on a scale of 1 = not at all true to 4 = exactly true. The final SelfEfficacy score is the sum across all 10 items, with a possible range of 10-40.\n\n\nSupportFriends\nAnswers to the Perceived Social Support Scale. This subscale measured perceived support from friends. Sample item: “I can count on my friends when things go wrong.”\nItems were rated on a scale of 1 = very strongly disagree to 7 = very strongly agree. This subscale is an average across relevant items.\n\n\nSupportFamily\nAnswers to the Perceived Social Support Scale. This subscale measured perceived support from family.\nItems were rated on a scale of 1 = very strongly disagree to 7 = very strongly agree. This subscale is an average across relevant items.\n\n\nSupportSpecial\nAnswers to the Perceived Social Support Scale. This subscale measured perceived support from a “special someone.”\nItems were rated on a scale of 1 = very strongly disagree to 7 = very strongly agree. This subscale is an average across relevant items.\n\n\nSocialSupport\nAnswers to the Perceived Social Support Scale across friends, family, and a “special someone.”\nSocialSupport represents the sum of all perceived social support items, with a possible range of 12-84.\n\n\nSMmaintain\nItems that assessed the extent to which participants reported using social media to maintain existing social connections.\nItems were rated on a scale of 1 = never to 5 = a lot. This subscale is an average across relevant items.\n\n\nSMnewconnect\nItems that assessed the extent to which participants reported using social media to make new social connections.\nItems were rated on a scale of 1 = never to 5 = a lot. This subscale is an average across relevant items.\n\n\nSMinformation\nItems that assessed the extent to which participants reported using social media to get or share information.\nItems were rated on a scale of 1 = never to 5 = a lot. This subscale is an average across relevant items.\n\n\nSMtotal\nOverall use of social media across 11 items.\nItems were rated on a scale of 1 = never to 5 = a lot. SMtotal represents the sum of all items, with a possible range of 11-55.\n\n\nUSdream1\nAnswer to “Do you believe in the importance of achieving the American Dream?”\n1 = definitely not to 5 = yes, strongly\n\n\nUSdream2\nAnswer to “Do you believe you will be able to achieve the American Dream?”\n1 = definitely not to 5 = yes, strongly\n\n\nConflict\nAnswer to “In the past two weeks, how often has someone gotten upset with you in response to something that you said or did?”\n1 = not at all to 7 = constantly\n\n\nSymptoms\n13 items that assessed the extent to which participants were bothered by a variety of physical symptoms, such as stomach pain, back pain, and difficulty sleeping, during the past 4 weeks.\nEach item was rated on a scale of 1 = not bothered at all to 3 = bothered a lot. This variable represents the sum of all 13 items, with a possible range of 13-39.\n\n\nStress\nAnswers to the 10-item Perceived Stress Scale. Sample item: “In the last month, how often have you felt confident about your ability to handle your personal problems?”\nEach item was rated on a scale of 1 = never to 5 = very often. The final Stress score represents the sum of all 10 items, with a possible range of 10-50.\n\n\nIMPmarriage\nImportance placed on marriage as an eventual or current aspect of life.\nParticipants assigned a percentage from 0-100. They were instructed to answer IMPmarriage, IMPparenting, IMPcareer, and IMPhobbies so the total across all four aspects equaled 100%.\n\n\nIMPparenting\nImportance placed on parenting as an eventual or current aspect of life.\nParticipants assigned a percentage from 0-100. They were instructed to answer IMPmarriage, IMPparenting, IMPcareer, and IMPhobbies so the total across all four aspects equaled 100%.\n\n\nIMPcareer\nImportance placed on career as an eventual or current aspect of life.\nParticipants assigned a percentage from 0-100. They were instructed to answer IMPmarriage, IMPparenting, IMPcareer, and IMPhobbies so the total across all four aspects equaled 100%.\n\n\nIMPhobbies\nImportance placed on hobbies as an eventual or current aspect of life.\nParticipants assigned a percentage from 0-100. They were instructed to answer IMPmarriage, IMPparenting, IMPcareer, and IMPhobbies so the total across all four aspects equaled 100%.\n\n\nGender\nSelf-reported gender identity\n1 = male; 2 = female; 3 = another identity\n\n\nAge\nAge of the participant, in years\nResponses span ages 18-29\n\n\nRace\nSelf-reported racial identity\n1 = White; 2 = African American; 3 = Hispanic/Latinx; 4 = Asian/Pacific Islander; 5 = Native American; 6 = Another racial identity; 7 = Multiracial (2 selected); 8 = Multiracial (3 or more selected)\n\n\nDisability\nSelf-identified disability status\n1 = yes; 2 = no",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Understanding EAMMi2"
+    ]
+  },
+  {
+    "objectID": "chapters/05-other-descriptive-statistics.html",
+    "href": "chapters/05-other-descriptive-statistics.html",
+    "title": "Other Descriptive Statistics",
+    "section": "",
+    "text": "In development\nThis chapter will cover standard scores, distribution shape, outlier identification, boxplots, and transparent decisions about retaining or filtering observations.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Other Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "chapters/05-other-descriptive-statistics.html#r-tools",
+    "href": "chapters/05-other-descriptive-statistics.html#r-tools",
+    "title": "Other Descriptive Statistics",
+    "section": "R tools",
+    "text": "R tools\nscale(), quantile(), IQR(), filter(), geom_histogram(), and geom_boxplot()",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Other Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "chapters/10-two-sample-designs.html",
+    "href": "chapters/10-two-sample-designs.html",
+    "title": "Two-Sample Designs",
+    "section": "",
+    "text": "In development\nThis chapter will cover independent-samples and paired-samples t tests, assumption checks, confidence intervals, and Cohen’s d.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Two-Sample Designs"
+    ]
+  },
+  {
+    "objectID": "chapters/10-two-sample-designs.html#r-tools",
+    "href": "chapters/10-two-sample-designs.html#r-tools",
+    "title": "Two-Sample Designs",
+    "section": "R tools",
+    "text": "R tools\nt.test(), var.test(), shapiro.test(), broom::tidy(), and effect-size calculations",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Two-Sample Designs"
+    ]
+  },
+  {
+    "objectID": "chapters/08-sampling-distributions.html",
+    "href": "chapters/08-sampling-distributions.html",
+    "title": "Sampling Distributions",
+    "section": "",
+    "text": "Planned extension\nThis chapter will use R to explore sampling distributions. The activity will focus on repeated samples, sample means, and how sampling variability appears across many simulated studies.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Sampling Distributions"
+    ]
+  },
+  {
+    "objectID": "chapters/08-sampling-distributions.html#candidate-r-tools",
+    "href": "chapters/08-sampling-distributions.html#candidate-r-tools",
+    "title": "Sampling Distributions",
+    "section": "Candidate R tools",
+    "text": "Candidate R tools\nslice_sample(), replicate(), mean(), and ggplot()",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Sampling Distributions"
+    ]
+  },
+  {
+    "objectID": "chapters/09-one-sample-designs.html",
+    "href": "chapters/09-one-sample-designs.html",
+    "title": "One-Sample Designs",
+    "section": "",
+    "text": "In development\nThis chapter will evaluate whether average EAMMi2 survey duration differs from 30 minutes, diagnose its skew and outliers, and conduct a one-sample t test only after checking assumptions.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "One-Sample Designs"
+    ]
+  },
+  {
+    "objectID": "chapters/09-one-sample-designs.html#r-tools",
+    "href": "chapters/09-one-sample-designs.html#r-tools",
+    "title": "One-Sample Designs",
+    "section": "R tools",
+    "text": "R tools\nt.test(), quantile(), IQR(), filter(), and effect-size calculations",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "One-Sample Designs"
+    ]
+  },
+  {
+    "objectID": "chapters/12-anova-repeated.html",
+    "href": "chapters/12-anova-repeated.html",
+    "title": "Analysis of Variance: Repeated Measures",
+    "section": "",
+    "text": "In development\nThis chapter will reshape repeated observations, visualize within-person patterns, and conduct repeated-measures ANOVA with appropriate assumption checks.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Analysis of Variance: Repeated Measures"
+    ]
+  },
+  {
+    "objectID": "chapters/12-anova-repeated.html#r-tools",
+    "href": "chapters/12-anova-repeated.html#r-tools",
+    "title": "Analysis of Variance: Repeated Measures",
+    "section": "R tools",
+    "text": "R tools\npivot_longer(), aov(), and repeated-measures helpers",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Analysis of Variance: Repeated Measures"
+    ]
+  },
+  {
+    "objectID": "chapters/01-getting-started.html",
+    "href": "chapters/01-getting-started.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "Chapter 1 of Exploring Statistics introduces the field and the language used to describe data. This companion chapter adds a practical goal: becoming comfortable enough with R to inspect a real dataset and recognize how variables are represented.\nIf this is your first time using R, or if you have not installed R and RStudio yet, begin with Intro to R. That page explains how to download the starter files, open the RStudio project, and run the starter script.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "chapters/01-getting-started.html#learning-objectives",
+    "href": "chapters/01-getting-started.html#learning-objectives",
+    "title": "Introduction",
+    "section": "Learning objectives",
+    "text": "Learning objectives\nBy the end of this chapter, learners will be able to:\n\ndistinguish R from an R project and an R script;\nimport the EAMMi2 data with a project-relative path;\ninspect rows, columns, variable names, and variable types;\ndistinguish numeric variables from categorical variables in R; and\ncreate a first reproducible summary.\n\n\n\n\n\n\n\nTipTeaching note\n\n\n\nIn a first session, focus on reading and running code. Students do not need to memorize every function. The early win is understanding that an analysis is a sequence they can rerun.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "chapters/01-getting-started.html#open-the-starter-files",
+    "href": "chapters/01-getting-started.html#open-the-starter-files",
+    "title": "Introduction",
+    "section": "1. Open The Starter Files",
+    "text": "1. Open The Starter Files\nThis chapter uses the same starter folder introduced in Intro to R. The starter folder includes the EAMMi2 data set and the Chapter 1 script.\nDownload starter files\nAfter unzipping the starter files, open exploring-statistics-r.Rproj. Keeping the workbook inside an R project lets every chapter use the same portable path to the data.\n\nOpen the workbook project\n\nOpen RStudio.\nChoose File &gt; Open Project….\nOpen exploring-statistics-r.Rproj.\nIn the Files pane, confirm that you can see the data folder.\nOpen scripts/01-introduction.R.\nClick Source to run the script.\n\n\n\n\n\n\n\n\nImportantAvoid machine-specific paths\n\n\n\nDo not write paths such as C:/Users/Name/Desktop/data.csv. In this project, the dataset is always read from data/EAMMi2-REDUCED.csv.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "chapters/01-getting-started.html#load-the-data",
+    "href": "chapters/01-getting-started.html#load-the-data",
+    "title": "Introduction",
+    "section": "2. Load The Data",
+    "text": "2. Load The Data\nThe chapter script begins by running the shared setup file. The setup file opens the EAMMi2 dataset and loads the R tools used in the script.\n\nsource(\"scripts/_setup.R\")\n\nAfter setup runs, the object eammi refers to the EAMMi2 data frame.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "chapters/01-getting-started.html#ask-basic-questions-about-the-dataset",
+    "href": "chapters/01-getting-started.html#ask-basic-questions-about-the-dataset",
+    "title": "Introduction",
+    "section": "3. Ask Basic Questions About The Dataset",
+    "text": "3. Ask Basic Questions About The Dataset\nThe functions below reveal the dataset’s dimensions and variable names.\n\ndim(eammi)\n\n[1] 2073   39\n\nnames(eammi)\n\n [1] \"Duration\"            \"Finished\"            \"FinanciallyInd\"     \n [4] \"NoLongerHome\"        \"MOA_ACH\"             \"Adult\"              \n [7] \"Exploration\"         \"Negativity\"          \"Identity\"           \n[10] \"BetweenStages\"       \"Politics\"            \"PoliticsDichotomous\"\n[13] \"Party\"               \"PartyDichotomous\"    \"SWLS\"               \n[16] \"Mindfulness\"         \"Belonging\"           \"SelfEfficacy\"       \n[19] \"SupportFriends\"      \"SupportFamily\"       \"SupportSpecial\"     \n[22] \"SocialSupport\"       \"SMmaintain\"          \"SMnewconnect\"       \n[25] \"SMinformation\"       \"SMtotal\"             \"USdream1\"           \n[28] \"USdream2\"            \"Conflict\"            \"Symptoms\"           \n[31] \"Stress\"              \"IMPmarriage\"         \"IMPparenting\"       \n[34] \"IMPcareer\"           \"IMPhobbies\"          \"Gender\"             \n[37] \"Age\"                 \"Race\"                \"Disability\"         \n\n\ndim() reports rows first and columns second. In this dataset, a row represents a participant and a column represents a variable. names(eammi) lists the names of all variables in the data frame.\n\nPause and predict\nBefore running the next code block, predict what nrow(eammi) and ncol(eammi) will return. What does each number mean in the context of the EAMMi2 study?\n\n\nnrow(eammi)\n\n[1] 2073\n\nncol(eammi)\n\n[1] 39\n\n\n\n\nInstructor solution\n\nnrow(eammi) returns 2,073, the number of participants. ncol(eammi) returns 39, the number of variables retained in the reduced teaching dataset.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "chapters/01-getting-started.html#understand-variable-types",
+    "href": "chapters/01-getting-started.html#understand-variable-types",
+    "title": "Introduction",
+    "section": "4. Understand Variable Types",
+    "text": "4. Understand Variable Types\nThe textbook distinguishes categorical and quantitative variables, then further describes their scales of measurement. R describes the storage type of an object. Those ideas overlap, but they are not identical.\n\nStatistical roles and typical R representations\n\n\nStatistical role\nCommon R representation\nExample\n\n\n\n\nQuantitative\nnumeric or integer\nAge, Stress, SWLS\n\n\nNominal categorical\nfactor\nGender, Race, Disability\n\n\nOrdinal categorical\nordered factor\nAdult, NoLongerHome\n\n\nIdentifier\ncharacter\na participant ID, if one were included\n\n\n\nSome variables begin as numeric codes. For example, Gender is coded as 1, 2, and 3 in the data file. The next step gives those codes readable category names.\n\neammi &lt;- eammi |&gt;\n  mutate(\n    Gender = factor(\n      Gender,\n      levels = c(1, 2, 3),\n      labels = c(\"Male\", \"Female\", \"Another identity\")\n    )\n  )\n\nlevels(eammi$Gender)\n\n[1] \"Male\"             \"Female\"           \"Another identity\"\n\n\n\n\n\n\n\n\nNoteR language\n\n\n\nThe pipe |&gt; passes the result on its left into the function on its right. Read it as “and then.” The code above says: start with eammi, and then change Gender into a labeled factor.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "chapters/01-getting-started.html#produce-a-first-summary",
+    "href": "chapters/01-getting-started.html#produce-a-first-summary",
+    "title": "Introduction",
+    "section": "5. Produce A First Summary",
+    "text": "5. Produce A First Summary\ncount() creates a frequency table. Adding mutate() lets us calculate percentages from those frequencies.\n\ngender_summary &lt;- eammi |&gt;\n  count(Gender, name = \"Frequency\") |&gt;\n  mutate(Percent = round(100 * Frequency / sum(Frequency), 1))\n\ngender_summary\n\n# A tibble: 3 × 3\n  Gender           Frequency Percent\n  &lt;fct&gt;                &lt;int&gt;   &lt;dbl&gt;\n1 Male                   519    25  \n2 Female                1524    73.5\n3 Another identity        30     1.4\n\n\nWe can also present the same information visually.\n\nggplot(gender_summary, aes(x = Gender, y = Frequency)) +\n  geom_col() +\n  labs(\n    x = \"Self-reported gender\",\n    y = \"Number of participants\"\n  )\n\n\n\n\n\n\n\nFigure 1: Number of EAMMi2 participants in each self-reported gender category.\n\n\n\n\n\nThe table supplies exact values; the graph makes the distribution easy to compare. Neither display replaces an interpretation in words.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "chapters/01-getting-started.html#practice",
+    "href": "chapters/01-getting-started.html#practice",
+    "title": "Introduction",
+    "section": "Practice",
+    "text": "Practice\n\nExercise 1: Classify variables\nFor each variable, decide whether it is primarily quantitative, nominal categorical, or ordinal categorical: Duration, NoLongerHome, Adult, PoliticsDichotomous, SWLS, Belonging, Gender, and Age.\n\n\n\nInstructor solution\n\n\nQuantitative: Duration, SWLS, Belonging, Age\nNominal categorical: PoliticsDichotomous, Gender\nOrdinal categorical: NoLongerHome, Adult\n\nReasonable disagreements about treating bounded rating-scale variables as ordinal or quantitative are worth discussing. In this workbook, these scale scores are generally analyzed as quantitative.\n\n\nExercise 2: Explore independently\n\nUse glimpse(eammi) to inspect all variables.\nUse summary(eammi$Age) to examine participant age.\nIn one or two sentences, explain the difference between the information returned by these functions.\n\n\n\n\nInstructor solution\n\nglimpse() provides a compact overview of the entire data frame, including each column’s storage type and example values. summary(eammi$Age) focuses on one variable and returns its minimum, quartiles, median, mean, maximum, and missing-value count when applicable.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "chapters/01-getting-started.html#challenge",
+    "href": "chapters/01-getting-started.html#challenge",
+    "title": "Introduction",
+    "section": "Challenge",
+    "text": "Challenge\nConvert Adult into an ordered factor using Understanding EAMMi2, then create a frequency table. Explain why the order of the factor levels matters.\n\n\nInstructor solution\n\neammi &lt;- eammi |&gt;\n  mutate(\n    Adult = factor(\n      Adult,\n      levels = c(3, 2, 1),\n      labels = c(\"No\", \"Maybe\", \"Yes\"),\n      ordered = TRUE\n    )\n  )\n\ncount(eammi, Adult)\nThe order tells R how the categories progress conceptually. It also controls their default order in tables and plots.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "chapters/01-getting-started.html#chapter-takeaway",
+    "href": "chapters/01-getting-started.html#chapter-takeaway",
+    "title": "Introduction",
+    "section": "Chapter takeaway",
+    "text": "Chapter takeaway\nA reproducible R analysis begins with a small sequence: load packages, import data, inspect the variables, make their statistical roles explicit, summarize, and interpret. Every later chapter builds on this sequence.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "chapters/11-anova-independent.html",
+    "href": "chapters/11-anova-independent.html",
+    "title": "Analysis of Variance: Independent Samples",
+    "section": "",
+    "text": "In development\nThis chapter will compare achieved independence across adulthood-identification groups using one-way ANOVA, effect size, and Tukey-adjusted comparisons.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Analysis of Variance: Independent Samples"
+    ]
+  },
+  {
+    "objectID": "chapters/11-anova-independent.html#r-tools",
+    "href": "chapters/11-anova-independent.html#r-tools",
+    "title": "Analysis of Variance: Independent Samples",
+    "section": "R tools",
+    "text": "R tools\naov(), summary(), TukeyHSD(), and effectsize::eta_squared()",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Analysis of Variance: Independent Samples"
+    ]
+  },
+  {
+    "objectID": "chapters/02-frequency-distributions.html",
+    "href": "chapters/02-frequency-distributions.html",
+    "title": "Exploring Data: Frequency Distributions and Graphs",
+    "section": "",
+    "text": "In development\nThis chapter will use count(), proportions, bar charts, and histograms to describe the EAMMi2 sample and the distribution of Satisfaction With Life Scale (SWLS) scores.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Exploring Data: Frequency Distributions and Graphs"
+    ]
+  },
+  {
+    "objectID": "chapters/02-frequency-distributions.html#planned-research-questions",
+    "href": "chapters/02-frequency-distributions.html#planned-research-questions",
+    "title": "Exploring Data: Frequency Distributions and Graphs",
+    "section": "Planned research questions",
+    "text": "Planned research questions\n\nWho are the EAMMi2 participants?\nHow are SWLS scores distributed?\nWhere do participants stand on adulthood and living-at-home status?",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Exploring Data: Frequency Distributions and Graphs"
+    ]
+  },
+  {
+    "objectID": "chapters/02-frequency-distributions.html#r-tools",
+    "href": "chapters/02-frequency-distributions.html#r-tools",
+    "title": "Exploring Data: Frequency Distributions and Graphs",
+    "section": "R tools",
+    "text": "R tools\ncount(), mutate(), ggplot(), geom_col(), and geom_histogram()",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Exploring Data: Frequency Distributions and Graphs"
+    ]
+  },
+  {
+    "objectID": "chapters/15-nonparametric.html",
+    "href": "chapters/15-nonparametric.html",
+    "title": "More Nonparametric Tests",
+    "section": "",
+    "text": "In development\nThis chapter will select and interpret rank-based alternatives when a research question or distribution does not support a parametric analysis.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "More Nonparametric Tests"
+    ]
+  },
+  {
+    "objectID": "chapters/15-nonparametric.html#r-tools",
+    "href": "chapters/15-nonparametric.html#r-tools",
+    "title": "More Nonparametric Tests",
+    "section": "R tools",
+    "text": "R tools\nwilcox.test(), kruskal.test(), and rank-based effect sizes",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "More Nonparametric Tests"
+    ]
+  },
+  {
+    "objectID": "chapters/14-chi-square.html",
+    "href": "chapters/14-chi-square.html",
+    "title": "Chi-Square Tests",
+    "section": "",
+    "text": "In development\nThis chapter will build contingency tables, compare observed and expected frequencies, and interpret chi-square tests with effect size.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Chi-Square Tests"
+    ]
+  },
+  {
+    "objectID": "chapters/14-chi-square.html#r-tools",
+    "href": "chapters/14-chi-square.html#r-tools",
+    "title": "Chi-Square Tests",
+    "section": "R tools",
+    "text": "R tools\ntable(), prop.table(), chisq.test(), and Cramer’s V",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Chi-Square Tests"
+    ]
+  },
+  {
+    "objectID": "chapters/06-correlation-regression.html",
+    "href": "chapters/06-correlation-regression.html",
+    "title": "Correlation and Regression",
+    "section": "",
+    "text": "In development\nThis chapter will examine associations between perceived stress and social support, then express the same questions through simple linear regression.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Correlation and Regression"
+    ]
+  },
+  {
+    "objectID": "chapters/06-correlation-regression.html#r-tools",
+    "href": "chapters/06-correlation-regression.html#r-tools",
+    "title": "Correlation and Regression",
+    "section": "R tools",
+    "text": "R tools\ncor(), cor.test(), lm(), summary(), broom::tidy(), and geom_smooth()",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Correlation and Regression"
+    ]
+  },
+  {
+    "objectID": "chapters/13-two-way-anova.html",
+    "href": "chapters/13-two-way-anova.html",
+    "title": "Two-Way Independent Analysis of Variance",
+    "section": "",
+    "text": "In development\nThis chapter will distinguish main effects from interactions and interpret a two-way independent ANOVA using EAMMi2 variables.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Two-Way Independent Analysis of Variance"
+    ]
+  },
+  {
+    "objectID": "chapters/13-two-way-anova.html#r-tools",
+    "href": "chapters/13-two-way-anova.html#r-tools",
+    "title": "Two-Way Independent Analysis of Variance",
+    "section": "R tools",
+    "text": "R tools\naov(), model.tables(), emmeans, and interaction plots",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Two-Way Independent Analysis of Variance"
+    ]
+  },
+  {
+    "objectID": "chapters/07-probability.html",
+    "href": "chapters/07-probability.html",
+    "title": "Probability",
+    "section": "",
+    "text": "Planned extension\nThis chapter will use R to explore probability ideas from the textbook. The activity will focus on repeated sampling, chance outcomes, and the connection between probability rules and simulation.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Probability"
+    ]
+  },
+  {
+    "objectID": "chapters/07-probability.html#candidate-r-tools",
+    "href": "chapters/07-probability.html#candidate-r-tools",
+    "title": "Probability",
+    "section": "Candidate R tools",
+    "text": "Candidate R tools\nsample(), replicate(), dbinom(), and pbinom()",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Probability"
+    ]
+  },
+  {
+    "objectID": "chapters/03-04-central-tendency-variability.html",
+    "href": "chapters/03-04-central-tendency-variability.html",
+    "title": "Exploring Data: Central Tendency and Variability",
+    "section": "",
+    "text": "In development\nThis combined module will introduce grouped descriptive statistics and compare ratings of career importance across living-at-home groups.",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Exploring Data: Central Tendency and Variability"
+    ]
+  },
+  {
+    "objectID": "chapters/03-04-central-tendency-variability.html#r-tools",
+    "href": "chapters/03-04-central-tendency-variability.html#r-tools",
+    "title": "Exploring Data: Central Tendency and Variability",
+    "section": "R tools",
+    "text": "R tools\ngroup_by(), summarise(), mean(), median(), sd(), var(), and IQR()",
+    "crumbs": [
+      "Home",
+      "Workbook chapters",
+      "Exploring Data: Central Tendency and Variability"
+    ]
+  },
+  {
+    "objectID": "chapters/00-intro-to-r.html",
+    "href": "chapters/00-intro-to-r.html",
+    "title": "Intro to R",
+    "section": "",
+    "text": "This page introduces the R basics used throughout the workbook. You do not need to memorize everything before beginning. The goal is to understand what you are looking at when you open RStudio and run a script.\nThis is a brief introduction. For a more complete guide to RStudio, see Posit’s Get Started guide.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Intro to R"
+    ]
+  },
+  {
+    "objectID": "chapters/00-intro-to-r.html#install-r-and-rstudio",
+    "href": "chapters/00-intro-to-r.html#install-r-and-rstudio",
+    "title": "Intro to R",
+    "section": "Install R And RStudio",
+    "text": "Install R And RStudio\nBefore beginning, install both R and RStudio:\n\nDownload and install R.\nDownload and install RStudio Desktop.\n\nR performs the statistical work. RStudio is the program you will use to open scripts, run code, view objects, and see graphs.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Intro to R"
+    ]
+  },
+  {
+    "objectID": "chapters/00-intro-to-r.html#download-the-starter-files",
+    "href": "chapters/00-intro-to-r.html#download-the-starter-files",
+    "title": "Intro to R",
+    "section": "Download The Starter Files",
+    "text": "Download The Starter Files\nDownload the starter files before beginning:\nDownload starter files\nAfter downloading, unzip the folder and move it somewhere easy to find, such as your Desktop or Documents folder. If you need help unzipping files, see the instructions for Windows or Mac.\nThe unzipped folder contains:\n\nexploring-statistics-r.Rproj\nscripts/_setup.R\nscripts/00-open-and-check-data.R\nscripts/01-introduction.R\ndata/EAMMi2-REDUCED.csv\ndata/variable-dictionary.csv\n\n\n\n\n\n\n\nImportantOpen the project first\n\n\n\nOpen exploring-statistics-r.Rproj before running any chapter script. This helps R find the dataset and the scripts that go with the workbook.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Intro to R"
+    ]
+  },
+  {
+    "objectID": "chapters/00-intro-to-r.html#what-rstudio-shows-you",
+    "href": "chapters/00-intro-to-r.html#what-rstudio-shows-you",
+    "title": "Intro to R",
+    "section": "What RStudio Shows You",
+    "text": "What RStudio Shows You\nWhen you open exploring-statistics-r.Rproj, RStudio usually shows four panes:\n\n\n\n\n\n\nFigure 1: RStudio interface with the Source, Console, Environment, and Output panes labeled.\n\n\n\n\n\n\n\n\n\n\nPane\nWhat you do there\n\n\n\n\nSource\nRead, edit, and run .R scripts.\n\n\nConsole\nSee commands run and results print.\n\n\nEnvironment\nSee objects currently available in R.\n\n\nOutput (Files, Plots, Packages, Help, Viewer)\nBrowse files, view graphs, manage packages, read help, and preview output.\n\n\n\nIn the Console, R uses a &gt; prompt to show that it is ready for a new command. If R is still working, wait for the &gt; prompt to return before running the next line. If you see a + prompt, R is waiting for you to finish an incomplete command. Press Esc, then run the full command again.\n\nOpen the project\n\nOpen RStudio.\nChoose File &gt; Open Project….\nSelect exploring-statistics-r.Rproj.\nIn the Files pane, confirm that you can see folders named data and scripts.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Intro to R"
+    ]
+  },
+  {
+    "objectID": "chapters/00-intro-to-r.html#run-the-starter-script",
+    "href": "chapters/00-intro-to-r.html#run-the-starter-script",
+    "title": "Intro to R",
+    "section": "Run The Starter Script",
+    "text": "Run The Starter Script\nThe first script checks that R can open the dataset.\n\nRun 00-open-and-check-data.R\n\nIn the Files pane, open the scripts folder.\nClick 00-open-and-check-data.R.\nClick Source to run the whole script.\nLook in the Environment pane for an object named eammi.\nLook in the Console for 2073 rows and 39 columns.\n\n\nThe workbook scripts use tidyverse for data summaries and graphs. The setup file checks for it and installs it if needed. The first run may take a few minutes.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Intro to R"
+    ]
+  },
+  {
+    "objectID": "chapters/00-intro-to-r.html#objects-named-things-r-remembers",
+    "href": "chapters/00-intro-to-r.html#objects-named-things-r-remembers",
+    "title": "Intro to R",
+    "section": "Objects: Named Things R Remembers",
+    "text": "Objects: Named Things R Remembers\nAn object is a named thing stored in R’s memory. The assignment operator &lt;- puts a value into an object.\nfavorite_number &lt;- 7\nfavorite_number\nRead this as: “create an object called favorite_number and store the value 7 inside it.” When you run the object name by itself, R prints the value.\nThis workbook uses eammi as the name of the main data frame.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Intro to R"
+    ]
+  },
+  {
+    "objectID": "chapters/00-intro-to-r.html#functions-named-actions",
+    "href": "chapters/00-intro-to-r.html#functions-named-actions",
+    "title": "Intro to R",
+    "section": "Functions: Named Actions",
+    "text": "Functions: Named Actions\nA function performs an action. Most functions use parentheses.\nround(21.428, digits = 2)\nIn this example:\n\nround is the function name;\n21.428 is the value being rounded; and\ndigits = 2 tells R how many decimal places to keep.\n\nWhen you see code like read_csv(\"data/EAMMi2-REDUCED.csv\"), read it as an instruction: “use the read_csv() function to open this file.”",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Intro to R"
+    ]
+  },
+  {
+    "objectID": "chapters/00-intro-to-r.html#data-frames-rs-version-of-a-spreadsheet",
+    "href": "chapters/00-intro-to-r.html#data-frames-rs-version-of-a-spreadsheet",
+    "title": "Intro to R",
+    "section": "Data Frames: R’s Version Of A Spreadsheet",
+    "text": "Data Frames: R’s Version Of A Spreadsheet\nA data frame is a rectangular dataset. It has rows and columns.\n\nEach row usually represents one person, case, or observation.\nEach column usually represents one variable.\nEach column has one kind of value, such as numbers or categories.\n\nThe setup script opens the reduced EAMMi2 dataset and stores it as a data frame named eammi.\nYou can ask R about the data frame:\nnrow(eammi)\nncol(eammi)\nnames(eammi)\nglimpse(eammi)",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Intro to R"
+    ]
+  },
+  {
+    "objectID": "chapters/00-intro-to-r.html#the-pipe-read-code-from-left-to-right",
+    "href": "chapters/00-intro-to-r.html#the-pipe-read-code-from-left-to-right",
+    "title": "Intro to R",
+    "section": "The Pipe: Read Code From Left To Right",
+    "text": "The Pipe: Read Code From Left To Right\nThe pipe operator |&gt; sends the result of one step into the next step. It is part of modern R, so you do not need a separate package just to use the pipe.\neammi |&gt;\n  count(Gender)\nRead this as: “start with eammi, and then count how often each value of Gender appears.”\nYou may see older R examples that use %&gt;% instead. This workbook uses |&gt; because it is now built into R and is the default pipe inserted by current versions of RStudio.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Intro to R"
+    ]
+  },
+  {
+    "objectID": "chapters/00-intro-to-r.html#comments-notes-for-humans",
+    "href": "chapters/00-intro-to-r.html#comments-notes-for-humans",
+    "title": "Intro to R",
+    "section": "Comments: Notes For Humans",
+    "text": "Comments: Notes For Humans\nAnything after # is a comment. R ignores comments, but comments help you understand what the code is doing.\n# Count participants in each gender category.\neammi |&gt;\n  count(Gender)",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Intro to R"
+    ]
+  },
+  {
+    "objectID": "chapters/00-intro-to-r.html#common-first-problems",
+    "href": "chapters/00-intro-to-r.html#common-first-problems",
+    "title": "Intro to R",
+    "section": "Common First Problems",
+    "text": "Common First Problems\n\n\n\n\n\n\n\n\nWhat happens\nWhat it usually means\nWhat to try\n\n\n\n\nR cannot find EAMMi2-REDUCED.csv\nThe project may not be open\nOpen exploring-statistics-r.Rproj, then run the script again\n\n\nR says object 'eammi' not found\nThe setup code has not run yet\nRun scripts/00-open-and-check-data.R\n\n\nR shows a + prompt\nR thinks a command is unfinished\nPress Esc, then run the full line again\n\n\nThe first run takes a while\nR is preparing the tools used by the scripts\nWait for the Console to finish before running the next line",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Intro to R"
+    ]
+  },
+  {
+    "objectID": "chapters/00-intro-to-r.html#the-workbook-routine",
+    "href": "chapters/00-intro-to-r.html#the-workbook-routine",
+    "title": "Intro to R",
+    "section": "The Workbook Routine",
+    "text": "The Workbook Routine\nMost chapters follow the same routine:\n\nOpen exploring-statistics-r.Rproj.\nOpen the chapter script from the scripts folder.\nRun the setup section at the top of the script.\nRun the analysis code one section at a time.\nCompare the output in RStudio to the explanation in the workbook.\nWrite an interpretation in ordinary statistical language.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Intro to R"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Exploring Statistics with R",
+    "section": "",
+    "text": "This workbook helps you use R while working through Exploring Statistics: Tales of Distributions. Each chapter introduces a statistical idea, shows how to run the analysis in R, and explains how to interpret the output.\nAll users should download the starter files, which include the EAMMi2 data set, R scripts, a variable dictionary, and survey documentation. If you are new to R, begin with Start with R basics. If you are already comfortable opening RStudio projects and running scripts, you can begin with Open Chapter 1.\nStart with R basics Open Chapter 1 Download starter files",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Exploring Statistics with R"
+    ]
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Exploring Statistics with R",
+    "section": "",
+    "text": "This workbook helps you use R while working through Exploring Statistics: Tales of Distributions. Each chapter introduces a statistical idea, shows how to run the analysis in R, and explains how to interpret the output.\nAll users should download the starter files, which include the EAMMi2 data set, R scripts, a variable dictionary, and survey documentation. If you are new to R, begin with Start with R basics. If you are already comfortable opening RStudio projects and running scripts, you can begin with Open Chapter 1.\nStart with R basics Open Chapter 1 Download starter files",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Exploring Statistics with R"
+    ]
+  },
+  {
+    "objectID": "index.html#how-the-workbook-is-organized",
+    "href": "index.html#how-the-workbook-is-organized",
+    "title": "Exploring Statistics with R",
+    "section": "How The Workbook Is Organized",
+    "text": "How The Workbook Is Organized\nEach chapter follows the same general pattern:\n\nLearning goals: what you should be able to do by the end of the chapter.\nGet ready: which script to open and which variables will be used.\nRun the analysis: R code broken into small steps.\nRead the output: what the results mean in statistical language.\nPractice: exercises to try, with instructor solutions available when appropriate.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Exploring Statistics with R"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use-the-r-scripts",
+    "href": "index.html#how-to-use-the-r-scripts",
+    "title": "Exploring Statistics with R",
+    "section": "How To Use The R Scripts",
+    "text": "How To Use The R Scripts\nEach chapter has an .R script in the scripts folder. The script contains the code for that chapter. The Intro to R page explains how to download and unzip the starter files.\nTo use a script:\n\nOpen exploring-statistics-r.Rproj.\nOpen the chapter script from the scripts folder.\nClick Source to run the whole script, or place your cursor on one line and click Run to move through it step by step.\nCompare your Console, Environment, and Plots panes to the descriptions in the workbook.\n\nThe setup code opens the EAMMi2 data set and loads the R tools used in the chapter scripts.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Exploring Statistics with R"
+    ]
+  },
+  {
+    "objectID": "index.html#about-the-data",
+    "href": "index.html#about-the-data",
+    "title": "Exploring Statistics with R",
+    "section": "About The Data",
+    "text": "About The Data\nThis workbook uses a reduced teaching version of the Emerging Adulthood Measured at Multiple Institutions 2 (EAMMi2) dataset. EAMMi2 is a collaborative survey project about attitudes, behaviors, and beliefs related to emerging adulthood.\nThe teaching dataset contains 2,073 participants and 39 variables. More information about the data appears in Understanding EAMMi2.",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "Exploring Statistics with R"
+    ]
+  }
+]

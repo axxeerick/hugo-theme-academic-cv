@@ -1,0 +1,40 @@
+variable,label,value_labels,storage_type
+Duration,Duration,,numeric
+Finished,Finished,0 = No; 1 = Yes,haven_labelled
+FinanciallyInd,FinanciallyInd,1 = No; 2 = Somewhat; 3 = Yes,haven_labelled
+NoLongerHome,NoLongerHome,1 = No; 2 = Somewhat; 3 = Yes,haven_labelled
+MOA_ACH,MOA_ACH,,numeric
+Adult,Adult,1 = Yes; 2 = Maybe; 3 = No,haven_labelled
+Exploration,Exploration,,numeric
+Negativity,Negativity,,numeric
+Identity,Identity,,numeric
+BetweenStages,BetweenStages,,numeric
+Politics,Politics,,numeric
+PoliticsDichotomous,PoliticsDichotomous,,numeric
+Party,Party,,numeric
+PartyDichotomous,PartyDichotomous,,numeric
+SWLS,SWLS,,numeric
+Mindfulness,Mindfulness,,numeric
+Belonging,Belonging,,numeric
+SelfEfficacy,SelfEfficacy,,numeric
+SupportFriends,SupportFriends,,numeric
+SupportFamily,SupportFamily,,numeric
+SupportSpecial,SupportSpecial,,numeric
+SocialSupport,SocialSupport,,numeric
+SMmaintain,SMmaintain,,numeric
+SMnewconnect,SMnewconnect,,numeric
+SMinformation,SMinformation,,numeric
+SMtotal,SMtotal,,numeric
+USdream1,USdream1,,numeric
+USdream2,USdream2,,numeric
+Conflict,Conflict,,numeric
+Symptoms,Symptoms,,numeric
+Stress,Stress,,numeric
+IMPmarriage,IMPmarriage,,numeric
+IMPparenting,IMPparenting,,numeric
+IMPcareer,IMPcareer,,numeric
+IMPhobbies,IMPhobbies,,numeric
+Gender,Gender,1 = Male; 2 = Female; 3 = Another identity,haven_labelled
+Age,Age,,numeric
+Race,Race,1 = White; 2 = African American; 3 = Hispanic/Latinx; 4 = Asian/Pacific Islander; 5 = Native American; 6 = Another racial identity; 7 = Multiracial (2 selected); 8 = Multiracial (3 or more selected),haven_labelled
+Disability,Disability,1 = Yes; 2 = No,haven_labelled
