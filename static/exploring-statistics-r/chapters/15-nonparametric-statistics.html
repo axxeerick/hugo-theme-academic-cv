@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Use rank-based tests when quantitative variables are strongly skewed.">
+
+<title>Chapter 15: Nonparametric Statistics – Exploring Statistics with R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../reference/r-command-index.html" rel="next">
+<link href="../chapters/14-chi-square.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Exploring Statistics with R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../start/00-choose-your-path.html"> 
+<span class="menu-text">Start Here</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reference/r-command-index.html"> 
+<span class="menu-text">R Reference</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../instructor/instructor-guide.html"> 
+<span class="menu-text">Instructor Guide</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/15-nonparametric-statistics.html">Chapter 15: Nonparametric Statistics</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Start here</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploring Statistics with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/00-choose-your-path.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choose Your Path</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/01-set-up-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Set Up RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/02-run-your-first-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Run Your First Script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../data/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Understanding EAMMi2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Workbook chapters</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 1: Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02-exploring-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 2: Exploring Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapters 3 and 4: Central Tendency And Variability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05-other-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 5: Other Descriptive Statistics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06-correlation-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 6: Correlation and Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/09-one-sample-designs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 9: One-Sample Designs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10-two-sample-designs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 10: Two-Sample Designs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/11-independent-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 11: Analysis of Variance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/12-repeated-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 12: Analysis of Variance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/13-two-way-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 13: Two-Way Independent Analysis of Variance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/14-chi-square.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 14: Chi-Square Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/15-nonparametric-statistics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Chapter 15: Nonparametric Statistics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">R help and reference</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/r-command-index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Command Index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Troubleshooting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/statistical-language.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Language</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Instructor resources</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/instructor-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instructor Guide</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning Goals</a></li>
+  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">Research Questions</a></li>
+  <li><a href="#before-you-begin" id="toc-before-you-begin" class="nav-link" data-scroll-target="#before-you-begin">Before You Begin</a></li>
+  <li><a href="#research-question-1-importance-ratings-and-political-party" id="toc-research-question-1-importance-ratings-and-political-party" class="nav-link" data-scroll-target="#research-question-1-importance-ratings-and-political-party">Research Question 1: Importance Ratings And Political Party</a>
+  <ul class="collapse">
+  <li><a href="#plan-the-analysis" id="toc-plan-the-analysis" class="nav-link" data-scroll-target="#plan-the-analysis">Plan The Analysis</a></li>
+  <li><a href="#get-ready" id="toc-get-ready" class="nav-link" data-scroll-target="#get-ready">Get Ready</a></li>
+  <li><a href="#run-the-analysis" id="toc-run-the-analysis" class="nav-link" data-scroll-target="#run-the-analysis">Run The Analysis</a></li>
+  <li><a href="#read-the-output" id="toc-read-the-output" class="nav-link" data-scroll-target="#read-the-output">Read The Output</a></li>
+  </ul></li>
+  <li><a href="#research-question-2-work-or-play" id="toc-research-question-2-work-or-play" class="nav-link" data-scroll-target="#research-question-2-work-or-play">Research Question 2: Work Or Play</a>
+  <ul class="collapse">
+  <li><a href="#get-ready-1" id="toc-get-ready-1" class="nav-link" data-scroll-target="#get-ready-1">Get Ready</a></li>
+  <li><a href="#run-the-analysis-1" id="toc-run-the-analysis-1" class="nav-link" data-scroll-target="#run-the-analysis-1">Run The Analysis</a></li>
+  <li><a href="#read-the-output-1" id="toc-read-the-output-1" class="nav-link" data-scroll-target="#read-the-output-1">Read The Output</a></li>
+  </ul></li>
+  <li><a href="#research-question-3-importance-ratings-and-adult-status" id="toc-research-question-3-importance-ratings-and-adult-status" class="nav-link" data-scroll-target="#research-question-3-importance-ratings-and-adult-status">Research Question 3: Importance Ratings And Adult Status</a>
+  <ul class="collapse">
+  <li><a href="#run-the-analysis-2" id="toc-run-the-analysis-2" class="nav-link" data-scroll-target="#run-the-analysis-2">Run The Analysis</a></li>
+  <li><a href="#read-the-output-2" id="toc-read-the-output-2" class="nav-link" data-scroll-target="#read-the-output-2">Read The Output</a></li>
+  </ul></li>
+  <li><a href="#research-question-4-hobby-importance-and-satisfaction-with-life" id="toc-research-question-4-hobby-importance-and-satisfaction-with-life" class="nav-link" data-scroll-target="#research-question-4-hobby-importance-and-satisfaction-with-life">Research Question 4: Hobby Importance And Satisfaction With Life</a>
+  <ul class="collapse">
+  <li><a href="#run-the-analysis-3" id="toc-run-the-analysis-3" class="nav-link" data-scroll-target="#run-the-analysis-3">Run The Analysis</a></li>
+  <li><a href="#read-the-output-3" id="toc-read-the-output-3" class="nav-link" data-scroll-target="#read-the-output-3">Read The Output</a></li>
+  </ul></li>
+  <li><a href="#check-your-work" id="toc-check-your-work" class="nav-link" data-scroll-target="#check-your-work">Check Your Work</a>
+  <ul class="collapse">
+  <li><a href="#research-question-1" id="toc-research-question-1" class="nav-link" data-scroll-target="#research-question-1">Research Question 1</a></li>
+  <li><a href="#research-question-2" id="toc-research-question-2" class="nav-link" data-scroll-target="#research-question-2">Research Question 2</a></li>
+  <li><a href="#research-question-3" id="toc-research-question-3" class="nav-link" data-scroll-target="#research-question-3">Research Question 3</a></li>
+  <li><a href="#research-question-4" id="toc-research-question-4" class="nav-link" data-scroll-target="#research-question-4">Research Question 4</a></li>
+  </ul></li>
+  <li><a href="#chapter-takeaway" id="toc-chapter-takeaway" class="nav-link" data-scroll-target="#chapter-takeaway">Chapter Takeaway</a></li>
+  <li><a href="#r-skills-practiced" id="toc-r-skills-practiced" class="nav-link" data-scroll-target="#r-skills-practiced">R Skills Practiced</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/15-nonparametric-statistics.html">Chapter 15: Nonparametric Statistics</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Chapter 15: Nonparametric Statistics</h1>
+<p class="subtitle lead">Comparisons and associations based on ranks</p>
+</div>
+
+<div>
+  <div class="description">
+    Use rank-based tests when quantitative variables are strongly skewed.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Chapter 15 of <em>Exploring Statistics</em> introduces nonparametric tests. These tests convert scores to ranks before comparing groups or examining an association. You will use them with the importance variables, which are strongly skewed and offer one final reminder that real data do not always behave neatly.</p>
+<section id="learning-goals" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals">Learning Goals</h2>
+<p>By the end of this chapter, you should be able to:</p>
+<ul>
+<li>choose a nonparametric counterpart for four familiar parametric tests;</li>
+<li>screen the importance variables before conducting an analysis;</li>
+<li>conduct and interpret Mann-Whitney U, Wilcoxon signed-rank, Kruskal-Wallis, and Spearman correlation tests;</li>
+<li>use descriptive statistics and effect sizes to explain significant results; and</li>
+<li>write conclusions that answer each research question.</li>
+</ul>
+</section>
+<section id="research-questions" class="level2">
+<h2 class="anchored" data-anchor-id="research-questions">Research Questions</h2>
+<ol type="1">
+<li>Does the importance placed on hobbies and one other aspect of life differ between Democrats and Republicans?</li>
+<li>Do emerging adults value careers or hobbies more? What about a second pair of importance ratings?</li>
+<li>Does career importance differ by adult status? Does hobby importance differ by adult status?</li>
+<li>Is hobby importance related to satisfaction with life? What about another importance rating?</li>
+</ol>
+</section>
+<section id="before-you-begin" class="level2">
+<h2 class="anchored" data-anchor-id="before-you-begin">Before You Begin</h2>
+<p>Each analysis in this chapter is a rank-based counterpart to a test used earlier:</p>
+<table class="caption-top table">
+<caption>Parametric tests and their nonparametric counterparts</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Research design</th>
+<th>Familiar parametric test</th>
+<th>Nonparametric test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>two independent groups</td>
+<td>independent-samples <em>t</em> test</td>
+<td>Mann-Whitney U test</td>
+</tr>
+<tr class="even">
+<td>two scores from the same participants</td>
+<td>paired-samples <em>t</em> test</td>
+<td>Wilcoxon signed-rank test</td>
+</tr>
+<tr class="odd">
+<td>three or more independent groups</td>
+<td>one-way independent ANOVA</td>
+<td>Kruskal-Wallis test</td>
+</tr>
+<tr class="even">
+<td>association between two quantitative variables</td>
+<td>Pearson correlation</td>
+<td>Spearman correlation</td>
+</tr>
+</tbody>
+</table>
+<p>The nonparametric tests answer familiar questions but use the relative ranks of scores. Because the importance distributions are skewed, pay particular attention to medians when describing them.</p>
+</section>
+<section id="research-question-1-importance-ratings-and-political-party" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-1-importance-ratings-and-political-party">Research Question 1: Importance Ratings And Political Party</h2>
+<p>In the EAMMi2 study, participants divided 100 points among marriage, parenting, career, and hobbies to show the relative importance of these aspects of life. We will first examine whether Democrats and Republicans differ in the importance they place on hobbies.</p>
+<section id="plan-the-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="plan-the-analysis">Plan The Analysis</h3>
+<table class="caption-top table">
+<caption>Variables used to answer the guided portion of Research Question 1</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>What it measures</th>
+<th>Type</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>IMPhobbies</code></td>
+<td>importance assigned to hobbies</td>
+<td>quantitative</td>
+<td>dependent variable</td>
+</tr>
+<tr class="even">
+<td><code>PartyDichotomous</code></td>
+<td>Democrat or Republican identification</td>
+<td>categorical</td>
+<td>grouping variable</td>
+</tr>
+</tbody>
+</table>
+<p>The parametric test for two independent groups is an independent-samples <em>t</em> test. Because the importance ratings are strongly skewed, use its nonparametric counterpart: the Mann-Whitney U test.</p>
+<p>The null hypothesis states that the distributions of hobby-importance ratings are the same for Democrats and Republicans. The alternative hypothesis states that the distributions differ.</p>
+</section>
+<section id="get-ready" class="level3">
+<h3 class="anchored" data-anchor-id="get-ready">Get Ready</h3>
+<p>Open <code>15-nonparametric-statistics.R</code>, run the setup line, and then run one section at a time.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/_setup.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>One thing you should know about conducting research is that people do not always follow instructions exactly. Before analyzing the ratings, check whether participants assigned exactly 100 points across the four variables.</p>
+<!-- script-comment: Add the four importance ratings to check whether each participant assigned exactly 100 points. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">IMPtotal =</span> IMPmarriage <span class="sc">+</span> IMPparenting <span class="sc">+</span> IMPcareer <span class="sc">+</span> IMPhobbies,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">PartyDichotomous =</span> <span class="fu">factor</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      PartyDichotomous,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Democrat"</span>, <span class="st">"Republican"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Adult =</span> <span class="fu">factor</span>(</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      Adult,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Maybe"</span>, <span class="st">"Yes"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>importance_check <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">FollowedDirections =</span> <span class="fu">sum</span>(IMPtotal <span class="sc">==</span> <span class="dv">100</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">DidNotFollowDirections =</span> <span class="fu">sum</span>(IMPtotal <span class="sc">!=</span> <span class="dv">100</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">MissingTotal =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(IMPtotal))</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>importance_check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  FollowedDirections DidNotFollowDirections MissingTotal
+               &lt;int&gt;                  &lt;int&gt;        &lt;int&gt;
+1               1886                    183            4</code></pre>
+</div>
+</div>
+<p><code>IMPtotal</code> is a new variable containing the sum of the four ratings. The check shows that 1,886 participants assigned exactly 100 points, 183 assigned a different total, and four do not have enough information to calculate a total.</p>
+<p>Keep the participants whose total is exactly 100. The other observations are set aside for every analysis in this chapter.</p>
+<!-- script-comment: Keep participants whose four importance ratings total exactly 100. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>importance_data <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(IMPtotal <span class="sc">==</span> <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="run-the-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-analysis">Run The Analysis</h3>
+<p>First calculate descriptive statistics for each political group.</p>
+<!-- script-comment: Summarize hobby-importance ratings for Democrats and Republicans. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hobbies_party_data <span class="ot">&lt;-</span> importance_data <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(IMPhobbies, PartyDichotomous)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>hobbies_party_summary <span class="ot">&lt;-</span> hobbies_party_data <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PartyDichotomous) <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(IMPhobbies),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(IMPhobbies),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(IMPhobbies),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>hobbies_party_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  PartyDichotomous     N  Mean Median    SD
+  &lt;fct&gt;            &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1 Democrat           965  21.8     20 13.3 
+2 Republican         445  16.3     15  9.96</code></pre>
+</div>
+</div>
+<p>Now conduct the Mann-Whitney U test.</p>
+<!-- script-comment: Compare hobby-importance ranks for Democrats and Republicans. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hobbies_party_test <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  IMPhobbies <span class="sc">~</span> PartyDichotomous,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> hobbies_party_data,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">exact =</span> <span class="cn">FALSE</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>hobbies_party_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  IMPhobbies by PartyDichotomous
+W = 269788, p-value = 3.775e-15
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+</div>
+<p>For two independent groups, <code>wilcox.test()</code> conducts the Mann-Whitney U test. The test statistic is <em>U</em>. <code>exact = FALSE</code> tells R to use a large-sample calculation because many participants gave equal ratings.</p>
+<p>Use rank-biserial correlation to describe the size of the group difference.</p>
+<!-- script-comment: Use the setup file's rank_biserial_independent() helper for the effect size. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>hobbies_party_effect <span class="ot">&lt;-</span> <span class="fu">rank_biserial_independent</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  hobbies_party_test,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  hobbies_party_data<span class="sc">$</span>PartyDichotomous</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>hobbies_party_effect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2565081</code></pre>
+</div>
+</div>
+<p><code>rank_biserial_independent()</code> is supplied by the setup file. Give it the saved test object and the grouping variable used in that test. Values around .10, .30, and .50 can be described as small, medium, and large.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>hobbies_party_data <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PartyDichotomous, <span class="at">y =</span> IMPhobbies)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Political party"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Importance assigned to hobbies"</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch15-hobbies-party" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Boxplots show a higher median hobby-importance rating for Democrats than Republicans, with substantial overlap between the distributions.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch15-hobbies-party-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="15-nonparametric-statistics_files/figure-html/fig-ch15-hobbies-party-1.png" class="img-fluid figure-img" alt="Boxplots show a higher median hobby-importance rating for Democrats than Republicans, with substantial overlap between the distributions." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch15-hobbies-party-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Hobby-importance ratings by political party.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="read-the-output" class="level3">
+<h3 class="anchored" data-anchor-id="read-the-output">Read The Output</h3>
+<p>The test is significant, so use the descriptive statistics and graph to understand the difference. Democrats assigned a higher median importance to hobbies than Republicans. The rank-biserial correlation falls between the small and medium guidelines.</p>
+<p>Before writing your interpretation, choose <code>IMPmarriage</code>, <code>IMPparenting</code>, or <code>IMPcareer</code> and repeat the analysis. Create new object names rather than replacing the hobby objects. Then write one paragraph summarizing both analyses.</p>
+</section>
+</section>
+<section id="research-question-2-work-or-play" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-2-work-or-play">Research Question 2: Work Or Play</h2>
+<p>Do emerging adults value work or play more? Compare <code>IMPcareer</code> with <code>IMPhobbies</code>. The same participants provided both ratings, so the parametric test would be a paired-samples <em>t</em> test. Because the ratings are skewed, use the Wilcoxon signed-rank test.</p>
+<p>The null hypothesis states that the distribution of paired differences is centered at zero. The alternative hypothesis states that the ratings differ.</p>
+<section id="get-ready-1" class="level3">
+<h3 class="anchored" data-anchor-id="get-ready-1">Get Ready</h3>
+<p>The variables are already available in <code>importance_data</code>. Summarize each one before conducting the test.</p>
+<!-- script-comment: Summarize career and hobby ratings from the same participants. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>career_summary <span class="ot">&lt;-</span> importance_data <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(IMPcareer),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(IMPcareer),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(IMPcareer)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>hobby_summary <span class="ot">&lt;-</span> importance_data <span class="sc">|&gt;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(IMPhobbies),</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(IMPhobbies),</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(IMPhobbies)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>career_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+      N  Mean Median    SD
+  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1  1886  33.3     30  15.2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hobby_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+      N  Mean Median    SD
+  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1  1886  20.5     20  12.7</code></pre>
+</div>
+</div>
+</section>
+<section id="run-the-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-analysis-1">Run The Analysis</h3>
+<!-- script-comment: Compare career and hobby ratings from the same participants. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>career_hobby_test <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  importance_data<span class="sc">$</span>IMPcareer,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  importance_data<span class="sc">$</span>IMPhobbies,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">exact =</span> <span class="cn">FALSE</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>career_hobby_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  importance_data$IMPcareer and importance_data$IMPhobbies
+V = 1015505, p-value &lt; 2.2e-16
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+</div>
+<p><code>paired = TRUE</code> tells R that each career rating is paired with the hobby rating in the same observation. The test statistic is <em>V</em>. <code>exact = FALSE</code> uses a large-sample calculation because many participants gave equal ratings.</p>
+<!-- script-comment: Use the setup file's rank_biserial_paired() helper for the paired effect size. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>career_hobby_effect <span class="ot">&lt;-</span> <span class="fu">rank_biserial_paired</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  importance_data<span class="sc">$</span>IMPcareer,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  importance_data<span class="sc">$</span>IMPhobbies</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>career_hobby_effect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7756254</code></pre>
+</div>
+</div>
+<p><code>rank_biserial_paired()</code> is supplied by the setup file. Give it the two variables in the same order used in <code>wilcox.test()</code>.</p>
+</section>
+<section id="read-the-output-1" class="level3">
+<h3 class="anchored" data-anchor-id="read-the-output-1">Read The Output</h3>
+<p>The difference is significant. The descriptive statistics show that emerging adults placed more importance on their careers than their hobbies. The rank-biserial correlation indicates a large difference.</p>
+<p>Choose a different pair from <code>IMPmarriage</code>, <code>IMPparenting</code>, <code>IMPcareer</code>, and <code>IMPhobbies</code>. Repeat the summaries, test, and effect-size calculation using new object names. Then write one paragraph summarizing both comparisons.</p>
+</section>
+</section>
+<section id="research-question-3-importance-ratings-and-adult-status" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-3-importance-ratings-and-adult-status">Research Question 3: Importance Ratings And Adult Status</h2>
+<p>Does career importance differ among participants who answered no, maybe, or yes when asked whether they consider themselves adults? The parametric test would be a one-way independent ANOVA. Because career importance is skewed, use the Kruskal-Wallis test.</p>
+<p>The null hypothesis states that the career-importance distributions are the same across the three adult-status groups. The alternative hypothesis states that at least one group differs.</p>
+<section id="run-the-analysis-2" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-analysis-2">Run The Analysis</h3>
+<!-- script-comment: Summarize career importance for the three adult-status groups. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>career_adult_data <span class="ot">&lt;-</span> importance_data <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(IMPcareer, Adult)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>career_adult_summary <span class="ot">&lt;-</span> career_adult_data <span class="sc">|&gt;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Adult) <span class="sc">|&gt;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(IMPcareer),</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(IMPcareer),</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(IMPcareer),</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>career_adult_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  Adult     N  Mean Median    SD
+  &lt;fct&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1 No      141  33.9     30  14.9
+2 Maybe   488  33.6     30  14.8
+3 Yes    1257  33.1     30  15.4</code></pre>
+</div>
+</div>
+<!-- script-comment: Compare career-importance ranks across adult-status groups. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>career_adult_test <span class="ot">&lt;-</span> <span class="fu">kruskal.test</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  IMPcareer <span class="sc">~</span> Adult,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> career_adult_data</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>career_adult_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  IMPcareer by Adult
+Kruskal-Wallis chi-squared = 1.0025, df = 2, p-value = 0.6058</code></pre>
+</div>
+</div>
+<p><code>kruskal.test()</code> uses the familiar <code>outcome ~ group</code> formula. The test statistic is <em>H</em>.</p>
+<!-- script-comment: Use the setup file's kruskal_epsilon_squared() helper for the effect size. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>career_adult_effect <span class="ot">&lt;-</span> <span class="fu">kruskal_epsilon_squared</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  career_adult_test,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  career_adult_data<span class="sc">$</span>Adult</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>career_adult_effect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p><code>kruskal_epsilon_squared()</code> is supplied by the setup file. Give it the saved test and grouping variable. Epsilon-squared values around .01, .08, and .26 can be described as small, medium, and large.</p>
+</section>
+<section id="read-the-output-2" class="level3">
+<h3 class="anchored" data-anchor-id="read-the-output-2">Read The Output</h3>
+<p>The <em>p</em> value is greater than .05, so career importance does not significantly differ by adult status. Because the overall test is not significant, do not conduct post hoc comparisons.</p>
+<p>Now repeat the analysis with <code>IMPhobbies</code>. If the Kruskal-Wallis test is significant, conduct DSCF post hoc comparisons using the following pattern:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dscfAllPairsTest</span>(outcome <span class="sc">~</span> group, <span class="at">data =</span> data_object)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>dscfAllPairsTest()</code> uses the same formula pattern and compares every pair while accounting for the number of comparisons. Write one paragraph summarizing the career and hobby analyses.</p>
+</section>
+</section>
+<section id="research-question-4-hobby-importance-and-satisfaction-with-life" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-4-hobby-importance-and-satisfaction-with-life">Research Question 4: Hobby Importance And Satisfaction With Life</h2>
+<p>Is the importance placed on hobbies related to satisfaction with life? The parametric analysis would be a Pearson correlation. Because hobby importance is skewed, use Spearman correlation.</p>
+<p>The null hypothesis states that the population Spearman correlation is zero. The alternative hypothesis states that it is not zero.</p>
+<section id="run-the-analysis-3" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-analysis-3">Run The Analysis</h3>
+<!-- script-comment: Test the rank-based association between hobby importance and satisfaction with life. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>hobbies_swls_data <span class="ot">&lt;-</span> importance_data <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(IMPhobbies, SWLS)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>hobbies_swls_test <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  hobbies_swls_data<span class="sc">$</span>IMPhobbies,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  hobbies_swls_data<span class="sc">$</span>SWLS,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"spearman"</span>,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">exact =</span> <span class="cn">FALSE</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>hobbies_swls_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  hobbies_swls_data$IMPhobbies and hobbies_swls_data$SWLS
+S = 1222239667, p-value = 5.083e-05
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+        rho 
+-0.09315736 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(hobbies_swls_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1886</code></pre>
+</div>
+</div>
+<p><code>cor.test()</code> was introduced with Pearson correlation. <code>method = "spearman"</code> tells R to correlate ranks instead of the original scores. The coefficient is Spearman’s <em>r</em><sub>s</sub>. To report degrees of freedom, subtract 2 from the number of complete observations.</p>
+</section>
+<section id="read-the-output-3" class="level3">
+<h3 class="anchored" data-anchor-id="read-the-output-3">Read The Output</h3>
+<p>Hobby importance has a small, significant negative association with satisfaction with life. Higher satisfaction-with-life scores are associated with slightly lower importance placed on hobbies. The relationship is close to zero and might not be significant in a smaller sample.</p>
+<p>Repeat the Spearman correlation using <code>SWLS</code> and a different importance variable. Create new data and test objects. Then write one paragraph summarizing both correlations.</p>
+</section>
+</section>
+<section id="check-your-work" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-work">Check Your Work</h2>
+<section id="research-question-1" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-1">Research Question 1</h3>
+<p>For hobbies, Democrats reported a mean of 21.8, median of 20.0, and standard deviation of 13.3. Republicans reported a mean of 16.3, median of 15.0, and standard deviation of 10.0.</p>
+<p>A Mann-Whitney U test found that hobby importance significantly differed between Democrats and Republicans, <em>U</em> = 269,788, <em>p</em> &lt; .001, <em>r</em><sub>rb</sub> = .26. The effect was small-to-medium, with Democrats assigning greater importance to hobbies.</p>
+<p>The sample extension below uses <code>IMPcareer</code>.</p>
+<!-- script-comment: Check Your Work: compare career importance across political-party groups. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>career_party_data <span class="ot">&lt;-</span> importance_data <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(IMPcareer, PartyDichotomous)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>career_party_summary <span class="ot">&lt;-</span> career_party_data <span class="sc">|&gt;</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PartyDichotomous) <span class="sc">|&gt;</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(IMPcareer),</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(IMPcareer),</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(IMPcareer),</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>career_party_test <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  IMPcareer <span class="sc">~</span> PartyDichotomous,</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> career_party_data,</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">exact =</span> <span class="cn">FALSE</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>career_party_effect <span class="ot">&lt;-</span> <span class="fu">rank_biserial_independent</span>(</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  career_party_test,</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  career_party_data<span class="sc">$</span>PartyDichotomous</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>career_party_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  PartyDichotomous     N  Mean Median    SD
+  &lt;fct&gt;            &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1 Democrat           965  35.3     30  15.9
+2 Republican         445  29.1     25  13.7</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>career_party_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  IMPcareer by PartyDichotomous
+W = 265782, p-value = 4.368e-13
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>career_party_effect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2378529</code></pre>
+</div>
+</div>
+<p>Career importance also significantly differed, <em>U</em> = 265,782.5, <em>p</em> &lt; .001, <em>r</em><sub>rb</sub> = .24. Democrats reported a mean of 35.3, median of 30.0, and standard deviation of 15.9. Republicans reported a mean of 29.1, median of 25.0, and standard deviation of 13.7. Democrats therefore assigned greater importance to both hobbies and careers.</p>
+</section>
+<section id="research-question-2" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-2">Research Question 2</h3>
+<p>Career importance had a mean of 33.3, median of 30.0, and standard deviation of 15.2. Hobby importance had a mean of 20.5, median of 20.0, and standard deviation of 12.7. Participants rated careers as more important than hobbies, <em>V</em> = 1,015,505, <em>p</em> &lt; .001, <em>r</em><sub>rb</sub> = .78, a large difference.</p>
+<p>The sample extension below compares marriage with hobbies.</p>
+<!-- script-comment: Check Your Work: compare marriage and hobby ratings from the same participants. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>marriage_hobby_test <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  importance_data<span class="sc">$</span>IMPmarriage,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  importance_data<span class="sc">$</span>IMPhobbies,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">exact =</span> <span class="cn">FALSE</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>marriage_hobby_effect <span class="ot">&lt;-</span> <span class="fu">rank_biserial_paired</span>(</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  importance_data<span class="sc">$</span>IMPmarriage,</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  importance_data<span class="sc">$</span>IMPhobbies</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>marriage_hobby_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  importance_data$IMPmarriage and importance_data$IMPhobbies
+V = 772860, p-value = 6.661e-15
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>marriage_hobby_effect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2251412</code></pre>
+</div>
+</div>
+<p>Marriage importance had a mean of 23.4, median of 25.0, and standard deviation of 12.4. Participants rated marriage as more important than hobbies, <em>V</em> = 772,860, <em>p</em> &lt; .001, <em>r</em><sub>rb</sub> = .23, a small-to-medium difference.</p>
+</section>
+<section id="research-question-3" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-3">Research Question 3</h3>
+<p>Career importance did not significantly differ by adult status, <em>H</em>(2) = 1.00, <em>p</em> = .606, ε² &lt; .001.</p>
+<!-- script-comment: Check Your Work: compare hobby importance across adult-status groups. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>hobbies_adult_data <span class="ot">&lt;-</span> importance_data <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(IMPhobbies, Adult)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>hobbies_adult_summary <span class="ot">&lt;-</span> hobbies_adult_data <span class="sc">|&gt;</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Adult) <span class="sc">|&gt;</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(IMPhobbies),</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(IMPhobbies),</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(IMPhobbies),</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>hobbies_adult_test <span class="ot">&lt;-</span> <span class="fu">kruskal.test</span>(</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>  IMPhobbies <span class="sc">~</span> Adult,</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> hobbies_adult_data</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>hobbies_adult_effect <span class="ot">&lt;-</span> <span class="fu">kruskal_epsilon_squared</span>(</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  hobbies_adult_test,</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>  hobbies_adult_data<span class="sc">$</span>Adult</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>hobbies_adult_post_hoc <span class="ot">&lt;-</span> <span class="fu">dscfAllPairsTest</span>(</span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>  IMPhobbies <span class="sc">~</span> Adult,</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> hobbies_adult_data</span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>hobbies_adult_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  Adult     N  Mean Median    SD
+  &lt;fct&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1 No      141  20.6     15  14.2
+2 Maybe   488  21.9     20  12.8
+3 Yes    1257  20.0     20  12.4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>hobbies_adult_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  IMPhobbies by Adult
+Kruskal-Wallis chi-squared = 8.88, df = 2, p-value = 0.0118</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>hobbies_adult_effect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.003653725</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>hobbies_adult_post_hoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      No     Maybe 
+Maybe 0.2254 -     
+Yes   0.9928 0.0094</code></pre>
+</div>
+</div>
+<p>Hobby importance significantly differed by adult status, <em>H</em>(2) = 8.88, <em>p</em> = .012, ε² = .004, although the effect was very small. Participants answering maybe reported greater hobby importance than participants answering yes, <em>p</em> = .009. The no group did not significantly differ from the maybe group, <em>p</em> = .225, or the yes group, <em>p</em> = .993.</p>
+</section>
+<section id="research-question-4" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-4">Research Question 4</h3>
+<p>There was a small, significant negative correlation between satisfaction with life and hobby importance, <em>r</em><sub>s</sub>(1884) = -.09, <em>p</em> &lt; .001.</p>
+<p>The sample extension below uses <code>IMPcareer</code>.</p>
+<!-- script-comment: Check Your Work: test the rank-based association between career importance and life satisfaction. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>career_swls_data <span class="ot">&lt;-</span> importance_data <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(IMPcareer, SWLS)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>career_swls_test <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  career_swls_data<span class="sc">$</span>IMPcareer,</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  career_swls_data<span class="sc">$</span>SWLS,</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"spearman"</span>,</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">exact =</span> <span class="cn">FALSE</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>career_swls_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  career_swls_data$IMPcareer and career_swls_data$SWLS
+S = 1269129046, p-value = 3.861e-09
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.1350947 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(career_swls_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1886</code></pre>
+</div>
+</div>
+<p>There was also a small, significant negative correlation between satisfaction with life and career importance, <em>r</em><sub>s</sub>(1884) = -.14, <em>p</em> &lt; .001. Higher satisfaction-with-life scores were associated with lower importance placed on both hobbies and careers.</p>
+</section>
+</section>
+<section id="chapter-takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-takeaway">Chapter Takeaway</h2>
+<p>Nonparametric tests use ranks to answer familiar questions when a parametric analysis is not appropriate. Match the test to the research design: independent groups, paired scores, three or more independent groups, or an association between quantitative variables.</p>
+</section>
+<section id="r-skills-practiced" class="level2">
+<h2 class="anchored" data-anchor-id="r-skills-practiced">R Skills Practiced</h2>
+<ul>
+<li><code>wilcox.test(outcome ~ group)</code> conducts a Mann-Whitney U test for two independent groups.</li>
+<li><code>wilcox.test(x, y, paired = TRUE)</code> conducts a Wilcoxon signed-rank test for paired scores.</li>
+<li><code>rank_biserial_independent()</code> and <code>rank_biserial_paired()</code> calculate rank-biserial correlations. These helpers are supplied by the setup file.</li>
+<li><code>kruskal.test()</code> conducts a Kruskal-Wallis test.</li>
+<li><code>kruskal_epsilon_squared()</code> calculates epsilon squared. This helper is supplied by the setup file.</li>
+<li><code>dscfAllPairsTest()</code> conducts DSCF post hoc comparisons.</li>
+<li><code>cor.test(..., method = "spearman")</code> conducts a Spearman correlation.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/14-chi-square.html" class="pagination-link" aria-label="Chapter 14: Chi-Square Tests">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chapter 14: Chi-Square Tests</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../reference/r-command-index.html" class="pagination-link" aria-label="R Command Index">
+        <span class="nav-page-text">R Command Index</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a> and R</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

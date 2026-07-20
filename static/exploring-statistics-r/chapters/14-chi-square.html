@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Use chi-square tests of independence and goodness-of-fit tests with categorical variables.">
 
-<title>Chi-Square Tests – Exploring Statistics with R</title>
+<title>Chapter 14: Chi-Square Tests – Exploring Statistics with R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -33,7 +69,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/15-nonparametric.html" rel="next">
+<link href="../chapters/15-nonparametric-statistics.html" rel="next">
 <link href="../chapters/13-two-way-anova.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -41,14 +77,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-39d72d2d8fc74c86a6f3fad29307908e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-92eb9d6b9ba6868aca9c04a4b27d82cd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-7d4bf5ba88f0d43632e1ea06990e7a45.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-92eb9d6b9ba6868aca9c04a4b27d82cd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -81,169 +113,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -265,24 +135,20 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../chapters/01-getting-started.html"> 
-<span class="menu-text">Chapters</span></a>
+    <a class="nav-link" href="../start/00-choose-your-path.html"> 
+<span class="menu-text">Start Here</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../data/codebook.html"> 
-<span class="menu-text">Understanding EAMMi2</span></a>
+    <a class="nav-link" href="../reference/r-command-index.html"> 
+<span class="menu-text">R Reference</span></a>
   </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/axxe/exploring-statistics-r"> <i class="bi bi-github" role="img" aria-label="GitHub source repository">
-</i> 
-<span class="menu-text"></span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../instructor/instructor-guide.html"> 
+<span class="menu-text">Instructor Guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -296,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-getting-started.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/14-chi-square.html">Chi-Square Tests</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/14-chi-square.html">Chapter 14: Chi-Square Tests</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -325,8 +191,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00-intro-to-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Intro to R</span></a>
+  <a href="../start/00-choose-your-path.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choose Your Path</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/01-set-up-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Set Up RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/02-run-your-first-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Run Your First Script</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -348,86 +226,120 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01-getting-started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+  <a href="../chapters/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 1: Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02-frequency-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring Data: Frequency Distributions and Graphs</span></a>
+  <a href="../chapters/02-exploring-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 2: Exploring Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring Data: Central Tendency and Variability</span></a>
+ <span class="menu-text">Chapters 3 and 4: Central Tendency And Variability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05-other-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Other Descriptive Statistics</span></a>
+ <span class="menu-text">Chapter 5: Other Descriptive Statistics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06-correlation-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Correlation and Regression</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07-probability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Probability</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/08-sampling-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sampling Distributions</span></a>
+ <span class="menu-text">Chapter 6: Correlation and Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09-one-sample-designs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">One-Sample Designs</span></a>
+ <span class="menu-text">Chapter 9: One-Sample Designs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10-two-sample-designs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Sample Designs</span></a>
+ <span class="menu-text">Chapter 10: Two-Sample Designs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/11-anova-independent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analysis of Variance: Independent Samples</span></a>
+  <a href="../chapters/11-independent-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 11: Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/12-anova-repeated.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analysis of Variance: Repeated Measures</span></a>
+  <a href="../chapters/12-repeated-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 12: Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13-two-way-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Way Independent Analysis of Variance</span></a>
+ <span class="menu-text">Chapter 13: Two-Way Independent Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14-chi-square.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Chi-Square Tests</span></a>
+ <span class="menu-text">Chapter 14: Chi-Square Tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/15-nonparametric.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">More Nonparametric Tests</span></a>
+  <a href="../chapters/15-nonparametric-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 15: Nonparametric Statistics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">R help and reference</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/r-command-index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Command Index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Troubleshooting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/statistical-language.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Language</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Instructor resources</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/instructor-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instructor Guide</span></a>
   </div>
 </li>
       </ul>
@@ -442,20 +354,56 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-tools" id="toc-r-tools" class="nav-link active" data-scroll-target="#r-tools">R tools</a></li>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning Goals</a></li>
+  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">Research Questions</a></li>
+  <li><a href="#before-you-begin" id="toc-before-you-begin" class="nav-link" data-scroll-target="#before-you-begin">Before You Begin</a></li>
+  <li><a href="#research-question-1-living-at-home-and-adult-status" id="toc-research-question-1-living-at-home-and-adult-status" class="nav-link" data-scroll-target="#research-question-1-living-at-home-and-adult-status">Research Question 1: Living At Home And Adult Status</a>
+  <ul class="collapse">
+  <li><a href="#plan-the-analysis" id="toc-plan-the-analysis" class="nav-link" data-scroll-target="#plan-the-analysis">Plan The Analysis</a></li>
+  <li><a href="#get-ready" id="toc-get-ready" class="nav-link" data-scroll-target="#get-ready">Get Ready</a></li>
+  <li><a href="#predict" id="toc-predict" class="nav-link" data-scroll-target="#predict">Predict</a></li>
+  <li><a href="#run-the-analysis" id="toc-run-the-analysis" class="nav-link" data-scroll-target="#run-the-analysis">Run The Analysis</a></li>
+  <li><a href="#investigate-and-interpret" id="toc-investigate-and-interpret" class="nav-link" data-scroll-target="#investigate-and-interpret">Investigate And Interpret</a></li>
+  </ul></li>
+  <li><a href="#research-question-2-gender-representation" id="toc-research-question-2-gender-representation" class="nav-link" data-scroll-target="#research-question-2-gender-representation">Research Question 2: Gender Representation</a>
+  <ul class="collapse">
+  <li><a href="#plan-and-predict" id="toc-plan-and-predict" class="nav-link" data-scroll-target="#plan-and-predict">Plan And Predict</a></li>
+  <li><a href="#run-and-investigate" id="toc-run-and-investigate" class="nav-link" data-scroll-target="#run-and-investigate">Run And Investigate</a></li>
+  </ul></li>
+  <li><a href="#research-question-3-financial-independence-and-adult-status" id="toc-research-question-3-financial-independence-and-adult-status" class="nav-link" data-scroll-target="#research-question-3-financial-independence-and-adult-status">Research Question 3: Financial Independence And Adult Status</a>
+  <ul class="collapse">
+  <li><a href="#complete-the-analysis" id="toc-complete-the-analysis" class="nav-link" data-scroll-target="#complete-the-analysis">Complete The Analysis</a></li>
+  </ul></li>
+  <li><a href="#research-question-4-party-identification-and-political-views" id="toc-research-question-4-party-identification-and-political-views" class="nav-link" data-scroll-target="#research-question-4-party-identification-and-political-views">Research Question 4: Party Identification And Political Views</a>
+  <ul class="collapse">
+  <li><a href="#complete-the-analysis-1" id="toc-complete-the-analysis-1" class="nav-link" data-scroll-target="#complete-the-analysis-1">Complete The Analysis</a></li>
+  </ul></li>
+  <li><a href="#check-your-work" id="toc-check-your-work" class="nav-link" data-scroll-target="#check-your-work">Check Your Work</a>
+  <ul class="collapse">
+  <li><a href="#research-question-1" id="toc-research-question-1" class="nav-link" data-scroll-target="#research-question-1">Research Question 1</a></li>
+  <li><a href="#research-question-2" id="toc-research-question-2" class="nav-link" data-scroll-target="#research-question-2">Research Question 2</a></li>
+  <li><a href="#research-question-3" id="toc-research-question-3" class="nav-link" data-scroll-target="#research-question-3">Research Question 3</a></li>
+  <li><a href="#research-question-4" id="toc-research-question-4" class="nav-link" data-scroll-target="#research-question-4">Research Question 4</a></li>
+  </ul></li>
+  <li><a href="#chapter-takeaway" id="toc-chapter-takeaway" class="nav-link" data-scroll-target="#chapter-takeaway">Chapter Takeaway</a></li>
+  <li><a href="#r-skills-practiced" id="toc-r-skills-practiced" class="nav-link" data-scroll-target="#r-skills-practiced">R Skills Practiced</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-getting-started.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/14-chi-square.html">Chi-Square Tests</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/14-chi-square.html">Chapter 14: Chi-Square Tests</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Chi-Square Tests</h1>
-<p class="subtitle lead">Chapter 14</p>
+<h1 class="title">Chapter 14: Chi-Square Tests</h1>
+<p class="subtitle lead">Independence and goodness of fit</p>
 </div>
 
+<div>
+  <div class="description">
+    Use chi-square tests of independence and goodness-of-fit tests with categorical variables.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -470,11 +418,390 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><span class="chapter-status">In development</span></p>
-<p>This chapter will build contingency tables, compare observed and expected frequencies, and interpret chi-square tests with effect size.</p>
-<section id="r-tools" class="level2">
-<h2 class="anchored" data-anchor-id="r-tools">R tools</h2>
-<p><code>table()</code>, <code>prop.table()</code>, <code>chisq.test()</code>, and Cramer’s V</p>
+<p>Chapter 14 of <em>Exploring Statistics</em> introduces two tests for categorical variables. A chi-square test of independence asks whether two categorical variables are related. A goodness-of-fit test compares the observed counts for one categorical variable with expected proportions.</p>
+<section id="learning-goals" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals">Learning Goals</h2>
+<p>By the end of this chapter, you should be able to:</p>
+<ul>
+<li>choose between a chi-square test of independence and a goodness-of-fit test;</li>
+<li>create and compare observed and expected frequencies;</li>
+<li>conduct and interpret both types of chi-square test in R;</li>
+<li>calculate Cramer’s V for a test of independence; and</li>
+<li>write a conclusion that answers the research question.</li>
+</ul>
+</section>
+<section id="research-questions" class="level2">
+<h2 class="anchored" data-anchor-id="research-questions">Research Questions</h2>
+<ol type="1">
+<li>Is the extent to which an emerging adult is still living at home related to the extent to which they categorize themselves as an adult?</li>
+<li>Does gender representation in the EAMMi2 sample differ from U.S. adult population values?</li>
+<li>Is the extent to which an emerging adult considers themselves financially independent related to the extent to which they categorize themselves as an adult?</li>
+<li>Are participants in the EAMMi2 sample equally likely to identify as Republican or Democrat? What about liberal or conservative?</li>
+</ol>
+<p>Research Questions 1 and 2 provide one worked example of each test. Research Questions 3 and 4 ask you to modify the matching pattern.</p>
+</section>
+<section id="before-you-begin" class="level2">
+<h2 class="anchored" data-anchor-id="before-you-begin">Before You Begin</h2>
+<p>Use this decision:</p>
+<ul>
+<li>two categorical variables and a question about their relationship: test of independence;</li>
+<li>one categorical variable compared with stated proportions: goodness-of-fit test.</li>
+</ul>
+</section>
+<section id="research-question-1-living-at-home-and-adult-status" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-1-living-at-home-and-adult-status">Research Question 1: Living At Home And Adult Status</h2>
+<p>Is the extent to which an emerging adult is still living at home related to the extent to which they categorize themselves as an adult?</p>
+<section id="plan-the-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="plan-the-analysis">Plan The Analysis</h3>
+<table class="caption-top table">
+<caption>Variables used to answer Research Question 1</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>What it measures</th>
+<th>Type</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>NoLongerHome</code></td>
+<td>extent moved out of parents’ home</td>
+<td>categorical</td>
+<td>first variable</td>
+</tr>
+<tr class="even">
+<td><code>Adult</code></td>
+<td>adult status</td>
+<td>categorical</td>
+<td>second variable</td>
+</tr>
+</tbody>
+</table>
+<p>Because the question asks whether two categorical variables are related, use a chi-square test of independence.</p>
+</section>
+<section id="get-ready" class="level3">
+<h3 class="anchored" data-anchor-id="get-ready">Get Ready</h3>
+<p>Open <code>14-chi-square.R</code>, run the setup line, and then run one section at a time.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/_setup.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<!-- script-comment: Give living-status and adult-status codes readable ordered labels. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">NoLongerHome =</span> <span class="fu">factor</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      NoLongerHome,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Somewhat"</span>, <span class="st">"Yes"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Adult =</span> <span class="fu">factor</span>(</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      Adult,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Maybe"</span>, <span class="st">"Yes"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>home_adult_data <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(NoLongerHome, Adult)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>NoLongerHome</code> uses a double negative: <code>No</code> means still living at home, while <code>Yes</code> means no longer living at home.</p>
+</section>
+<section id="predict" class="level3">
+<h3 class="anchored" data-anchor-id="predict">Predict</h3>
+<p>If moving out and adult status are related, which combination should occur more often than independence would predict: no longer living at home and saying yes to being an adult, or no longer living at home and saying no? Record your prediction.</p>
+</section>
+<section id="run-the-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-analysis">Run The Analysis</h3>
+<!-- script-comment: Build the observed contingency table for living status and adult status. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>home_adult_table <span class="ot">&lt;-</span> <span class="fu">table</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  home_adult_data<span class="sc">$</span>NoLongerHome,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  home_adult_data<span class="sc">$</span>Adult</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>home_adult_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+            No Maybe Yes
+  No        70   223 538
+  Somewhat  47   198 411
+  Yes       28    92 444</code></pre>
+</div>
+</div>
+<p><code>table()</code> creates the observed contingency table.</p>
+<!-- script-comment: Test whether living status and adult status are associated. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>home_adult_chi <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(home_adult_table)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>home_adult_chi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  home_adult_table
+X-squared = 44.491, df = 4, p-value = 5.073e-09</code></pre>
+</div>
+</div>
+<!-- script-comment: Display the expected counts used in the chi-square calculation. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>home_adult_chi<span class="sc">$</span>expected</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+                 No    Maybe      Yes
+  No       58.74939 207.8513 564.3993
+  Somewhat 46.37738 164.0800 445.5427
+  Yes      39.87323 141.0687 383.0580</code></pre>
+</div>
+</div>
+<p><code>chisq.test()</code> compares observed counts with the counts expected if the variables were independent. <code>$expected</code> retrieves those expected counts from the saved test.</p>
+<!-- script-comment: Use the setup file's cramers_v() helper to measure association strength. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>home_adult_v <span class="ot">&lt;-</span> <span class="fu">cramers_v</span>(home_adult_chi)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>home_adult_v</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1041449</code></pre>
+</div>
+</div>
+<p>Cramer’s V is appropriate for this 3 x 3 table. Guidelines are about .07 for small, .21 for medium, and .35 for large.</p>
+</section>
+<section id="investigate-and-interpret" class="level3">
+<h3 class="anchored" data-anchor-id="investigate-and-interpret">Investigate And Interpret</h3>
+<p>First decide whether the test is significant and describe the size of Cramer’s V. Then compare each observed cell with the matching expected cell. Look for a consistent pattern rather than listing numbers without interpretation.</p>
+<p>The relationship is significant and small. Those still living at home were more likely than expected to say no to being an adult. Those no longer living at home were more likely than expected to say yes and less likely to say maybe or no. Overall, it appears that participants who were less likely to be living at home were also more likely to describe themselves as adults.</p>
+<p>Produce a paragraph that reports the test, effect size, and observed-versus-expected pattern.</p>
+</section>
+</section>
+<section id="research-question-2-gender-representation" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-2-gender-representation">Research Question 2: Gender Representation</h2>
+<p>According to the U.S. Census Bureau, in 2019 (close to the time of EAMMi2 data collection) the U.S. population was 51% female, 47% male, and 2% non-binary. Here, we are going to use our EAMMi2 data file to determine if our sample represents a similar population. Before continuing, decide whether the appropriate chi-square test should be a test of independence or goodness of fit.</p>
+<section id="plan-and-predict" class="level3">
+<h3 class="anchored" data-anchor-id="plan-and-predict">Plan And Predict</h3>
+<p>Because we are comparing proportions in our data set with population-level proportions, use a goodness-of-fit test. Before running it, predict which category appears most over-represented in the sample.</p>
+<!-- script-comment: Give the Gender codes readable category labels. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">factor</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>      Gender,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Another identity"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>gender_data <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Gender)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>gender_counts <span class="ot">&lt;-</span> <span class="fu">table</span>(gender_data<span class="sc">$</span>Gender)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>gender_counts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Another identity           Female             Male 
+              30             1524              519 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(gender_counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Another identity           Female             Male 
+      0.01447178       0.73516643       0.25036179 </code></pre>
+</div>
+</div>
+<p><code>prop.table()</code> converts the observed counts to proportions.</p>
+</section>
+<section id="run-and-investigate" class="level3">
+<h3 class="anchored" data-anchor-id="run-and-investigate">Run And Investigate</h3>
+<!-- script-comment: Compare the observed gender counts with the population proportions. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gender_chi <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  gender_counts,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">02</span>, .<span class="dv">51</span>, .<span class="dv">47</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>gender_chi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  gender_counts
+X-squared = 422.02, df = 2, p-value &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>The expected proportions must match the alphabetical category order in <code>gender_counts</code>: another identity, female, male. The significant result shows that representation differs from the comparison values. Females are over-represented; males and participants selecting another identity are under-represented.</p>
+</section>
+</section>
+<section id="research-question-3-financial-independence-and-adult-status" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-3-financial-independence-and-adult-status">Research Question 3: Financial Independence And Adult Status</h2>
+<p>Is financial independence related to whether participants categorize themselves as adults?</p>
+<section id="complete-the-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="complete-the-analysis">Complete The Analysis</h3>
+<p>Use Research Question 1 as the model. Replace <code>NoLongerHome</code> with <code>FinanciallyInd</code>, create new object names, and retain <code>Adult</code>. Produce the observed table, test, expected counts, Cramer’s V, and written conclusion.</p>
+<p>Before running copied code, identify every place the old variable or object name appears. Predict which financial-independence category should be more likely than expected to say yes to being an adult.</p>
+</section>
+</section>
+<section id="research-question-4-party-identification-and-political-views" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-4-party-identification-and-political-views">Research Question 4: Party Identification And Political Views</h2>
+<p>Are participants equally likely to identify as Republican or Democrat? What about liberal or conservative?</p>
+<section id="complete-the-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="complete-the-analysis-1">Complete The Analysis</h3>
+<p>Use Research Question 2 as the model. Conduct separate goodness-of-fit tests for <code>PartyDichotomous</code> and <code>PoliticsDichotomous</code>, each with expected proportions of <code>.50</code> and <code>.50</code>. Create separate object names and interpret both results.</p>
+</section>
+</section>
+<section id="check-your-work" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-work">Check Your Work</h2>
+<section id="research-question-1" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-1">Research Question 1</h3>
+<p>A 3 x 3 chi-square test found a small, significant relationship between living at home and adult status, (^2(4)) = 44.49, <em>p</em> &lt; .001, Cramer’s V = .10. Those still living at home were less likely than expected to say yes or maybe and more likely to say no. Those somewhat living at home were less likely to say yes, more likely to say maybe, and about as likely to say no. Those no longer living at home were more likely to say yes and less likely to say maybe or no. In short, it appears that participants who were less likely to be living at home were also more likely to describe themselves as adults.</p>
+</section>
+<section id="research-question-2" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-2">Research Question 2</h3>
+<p>A goodness-of-fit test showed that gender representation differed from the comparison values, (^2(2)) = 422.02, <em>p</em> &lt; .001. Females were over-represented (73.5% versus 51%), while males (25.0% versus 47%) and participants selecting another identity (1.4% versus 2%) were under-represented.</p>
+</section>
+<section id="research-question-3" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-3">Research Question 3</h3>
+<!-- script-comment: Check Your Work: test financial-independence status by adult status. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">FinanciallyInd =</span> <span class="fu">factor</span>(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>      FinanciallyInd,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Somewhat"</span>, <span class="st">"Yes"</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>financial_adult_data <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(FinanciallyInd, Adult)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>financial_adult_table <span class="ot">&lt;-</span> <span class="fu">table</span>(</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  financial_adult_data<span class="sc">$</span>FinanciallyInd,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  financial_adult_data<span class="sc">$</span>Adult</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>financial_adult_chi <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(financial_adult_table)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>financial_adult_v <span class="ot">&lt;-</span> <span class="fu">cramers_v</span>(financial_adult_chi)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>financial_adult_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+            No Maybe Yes
+  No        83   245 449
+  Somewhat  50   225 688
+  Yes       13    43 250</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>financial_adult_chi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  financial_adult_table
+X-squared = 73.337, df = 4, p-value = 4.478e-15</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>financial_adult_chi<span class="sc">$</span>expected</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+                 No     Maybe      Yes
+  No       55.44575 194.81965 526.7346
+  Somewhat 68.71848 241.45601 652.8255
+  Yes      21.83578  76.72434 207.4399</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>financial_adult_v</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1338731</code></pre>
+</div>
+</div>
+<p>Financial independence and adult status had a small-to-moderate significant relationship, (^2(4)) = 73.34, <em>p</em> &lt; .001, Cramer’s V = .13. Participants who were not financially independent were less likely than expected to say yes and more likely than expected to say maybe or no. Participants who were somewhat financially independent were more likely than expected to say yes and less likely than expected to say maybe or no. Participants who were financially independent were also more likely than expected to say yes and less likely than expected to say maybe or no. In short, it appears that participants who reported greater financial independence were also more likely to describe themselves as adults.</p>
+</section>
+<section id="research-question-4" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-4">Research Question 4</h3>
+<!-- script-comment: Check Your Work: test party identification by political orientation. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">PartyDichotomous =</span> <span class="fu">factor</span>(</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>      PartyDichotomous,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Democrat"</span>, <span class="st">"Republican"</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">PoliticsDichotomous =</span> <span class="fu">factor</span>(</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>      PoliticsDichotomous,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Liberal"</span>, <span class="st">"Conservative"</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>party_data <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(PartyDichotomous)</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>party_counts <span class="ot">&lt;-</span> <span class="fu">table</span>(party_data<span class="sc">$</span>PartyDichotomous)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>party_chi <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(party_counts, <span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">50</span>, .<span class="dv">50</span>))</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>politics_data <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(PoliticsDichotomous)</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>politics_counts <span class="ot">&lt;-</span> <span class="fu">table</span>(politics_data<span class="sc">$</span>PoliticsDichotomous)</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>politics_chi <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(politics_counts, <span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">50</span>, .<span class="dv">50</span>))</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>party_counts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  Democrat Republican 
+      1051        484 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(party_counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  Democrat Republican 
+ 0.6846906  0.3153094 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>party_chi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  party_counts
+X-squared = 209.44, df = 1, p-value &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>politics_counts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Liberal Conservative 
+         897          438 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(politics_counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Liberal Conservative 
+   0.6719101    0.3280899 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>politics_chi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  politics_counts
+X-squared = 157.81, df = 1, p-value &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Participants were more likely than expected to identify as Democrat (68.5%) and less likely as Republican (31.5%), (^2(1)) = 209.44, <em>p</em> &lt; .001. They were also more likely to identify as liberal (67.2%) and less likely as conservative (32.8%), (^2(1)) = 157.81, <em>p</em> &lt; .001.</p>
+</section>
+</section>
+<section id="chapter-takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-takeaway">Chapter Takeaway</h2>
+<p>Use a test of independence for a relationship between two categorical variables. Use a goodness-of-fit test when one categorical distribution is compared with stated expected proportions.</p>
+</section>
+<section id="r-skills-practiced" class="level2">
+<h2 class="anchored" data-anchor-id="r-skills-practiced">R Skills Practiced</h2>
+<ul>
+<li><code>table()</code> creates observed frequency or contingency tables.</li>
+<li><code>chisq.test()</code> conducts both chi-square tests.</li>
+<li><code>test_object$expected</code> retrieves expected counts for a test of independence.</li>
+<li><code>cramers_v()</code> calculates Cramer’s V.</li>
+<li><code>prop.table()</code> converts counts into proportions.</li>
+<li><code>p = c(...)</code> supplies expected goodness-of-fit proportions.</li>
+</ul>
 
 
 </section>
@@ -482,19 +809,6 @@ ul.task-list li input[type="checkbox"] {
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
-    }
-    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -900,13 +1214,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/13-two-way-anova.html" class="pagination-link" aria-label="Two-Way Independent Analysis of Variance">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Two-Way Independent Analysis of Variance</span>
+      <a href="../chapters/13-two-way-anova.html" class="pagination-link" aria-label="Chapter 13: Two-Way Independent Analysis of Variance">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chapter 13: Two-Way Independent Analysis of Variance</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/15-nonparametric.html" class="pagination-link" aria-label="More Nonparametric Tests">
-        <span class="nav-page-text">More Nonparametric Tests</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/15-nonparametric-statistics.html" class="pagination-link" aria-label="Chapter 15: Nonparametric Statistics">
+        <span class="nav-page-text">Chapter 15: Nonparametric Statistics</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -914,7 +1228,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Instructor resource for <em>Exploring Statistics: Tales of Distributions</em></p>
+<p>Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Create frequency distributions, bar charts, and histograms to describe the EAMMi2 sample.">
+
+<title>Chapter 2: Exploring Data – Exploring Statistics with R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/03-04-central-tendency-variability.html" rel="next">
+<link href="../chapters/01-introduction.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Exploring Statistics with R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../start/00-choose-your-path.html"> 
+<span class="menu-text">Start Here</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reference/r-command-index.html"> 
+<span class="menu-text">R Reference</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../instructor/instructor-guide.html"> 
+<span class="menu-text">Instructor Guide</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/02-exploring-data.html">Chapter 2: Exploring Data</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Start here</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploring Statistics with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/00-choose-your-path.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choose Your Path</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/01-set-up-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Set Up RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/02-run-your-first-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Run Your First Script</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../data/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Understanding EAMMi2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Workbook chapters</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 1: Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02-exploring-data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Chapter 2: Exploring Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapters 3 and 4: Central Tendency And Variability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05-other-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 5: Other Descriptive Statistics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06-correlation-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 6: Correlation and Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/09-one-sample-designs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 9: One-Sample Designs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10-two-sample-designs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 10: Two-Sample Designs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/11-independent-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 11: Analysis of Variance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/12-repeated-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 12: Analysis of Variance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/13-two-way-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 13: Two-Way Independent Analysis of Variance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/14-chi-square.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 14: Chi-Square Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/15-nonparametric-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 15: Nonparametric Statistics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">R help and reference</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/r-command-index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Command Index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Troubleshooting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/statistical-language.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Language</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Instructor resources</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/instructor-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instructor Guide</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning Goals</a></li>
+  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">Research Questions</a></li>
+  <li><a href="#research-question-1-who-are-our-eammi2-participants" id="toc-research-question-1-who-are-our-eammi2-participants" class="nav-link" data-scroll-target="#research-question-1-who-are-our-eammi2-participants">Research Question 1: Who Are Our EAMMi2 Participants?</a>
+  <ul class="collapse">
+  <li><a href="#get-ready" id="toc-get-ready" class="nav-link" data-scroll-target="#get-ready">Get Ready</a></li>
+  <li><a href="#run-the-analysis" id="toc-run-the-analysis" class="nav-link" data-scroll-target="#run-the-analysis">Run The Analysis</a></li>
+  <li><a href="#investigate-the-code" id="toc-investigate-the-code" class="nav-link" data-scroll-target="#investigate-the-code">Investigate The Code</a></li>
+  <li><a href="#investigate-the-graph" id="toc-investigate-the-graph" class="nav-link" data-scroll-target="#investigate-the-graph">Investigate The Graph</a></li>
+  <li><a href="#read-the-output" id="toc-read-the-output" class="nav-link" data-scroll-target="#read-the-output">Read The Output</a></li>
+  <li><a href="#produce-your-interpretation" id="toc-produce-your-interpretation" class="nav-link" data-scroll-target="#produce-your-interpretation">Produce Your Interpretation</a></li>
+  </ul></li>
+  <li><a href="#research-question-2-where-do-our-participants-stand-on-adulthood-status" id="toc-research-question-2-where-do-our-participants-stand-on-adulthood-status" class="nav-link" data-scroll-target="#research-question-2-where-do-our-participants-stand-on-adulthood-status">Research Question 2: Where Do Our Participants Stand On Adulthood Status?</a>
+  <ul class="collapse">
+  <li><a href="#get-ready-1" id="toc-get-ready-1" class="nav-link" data-scroll-target="#get-ready-1">Get Ready</a></li>
+  <li><a href="#predict-1" id="toc-predict-1" class="nav-link" data-scroll-target="#predict-1">Predict</a></li>
+  <li><a href="#complete-the-analysis" id="toc-complete-the-analysis" class="nav-link" data-scroll-target="#complete-the-analysis">Complete The Analysis</a></li>
+  </ul></li>
+  <li><a href="#check-your-work" id="toc-check-your-work" class="nav-link" data-scroll-target="#check-your-work">Check Your Work</a>
+  <ul class="collapse">
+  <li><a href="#research-question-1" id="toc-research-question-1" class="nav-link" data-scroll-target="#research-question-1">Research Question 1</a></li>
+  <li><a href="#research-question-2-code" id="toc-research-question-2-code" class="nav-link" data-scroll-target="#research-question-2-code">Research Question 2 Code</a></li>
+  <li><a href="#research-question-2-interpretation" id="toc-research-question-2-interpretation" class="nav-link" data-scroll-target="#research-question-2-interpretation">Research Question 2 Interpretation</a></li>
+  </ul></li>
+  <li><a href="#chapter-takeaway" id="toc-chapter-takeaway" class="nav-link" data-scroll-target="#chapter-takeaway">Chapter Takeaway</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/02-exploring-data.html">Chapter 2: Exploring Data</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Chapter 2: Exploring Data</h1>
+<p class="subtitle lead">Frequency distributions and graphs</p>
+</div>
+
+<div>
+  <div class="description">
+    Create frequency distributions, bar charts, and histograms to describe the EAMMi2 sample.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Chapter 2 of <em>Exploring Statistics</em> introduces frequency distributions and graphs as tools for organizing data. For starters, we will use R to learn who participated in EAMMi2 and what their scores look like. Tables give us the exact values; graphs help us see the larger pattern.</p>
+<section id="learning-goals" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals">Learning Goals</h2>
+<p>By the end of this chapter, you should be able to:</p>
+<ul>
+<li>create frequency tables for categorical and quantitative variables;</li>
+<li>calculate and interpret percentages and cumulative percentages;</li>
+<li>produce bar charts for categorical variables;</li>
+<li>produce a histogram for a quantitative variable;</li>
+<li>describe the shape of a quantitative distribution; and</li>
+<li>adapt a demonstrated analysis for new variables.</li>
+</ul>
+</section>
+<section id="research-questions" class="level2">
+<h2 class="anchored" data-anchor-id="research-questions">Research Questions</h2>
+<p>This chapter is organized around two research questions:</p>
+<ol type="1">
+<li>Who are our EAMMi2 participants?</li>
+<li>Where do our participants stand on adulthood status?</li>
+</ol>
+<p>Research Question 1 provides a worked analysis. Research Question 2 asks you to modify the same code patterns for two new variables.</p>
+</section>
+<section id="research-question-1-who-are-our-eammi2-participants" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-1-who-are-our-eammi2-participants">Research Question 1: Who Are Our EAMMi2 Participants?</h2>
+<p>For starters, let’s examine two variables: gender identity and racial identity. Then we will create a frequency table and graph for a quantitative variable: Satisfaction With Life.</p>
+<section id="get-ready" class="level3">
+<h3 class="anchored" data-anchor-id="get-ready">Get Ready</h3>
+<p>This chapter uses <code>scripts/02-frequency-distributions.R</code> in the starter files.</p>
+<section id="open-the-chapter-2-script" class="level4 click-path">
+<h4 class="anchored" data-anchor-id="open-the-chapter-2-script">Open the Chapter 2 script</h4>
+<ol type="1">
+<li>Open <code>exploring-statistics-r.Rproj</code>.</li>
+<li>In the Output pane, select the <strong>Files</strong> tab.</li>
+<li>Open the <code>scripts</code> folder.</li>
+<li>Open <code>02-frequency-distributions.R</code>.</li>
+<li>Run one complete expression at a time as you work through this chapter.</li>
+</ol>
+</section>
+<p>Begin by running the shared setup file.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/_setup.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The first research question uses three variables:</p>
+<table class="caption-top table">
+<caption>Research Question 1 variables</caption>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>What it measures</th>
+<th>Statistical variable type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Gender</code></td>
+<td>Self-reported gender identity</td>
+<td>categorical</td>
+</tr>
+<tr class="even">
+<td><code>Race</code></td>
+<td>Self-reported racial identity</td>
+<td>categorical</td>
+</tr>
+<tr class="odd">
+<td><code>SWLS</code></td>
+<td>Satisfaction With Life Scale score</td>
+<td>quantitative</td>
+</tr>
+</tbody>
+</table>
+<p>Use <a href="../data/codebook.html">Understanding EAMMi2</a> when you need to check a variable’s category codes or possible score range.</p>
+<section id="predict" class="level4">
+<h4 class="anchored" data-anchor-id="predict">Predict</h4>
+<p>Before preparing the variables, record your predictions:</p>
+<ol type="1">
+<li>Which gender category and racial identity category do you expect to appear most often?</li>
+<li>Will a bar chart or histogram be appropriate for <code>Gender</code> and <code>Race</code>?</li>
+<li>Will a bar chart or histogram be appropriate for <code>SWLS</code>?</li>
+</ol>
+</section>
+</section>
+<section id="run-the-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-analysis">Run The Analysis</h3>
+<section id="prepare-gender" class="level4">
+<h4 class="anchored" data-anchor-id="prepare-gender">Prepare Gender</h4>
+<p><code>Gender</code> is stored as the numeric codes <code>1</code>, <code>2</code>, and <code>3</code>. The next code gives those codes readable labels.</p>
+<!-- script-comment: Give the Gender codes readable category labels. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">factor</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      Gender,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Another identity"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This is the <code>mutate()</code> and <code>factor()</code> pattern introduced in Chapter 1. The categories are displayed alphabetically because <code>Gender</code> is nominal and does not have a meaningful low-to-high order.</p>
+</section>
+<section id="prepare-race" class="level4">
+<h4 class="anchored" data-anchor-id="prepare-race">Prepare Race</h4>
+<p>The next block uses the same pattern for <code>Race</code>. Before running it, identify the three parts that changed from the <code>Gender</code> code: the variable name, the original codes, and the displayed labels.</p>
+<!-- script-comment: Give the Race codes readable category labels. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Race =</span> <span class="fu">factor</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      Race,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">1</span>),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"African American"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Another racial identity"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Asian/Pacific Islander"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Hispanic/Latinx"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Multiracial (2 selected)"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Multiracial (3+ selected)"</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Native American"</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"White"</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="create-frequency-tables" class="level4">
+<h4 class="anchored" data-anchor-id="create-frequency-tables">Create Frequency Tables</h4>
+<p>This is the frequency-table code introduced in Chapter 1, with one addition: <code>CumulativePercent</code> adds percentages as you move down the table.</p>
+<!-- script-comment: Count gender responses and add percent and cumulative percent. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gender_table <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Gender, <span class="at">name =</span> <span class="st">"Frequency"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Percent =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> Frequency <span class="sc">/</span> <span class="fu">sum</span>(Frequency), <span class="dv">1</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">CumulativePercent =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">cumsum</span>(Frequency) <span class="sc">/</span> <span class="fu">sum</span>(Frequency), <span class="dv">1</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>gender_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  Gender           Frequency Percent CumulativePercent
+  &lt;fct&gt;                &lt;int&gt;   &lt;dbl&gt;             &lt;dbl&gt;
+1 Another identity        30     1.4               1.4
+2 Female                1524    73.5              75  
+3 Male                   519    25               100  </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="investigate-the-code" class="level3">
+<h3 class="anchored" data-anchor-id="investigate-the-code">Investigate The Code</h3>
+<ul>
+<li><code>Frequency</code> gives the number of participants in each category.</li>
+<li><code>Percent</code> gives each category’s share of the responses.</li>
+<li><code>cumsum(Frequency)</code> creates a running total.</li>
+<li><code>CumulativePercent</code> gives a running total through the displayed rows. For an ordered variable, it can answer questions about the percentage at or below a value. For nominal variables such as <code>Gender</code> and <code>Race</code>, it is only a display total because the categories do not have a low-to-high order.</li>
+</ul>
+<p>Now modify the same pattern for <code>Race</code>.</p>
+<!-- script-comment: Count nonmissing race responses and add percent and cumulative percent. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>race_table <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Race) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Race, <span class="at">name =</span> <span class="st">"Frequency"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Percent =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> Frequency <span class="sc">/</span> <span class="fu">sum</span>(Frequency), <span class="dv">1</span>),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">CumulativePercent =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">cumsum</span>(Frequency) <span class="sc">/</span> <span class="fu">sum</span>(Frequency), <span class="dv">1</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>race_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 4
+  Race                      Frequency Percent CumulativePercent
+  &lt;fct&gt;                         &lt;int&gt;   &lt;dbl&gt;             &lt;dbl&gt;
+1 African American                172     8.3               8.3
+2 Another racial identity          76     3.7              12  
+3 Asian/Pacific Islander          141     6.8              18.8
+4 Hispanic/Latinx                 222    10.7              29.5
+5 Multiracial (2 selected)        173     8.3              37.8
+6 Multiracial (3+ selected)        28     1.4              39.2
+7 Native American                   8     0.4              39.6
+8 White                          1252    60.4             100  </code></pre>
+</div>
+</div>
+<p><code>Race</code> has one missing response. <code>drop_na(Race)</code> leaves out that response so the percentages describe participants who provided a racial identity response.</p>
+<section id="create-bar-charts" class="level4">
+<h4 class="anchored" data-anchor-id="create-bar-charts">Create Bar Charts</h4>
+<p>Both <code>Gender</code> and <code>Race</code> are categorical, so each bar represents a category.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gender_table, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> Frequency)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Self-reported gender"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch2-gender" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Bar chart showing that the female category is much larger than the male and another identity categories.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch2-gender-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-exploring-data_files/figure-html/fig-redesign-ch2-gender-1.png" class="img-fluid figure-img" alt="Bar chart showing that the female category is much larger than the male and another identity categories." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch2-gender-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Number of EAMMi2 participants in each self-reported gender category.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>This repeats the Chapter 1 pattern: name the table in <code>ggplot()</code>, map the category and frequency to the axes in <code>aes()</code>, request bars with <code>geom_col()</code>, and add readable labels with <code>labs()</code>.</p>
+<p>Now apply the same pattern to <code>Race</code>. <code>coord_flip()</code> turns the graph sideways so the longer labels are easier to read.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(race_table, <span class="fu">aes</span>(<span class="at">x =</span> Race, <span class="at">y =</span> Frequency)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Self-reported racial identity"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch2-race" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Horizontal bar chart showing that White is the largest racial identity category in the reduced EAMMi2 sample.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch2-race-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-exploring-data_files/figure-html/fig-redesign-ch2-race-1.png" class="img-fluid figure-img" alt="Horizontal bar chart showing that White is the largest racial identity category in the reduced EAMMi2 sample." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch2-race-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Number of EAMMi2 participants in each self-reported racial identity category.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="examine-satisfaction-with-life" class="level4">
+<h4 class="anchored" data-anchor-id="examine-satisfaction-with-life">Examine Satisfaction With Life</h4>
+<p><code>SWLS</code> contains scores on the Satisfaction With Life Scale. The scale contains five questions, each answered from 1 to 7, so possible total scores range from 5 to 35.</p>
+<p>You might remember from Chapter 2 of your textbook that this is the variable used to introduce frequency distributions and frequency polygons or histograms. If not, now is a good time to reread that section.</p>
+<p>Use <code>class()</code> to check how R currently represents the variable.</p>
+<!-- script-comment: Check how R stores the SWLS variable. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(eammi<span class="sc">$</span>SWLS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>R represents <code>SWLS</code> as numeric. The code below creates a frequency table with the score, frequency, percent, and cumulative percent.</p>
+<!-- script-comment: Count every SWLS score and add percent and cumulative percent. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>swls_table <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(SWLS, <span class="at">name =</span> <span class="st">"Frequency"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Percent =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> Frequency <span class="sc">/</span> <span class="fu">sum</span>(Frequency), <span class="dv">1</span>),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">CumulativePercent =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">cumsum</span>(Frequency) <span class="sc">/</span> <span class="fu">sum</span>(Frequency), <span class="dv">1</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(swls_table, <span class="at">n =</span> <span class="dv">32</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32 × 4
+    SWLS Frequency Percent CumulativePercent
+   &lt;dbl&gt;     &lt;int&gt;   &lt;dbl&gt;             &lt;dbl&gt;
+ 1     0         1     0                 0  
+ 2     5        18     0.9               0.9
+ 3     6        14     0.7               1.6
+ 4     7        12     0.6               2.2
+ 5     8        24     1.2               3.3
+ 6     9        31     1.5               4.8
+ 7    10        39     1.9               6.7
+ 8    11        34     1.6               8.3
+ 9    12        43     2.1              10.4
+10    13        46     2.2              12.6
+11    14        53     2.6              15.2
+12    15        50     2.4              17.6
+13    16        70     3.4              21  
+14    17        64     3.1              24.1
+15    18        91     4.4              28.5
+16    19        87     4.2              32.7
+17    20        94     4.5              37.2
+18    21       105     5.1              42.3
+19    22        94     4.5              46.8
+20    23       118     5.7              52.5
+21    24       115     5.5              58  
+22    25       111     5.4              63.4
+23    26       112     5.4              68.8
+24    27       129     6.2              75  
+25    28       102     4.9              79.9
+26    29        92     4.4              84.4
+27    30       107     5.2              89.5
+28    31        69     3.3              92.9
+29    32        54     2.6              95.5
+30    33        35     1.7              97.2
+31    34        24     1.2              98.3
+32    35        35     1.7             100  </code></pre>
+</div>
+</div>
+</section>
+<section id="pause-and-inspect" class="level4">
+<h4 class="anchored" data-anchor-id="pause-and-inspect">Pause And Inspect</h4>
+<p>Before reading further, scan the first and last rows of the table. Do all observed scores fall between 5 and 35?</p>
+<p>One response has an observed <code>SWLS</code> value of <code>0</code>, outside the possible range. This is not an error in R. Real datasets sometimes contain coding errors, impossible values, or unfinished responses. Examining variables before interpreting them helps us identify these issues.</p>
+<p>The cumulative percent column answers questions such as, “What percent of the sample scored below 20?” The row for <code>SWLS = 19</code> gives the cumulative percentage for scores below 20.</p>
+<p>A frequency table gives exact counts. A histogram makes the shape of a quantitative distribution easier to see.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(eammi, <span class="fu">aes</span>(<span class="at">x =</span> SWLS)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">boundary =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Satisfaction With Life Scale score"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch2-swls" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram showing that Satisfaction With Life Scale scores are concentrated around the low-to-high twenties, with fewer scores at the low end.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch2-swls-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-exploring-data_files/figure-html/fig-redesign-ch2-swls-1.png" class="img-fluid figure-img" alt="Histogram showing that Satisfaction With Life Scale scores are concentrated around the low-to-high twenties, with fewer scores at the low end." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch2-swls-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Distribution of Satisfaction With Life Scale scores in the reduced EAMMi2 sample.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="investigate-the-graph" class="level3">
+<h3 class="anchored" data-anchor-id="investigate-the-graph">Investigate The Graph</h3>
+<p>This graph starts with the original <code>eammi</code> data frame rather than a frequency table. Because <code>SWLS</code> is quantitative, it uses <code>geom_histogram()</code> instead of <code>geom_col()</code>.</p>
+<ul>
+<li><code>geom_col()</code> draws bars from values already calculated in a table.</li>
+<li><code>geom_histogram()</code> groups quantitative scores into intervals and counts the observations in each interval.</li>
+</ul>
+</section>
+<section id="read-the-output" class="level3">
+<h3 class="anchored" data-anchor-id="read-the-output">Read The Output</h3>
+<p>The reduced EAMMi2 sample was comprised of 2,073 respondents between the ages of 18 and 29 years. Of these respondents, a majority identified as female (73.5%, or <em>n</em> = 1,524), with 519 who identified as male (25.0%) and 30 participants who identified as another gender (1.4%). Furthermore, a majority of respondents identified as White (60.4%, or <em>n</em> = 1,252), followed by Hispanic/Latinx (10.7%, or <em>n</em> = 222) and Multiracial (2 selected) (8.3%, or <em>n</em> = 173). Frequencies for all other racial identities are presented in the table.</p>
+<p>Neither the SWLS frequency table nor the histogram gives us all of the information we need by itself. Together, they provide a richer understanding: the table gives exact counts and percentages, while the histogram makes the overall shape easier to see.</p>
+</section>
+<section id="produce-your-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="produce-your-interpretation">Produce Your Interpretation</h3>
+<p>Write a paragraph summarizing <code>SWLS</code>. State the shape of the distribution, the percent of participants who scored below 20, and the most common score. Then compare the distribution with the one presented in Chapter 2 of your textbook.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Reporting sample sizes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Reporting sample sizes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In APA style, use capital <em>N</em> for the entire sample and lower-case <em>n</em> for a subgroup.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="research-question-2-where-do-our-participants-stand-on-adulthood-status" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-2-where-do-our-participants-stand-on-adulthood-status">Research Question 2: Where Do Our Participants Stand On Adulthood Status?</h2>
+<p>As a reminder, EAMMi2 stands for the Emerging Adulthood Measured at Multiple Institutions study, second wave. Where do our participants stand on adulthood status?</p>
+<section id="get-ready-1" class="level3">
+<h3 class="anchored" data-anchor-id="get-ready-1">Get Ready</h3>
+<table class="caption-top table">
+<caption>Research Question 2 variables</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>What it measures</th>
+<th>Statistical variable type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Adult</code></td>
+<td>Whether the participant identifies as an adult</td>
+<td>ordinal categorical</td>
+</tr>
+<tr class="even">
+<td><code>NoLongerHome</code></td>
+<td>Whether the participant has moved out of their parents’ home</td>
+<td>ordinal categorical</td>
+</tr>
+</tbody>
+</table>
+<p>These variables are ordinal, so place their levels in a meaningful order.</p>
+<!-- script-comment: Give the Adult and NoLongerHome codes meaningful ordered labels. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Adult =</span> <span class="fu">factor</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>      Adult,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Maybe"</span>, <span class="st">"Yes"</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">ordered =</span> <span class="cn">TRUE</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">NoLongerHome =</span> <span class="fu">factor</span>(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>      NoLongerHome,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Somewhat"</span>, <span class="st">"Yes"</span>),</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">ordered =</span> <span class="cn">TRUE</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="predict-1" class="level3">
+<h3 class="anchored" data-anchor-id="predict-1">Predict</h3>
+<p>For each variable, predict the most common response. Then decide which graph is appropriate.</p>
+</section>
+<section id="complete-the-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="complete-the-analysis">Complete The Analysis</h3>
+<p>Create a frequency table and graph for each variable. Use Research Question 1 as your model.</p>
+<ol type="1">
+<li>Copy the frequency-table code.</li>
+<li>Create new object names rather than overwriting <code>gender_table</code> or <code>race_table</code>.</li>
+<li>Replace the variable name everywhere it appears.</li>
+<li>Decide whether missing responses should be omitted from the table.</li>
+<li>Copy and modify the bar-chart code.</li>
+<li>Write a short interpretation naming the most common response and reporting counts and percentages.</li>
+</ol>
+<p>Attempt the analysis before using the completed code in Check Your Work.</p>
+</section>
+</section>
+<section id="check-your-work" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-work">Check Your Work</h2>
+<section id="research-question-1" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-1">Research Question 1</h3>
+<p>In the reduced EAMMi2 sample, there was a slight negative skew to Satisfaction With Life Scale scores, with 32.7% of the sample scoring below the midpoint of the scale, or below 20. Furthermore, the most common score was 27 out of a possible 35. This mirrors the distribution presented in Chapter 2 of <em>Exploring Statistics</em>, where 18% of the sample scored below the midpoint and 27 was again the most common score. In short, satisfaction with life appears to be relatively high in both samples.</p>
+</section>
+<section id="research-question-2-code" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-2-code">Research Question 2 Code</h3>
+<!-- script-comment: Check Your Work: create the Adult frequency table. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>adult_table <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Adult) <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Adult, <span class="at">name =</span> <span class="st">"Frequency"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Percent =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> Frequency <span class="sc">/</span> <span class="fu">sum</span>(Frequency), <span class="dv">1</span>),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">CumulativePercent =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">cumsum</span>(Frequency) <span class="sc">/</span> <span class="fu">sum</span>(Frequency), <span class="dv">1</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>adult_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  Adult Frequency Percent CumulativePercent
+  &lt;ord&gt;     &lt;int&gt;   &lt;dbl&gt;             &lt;dbl&gt;
+1 No          147     7.1               7.1
+2 Maybe       518    25                32.1
+3 Yes        1407    67.9             100  </code></pre>
+</div>
+</div>
+<!-- script-comment: Check Your Work: create the NoLongerHome frequency table. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>home_table <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(NoLongerHome) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(NoLongerHome, <span class="at">name =</span> <span class="st">"Frequency"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Percent =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> Frequency <span class="sc">/</span> <span class="fu">sum</span>(Frequency), <span class="dv">1</span>),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">CumulativePercent =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">cumsum</span>(Frequency) <span class="sc">/</span> <span class="fu">sum</span>(Frequency), <span class="dv">1</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>home_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  NoLongerHome Frequency Percent CumulativePercent
+  &lt;ord&gt;            &lt;int&gt;   &lt;dbl&gt;             &lt;dbl&gt;
+1 No                 831    40.5              40.5
+2 Somewhat           656    32                72.5
+3 Yes                565    27.5             100  </code></pre>
+</div>
+</div>
+<p><code>Adult</code> has one missing response, and <code>NoLongerHome</code> has 21 missing responses. <code>drop_na()</code> leaves those responses out of the tables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(adult_table, <span class="fu">aes</span>(<span class="at">x =</span> Adult, <span class="at">y =</span> Frequency)) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Response to 'Are you an adult?'"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch2-check-adult" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Bar chart showing that most participants said yes when asked whether they are an adult.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch2-check-adult-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-exploring-data_files/figure-html/fig-redesign-ch2-check-adult-1.png" class="img-fluid figure-img" alt="Bar chart showing that most participants said yes when asked whether they are an adult." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch2-check-adult-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Number of EAMMi2 participants by self-reported adult status.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(home_table, <span class="fu">aes</span>(<span class="at">x =</span> NoLongerHome, <span class="at">y =</span> Frequency)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Moved out of parents' home"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch2-check-home" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Bar chart showing responses for no, somewhat, and yes to whether participants have moved out of their parents' home.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch2-check-home-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-exploring-data_files/figure-html/fig-redesign-ch2-check-home-1.png" class="img-fluid figure-img" alt="Bar chart showing responses for no, somewhat, and yes to whether participants have moved out of their parents' home." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch2-check-home-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Number of EAMMi2 participants by whether they have moved out of their parents’ home.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="research-question-2-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-2-interpretation">Research Question 2 Interpretation</h3>
+<p>The reduced EAMMi2 sample was comprised of 2,073 respondents between the ages of 18 and 29 years. Of these respondents, a majority identified as an adult (67.9%, or <em>n</em> = 1,407), with 518 who said they were “maybe” an adult (25.0%) and 147 who said they were not an adult (7.1%). Respondents were more evenly distributed in their responses about moving out of their parents’ home: 831 had not moved out (40.5%), 656 had “somewhat” moved out (32.0%), and 565 had moved out (27.5%).</p>
+</section>
+</section>
+<section id="chapter-takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-takeaway">Chapter Takeaway</h2>
+<p>Frequency tables and graphs help us organize a distribution before interpreting it. For categorical variables, frequency tables and bar charts show how many people fall into each category. For quantitative variables, a frequency table provides exact counts while a histogram shows the distribution’s shape.</p>
+<p>In this chapter, we focused on these new R commands:</p>
+<ul>
+<li><code>cumsum()</code> creates cumulative totals used for cumulative percentages.</li>
+<li><code>drop_na()</code> omits missing responses from a specific analysis.</li>
+<li><code>class()</code> shows how R represents a variable.</li>
+<li><code>geom_histogram()</code> creates a histogram for a quantitative variable.</li>
+<li><code>coord_flip()</code> turns a graph sideways when category labels are long.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/01-introduction.html" class="pagination-link" aria-label="Chapter 1: Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chapter 1: Introduction</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/03-04-central-tendency-variability.html" class="pagination-link" aria-label="Chapters 3 and 4: Central Tendency And Variability">
+        <span class="nav-page-text">Chapters 3 and 4: Central Tendency And Variability</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a> and R</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

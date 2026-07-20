@@ -69,22 +69,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/01-getting-started.html" rel="next">
-<link href="../chapters/00-intro-to-r.html" rel="prev">
+<link href="../chapters/01-introduction.html" rel="next">
+<link href="../start/02-run-your-first-script.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-39d72d2d8fc74c86a6f3fad29307908e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-92eb9d6b9ba6868aca9c04a4b27d82cd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-7d4bf5ba88f0d43632e1ea06990e7a45.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-92eb9d6b9ba6868aca9c04a4b27d82cd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -117,169 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -301,24 +135,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../chapters/01-getting-started.html"> 
-<span class="menu-text">Chapters</span></a>
+    <a class="nav-link" href="../start/00-choose-your-path.html"> 
+<span class="menu-text">Start Here</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../data/codebook.html"> 
-<span class="menu-text">Understanding EAMMi2</span></a>
+    <a class="nav-link" href="../reference/r-command-index.html"> 
+<span class="menu-text">R Reference</span></a>
   </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/axxe/exploring-statistics-r"> <i class="bi bi-github" role="img" aria-label="GitHub source repository">
-</i> 
-<span class="menu-text"></span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../instructor/instructor-guide.html"> 
+<span class="menu-text">Instructor Guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -361,8 +191,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00-intro-to-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Intro to R</span></a>
+  <a href="../start/00-choose-your-path.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choose Your Path</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/01-set-up-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Set Up RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/02-run-your-first-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Run Your First Script</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -384,86 +226,120 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01-getting-started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+  <a href="../chapters/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 1: Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02-frequency-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring Data: Frequency Distributions and Graphs</span></a>
+  <a href="../chapters/02-exploring-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 2: Exploring Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring Data: Central Tendency and Variability</span></a>
+ <span class="menu-text">Chapters 3 and 4: Central Tendency And Variability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05-other-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Other Descriptive Statistics</span></a>
+ <span class="menu-text">Chapter 5: Other Descriptive Statistics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06-correlation-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Correlation and Regression</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07-probability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Probability</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/08-sampling-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sampling Distributions</span></a>
+ <span class="menu-text">Chapter 6: Correlation and Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09-one-sample-designs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">One-Sample Designs</span></a>
+ <span class="menu-text">Chapter 9: One-Sample Designs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10-two-sample-designs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Sample Designs</span></a>
+ <span class="menu-text">Chapter 10: Two-Sample Designs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/11-anova-independent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analysis of Variance: Independent Samples</span></a>
+  <a href="../chapters/11-independent-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 11: Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/12-anova-repeated.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analysis of Variance: Repeated Measures</span></a>
+  <a href="../chapters/12-repeated-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 12: Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13-two-way-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Way Independent Analysis of Variance</span></a>
+ <span class="menu-text">Chapter 13: Two-Way Independent Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14-chi-square.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chi-Square Tests</span></a>
+ <span class="menu-text">Chapter 14: Chi-Square Tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/15-nonparametric.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">More Nonparametric Tests</span></a>
+  <a href="../chapters/15-nonparametric-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 15: Nonparametric Statistics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">R help and reference</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/r-command-index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Command Index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Troubleshooting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/statistical-language.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Language</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Instructor resources</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/instructor-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instructor Guide</span></a>
   </div>
 </li>
       </ul>
@@ -491,7 +367,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
-
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Start here</a></li><li class="breadcrumb-item"><a href="../data/codebook.html">Understanding EAMMi2</a></li></ol></nav>
 <div class="quarto-title">
@@ -544,7 +419,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This workbook uses a reduced version of the original EAMMi2 data. The data file includes a subset of variables selected to allow you to conduct the types of analyses covered in <em>Exploring Statistics</em>.</p>
 <p>The name of the data file used throughout this workbook is <code>EAMMi2-REDUCED.csv</code>. It is included in the starter files.</p>
 <p>You are encouraged to save the starter folder somewhere on your computer where you can easily find it throughout your time in this course.</p>
-<p>If you are new to R, start with <a href="../chapters/00-intro-to-r.html">Intro to R</a> and run <code>scripts/00-open-and-check-data.R</code> before working through the chapters.</p>
+<p>If you are new to R, begin with <a href="../start/00-choose-your-path.html">Choose Your Path</a> and run <code>scripts/00-open-and-check-data.R</code> before working through the chapters.</p>
 <p>Download the starter files here:</p>
 <p><a href="../downloads/esr-starter.zip" class="btn btn-primary" role="button">Download starter files</a></p>
 <p>In the next sections, you will find a codebook for the data set. The codebook describes the variables used in the reduced data set and tells you how each variable is represented in the data file.</p>
@@ -554,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The starter files include the data set and the R scripts. Open <code>exploring-statistics-r.Rproj</code>, then run the setup line at the top of a chapter script:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/_setup.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The setup line creates a data frame named <code>eammi</code>. Most chapter scripts begin with this same line.</p>
-<p>The data frame contains 39 variables. A more detailed variable dictionary is available as <a href="variable-dictionary.csv"><code>variable-dictionary.csv</code></a>.</p>
+<p>The data frame contains 39 variables.</p>
 </section>
 <section id="reading-coded-categories" class="level2">
 <h2 class="anchored" data-anchor-id="reading-coded-categories">Reading Coded Categories</h2>
@@ -666,7 +541,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td><span id="var-mindfulness"></span><code>Mindfulness</code></td>
 <td>Answers to the 15-item Mindful Attention Awareness Scale. Sample item: “I do jobs or tasks automatically, without being aware of what I’m doing.”</td>
-<td>Each item was rated on a scale of 1 = almost always to 8 = almost never. The final Mindfulness score is the sum of all 15 items, with a possible range of 15-120.</td>
+<td>The final Mindfulness score is an average rating across items. Higher scores indicate greater mindfulness.</td>
 </tr>
 <tr class="odd">
 <td><span id="var-belonging"></span><code>Belonging</code></td>
@@ -792,19 +667,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
-    }
-    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -1210,13 +1072,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/00-intro-to-r.html" class="pagination-link" aria-label="Intro to R">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Intro to R</span>
+      <a href="../start/02-run-your-first-script.html" class="pagination-link" aria-label="Run Your First Script">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Run Your First Script</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/01-getting-started.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/01-introduction.html" class="pagination-link" aria-label="Chapter 1: Introduction">
+        <span class="nav-page-text">Chapter 1: Introduction</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1224,7 +1086,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Instructor resource for <em>Exploring Statistics: Tales of Distributions</em></p>
+<p>Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

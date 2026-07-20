@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Use correlations, simple linear regression, and scatterplots to examine stress and social support.">
+<meta name="description" content="A running reference for R commands and the chapter where each one is introduced.">
 
-<title>Chapter 6: Correlation and Regression – Exploring Statistics with R</title>
+<title>R Command Index – Exploring Statistics with R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -69,8 +69,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/09-one-sample-designs.html" rel="next">
-<link href="../chapters/05-other-descriptive-statistics.html" rel="prev">
+<link href="../reference/troubleshooting.html" rel="next">
+<link href="../chapters/15-nonparametric-statistics.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -162,7 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/06-correlation-regression.html">Chapter 6: Correlation and Regression</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/r-command-index.html">R help and reference</a></li><li class="breadcrumb-item"><a href="../reference/r-command-index.html">R Command Index</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -217,13 +217,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Workbook chapters</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01-introduction.html" class="sidebar-item-text sidebar-link">
@@ -250,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06-correlation-regression.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapters/06-correlation-regression.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapter 6: Correlation and Regression</span></a>
   </div>
 </li>
@@ -300,16 +300,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">R help and reference</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/r-command-index.html" class="sidebar-item-text sidebar-link">
+  <a href="../reference/r-command-index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">R Command Index</span></a>
   </div>
 </li>
@@ -354,46 +354,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning Goals</a></li>
-  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">Research Questions</a></li>
-  <li><a href="#research-question-1-stress-and-social-support" id="toc-research-question-1-stress-and-social-support" class="nav-link" data-scroll-target="#research-question-1-stress-and-social-support">Research Question 1: Stress and Social Support</a>
+  <li><a href="#start-here-commands" id="toc-start-here-commands" class="nav-link active" data-scroll-target="#start-here-commands">Start Here Commands</a></li>
+  <li><a href="#how-to-read-the-examples" id="toc-how-to-read-the-examples" class="nav-link" data-scroll-target="#how-to-read-the-examples">How To Read The Examples</a></li>
+  <li><a href="#chapter-commands" id="toc-chapter-commands" class="nav-link" data-scroll-target="#chapter-commands">Chapter Commands</a>
   <ul class="collapse">
-  <li><a href="#get-ready" id="toc-get-ready" class="nav-link" data-scroll-target="#get-ready">Get Ready</a></li>
-  <li><a href="#predict" id="toc-predict" class="nav-link" data-scroll-target="#predict">Predict</a></li>
-  <li><a href="#run" id="toc-run" class="nav-link" data-scroll-target="#run">Run</a></li>
-  <li><a href="#investigate" id="toc-investigate" class="nav-link" data-scroll-target="#investigate">Investigate</a></li>
-  <li><a href="#fit-regression-models" id="toc-fit-regression-models" class="nav-link" data-scroll-target="#fit-regression-models">Fit Regression Models</a></li>
-  <li><a href="#produce" id="toc-produce" class="nav-link" data-scroll-target="#produce">Produce</a></li>
+  <li><a href="#chapters-1-and-2-inspect-label-tabulate-and-graph" id="toc-chapters-1-and-2-inspect-label-tabulate-and-graph" class="nav-link" data-scroll-target="#chapters-1-and-2-inspect-label-tabulate-and-graph">Chapters 1 And 2: Inspect, Label, Tabulate, And Graph</a></li>
+  <li><a href="#chapters-3-5-describe-distributions" id="toc-chapters-3-5-describe-distributions" class="nav-link" data-scroll-target="#chapters-3-5-describe-distributions">Chapters 3-5: Describe Distributions</a></li>
+  <li><a href="#chapters-6-9-and-10-correlation-and-t-tests" id="toc-chapters-6-9-and-10-correlation-and-t-tests" class="nav-link" data-scroll-target="#chapters-6-9-and-10-correlation-and-t-tests">Chapters 6, 9, And 10: Correlation And t Tests</a></li>
+  <li><a href="#chapters-11-14-anova-and-chi-square" id="toc-chapters-11-14-anova-and-chi-square" class="nav-link" data-scroll-target="#chapters-11-14-anova-and-chi-square">Chapters 11-14: ANOVA And Chi-Square</a></li>
+  <li><a href="#chapter-15-nonparametric-statistics" id="toc-chapter-15-nonparametric-statistics" class="nav-link" data-scroll-target="#chapter-15-nonparametric-statistics">Chapter 15: Nonparametric Statistics</a></li>
   </ul></li>
-  <li><a href="#research-question-2-choose-a-relationship" id="toc-research-question-2-choose-a-relationship" class="nav-link" data-scroll-target="#research-question-2-choose-a-relationship">Research Question 2: Choose a Relationship</a>
-  <ul class="collapse">
-  <li><a href="#predict-1" id="toc-predict-1" class="nav-link" data-scroll-target="#predict-1">Predict</a></li>
-  <li><a href="#run-1" id="toc-run-1" class="nav-link" data-scroll-target="#run-1">Run</a></li>
-  <li><a href="#investigate-1" id="toc-investigate-1" class="nav-link" data-scroll-target="#investigate-1">Investigate</a></li>
-  <li><a href="#check-the-code-and-labels" id="toc-check-the-code-and-labels" class="nav-link" data-scroll-target="#check-the-code-and-labels">Check The Code And Labels</a></li>
-  <li><a href="#produce-1" id="toc-produce-1" class="nav-link" data-scroll-target="#produce-1">Produce</a></li>
-  </ul></li>
-  <li><a href="#check-your-work" id="toc-check-your-work" class="nav-link" data-scroll-target="#check-your-work">Check Your Work</a>
-  <ul class="collapse">
-  <li><a href="#research-question-1" id="toc-research-question-1" class="nav-link" data-scroll-target="#research-question-1">Research Question 1</a></li>
-  <li><a href="#research-question-2" id="toc-research-question-2" class="nav-link" data-scroll-target="#research-question-2">Research Question 2</a></li>
-  </ul></li>
-  <li><a href="#chapter-takeaway" id="toc-chapter-takeaway" class="nav-link" data-scroll-target="#chapter-takeaway">Chapter Takeaway</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/06-correlation-regression.html">Chapter 6: Correlation and Regression</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/r-command-index.html">R help and reference</a></li><li class="breadcrumb-item"><a href="../reference/r-command-index.html">R Command Index</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Chapter 6: Correlation and Regression</h1>
-<p class="subtitle lead">Associations, prediction, and scatterplots</p>
+<h1 class="title">R Command Index</h1>
+<p class="subtitle lead">Where to review the R patterns used in the workbook</p>
 </div>
 
 <div>
   <div class="description">
-    Use correlations, simple linear regression, and scatterplots to examine stress and social support.
+    A running reference for R commands and the chapter where each one is introduced.
   </div>
 </div>
 
@@ -410,316 +395,517 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Chapter 6 of <em>Exploring Statistics</em> introduces correlation and simple linear regression. We will ask whether perceived stress travels together with social support from family, friends, and a special someone, then use a regression line to describe the same relationships from a new angle.</p>
-<section id="learning-goals" class="level2">
-<h2 class="anchored" data-anchor-id="learning-goals">Learning Goals</h2>
-<p>By the end of this chapter, you should be able to:</p>
-<ul>
-<li>calculate and interpret Pearson correlation coefficients;</li>
-<li>calculate and interpret shared variance with (r^2);</li>
-<li>fit a simple linear regression model;</li>
-<li>interpret the intercept and slope from a regression model;</li>
-<li>create a scatterplot with a line of best fit; and</li>
-<li>write a short interpretation of correlation and regression output.</li>
-</ul>
-</section>
-<section id="research-questions" class="level2">
-<h2 class="anchored" data-anchor-id="research-questions">Research Questions</h2>
-<ol type="1">
-<li>A large research literature supports a negative correlation between social support and experiences of stress. Does this correlation exist across different sources of social support for emerging adults?</li>
-<li>Choose two quantitative EAMMi2 variables that interest you. What do a correlation and a linear regression reveal about their relationship?</li>
-</ol>
-</section>
-<section id="research-question-1-stress-and-social-support" class="level2">
-<h2 class="anchored" data-anchor-id="research-question-1-stress-and-social-support">Research Question 1: Stress and Social Support</h2>
-<p>In the EAMMi2 study, perceived social support was measured across three sources: family, friends, and a “special someone.” We will correlate each source of social support with scores on the Perceived Stress Scale.</p>
-<section id="get-ready" class="level3">
-<h3 class="anchored" data-anchor-id="get-ready">Get Ready</h3>
-<p>Open <code>06-correlation-regression.R</code> from the <code>scripts</code> folder. Run the shared setup line first, and then run the script one section at a time as you work through this chapter.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/_setup.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>This research question uses four quantitative variables:</p>
+<p>Use this page when you recognize a command but need a reminder about what it does. The index records where each command is first explained. Later chapters may reuse a command without teaching it again.</p>
+<section id="start-here-commands" class="level2">
+<h2 class="anchored" data-anchor-id="start-here-commands">Start Here Commands</h2>
 <table class="caption-top table">
-<caption>Variables used in Research Question 1</caption>
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>Variable</th>
-<th>What it measures</th>
-<th>Role in the analysis</th>
+<th>Command or pattern</th>
+<th>What it does</th>
+<th>First explained</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>Stress</code></td>
-<td>Perceived stress over the last month</td>
-<td>outcome</td>
+<td><code>&lt;-</code></td>
+<td>Stores a result in a named object.</td>
+<td><a href="../start/02-run-your-first-script.html#objects-names-r-remembers">Run Your First Script</a></td>
 </tr>
 <tr class="even">
-<td><code>SupportFamily</code></td>
-<td>Perceived social support from family</td>
-<td>predictor</td>
+<td><code>#</code></td>
+<td>Adds a comment for readers. R ignores the rest of that line.</td>
+<td><a href="../start/02-run-your-first-script.html#comments-notes-for-readers">Run Your First Script</a></td>
 </tr>
 <tr class="odd">
-<td><code>SupportFriends</code></td>
-<td>Perceived social support from friends</td>
-<td>predictor</td>
+<td><code>|&gt;</code></td>
+<td>Passes the result of one step into the next step.</td>
+<td><a href="../start/02-run-your-first-script.html#the-pipe-work-from-left-to-right">Run Your First Script</a></td>
 </tr>
 <tr class="even">
-<td><code>SupportSpecial</code></td>
-<td>Perceived social support from a special someone</td>
-<td>predictor</td>
+<td><code>nrow()</code></td>
+<td>Counts observations in a data frame.</td>
+<td><a href="../start/02-run-your-first-script.html#data-frames-observations-and-variables">Run Your First Script</a></td>
+</tr>
+<tr class="odd">
+<td><code>ncol()</code></td>
+<td>Counts variables in a data frame.</td>
+<td><a href="../start/02-run-your-first-script.html#data-frames-observations-and-variables">Run Your First Script</a></td>
+</tr>
+<tr class="even">
+<td><code>names()</code></td>
+<td>Lists variable names in a data frame.</td>
+<td><a href="../start/02-run-your-first-script.html#data-frames-observations-and-variables">Run Your First Script</a></td>
+</tr>
+<tr class="odd">
+<td><code>count()</code></td>
+<td>Counts how often values or categories occur.</td>
+<td><a href="../start/02-run-your-first-script.html#the-pipe-work-from-left-to-right">Run Your First Script</a></td>
 </tr>
 </tbody>
 </table>
-<p>Review these variables in <a href="../data/codebook.html#var-stress">Understanding EAMMi2</a> when you need their possible scores or survey descriptions.</p>
 </section>
-<section id="predict" class="level3">
-<h3 class="anchored" data-anchor-id="predict">Predict</h3>
-<p>Before running any code, write down your predictions:</p>
-<ul>
-<li>Should each relationship be positive, negative, or close to zero?</li>
-<li>Which source of support do you expect to have the strongest relationship with stress?</li>
-<li>What would a negative correlation mean for these variables?</li>
-</ul>
-<p>These are predictions, not answers. The purpose is to make your expectations visible before you inspect the data.</p>
+<section id="how-to-read-the-examples" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-read-the-examples">How To Read The Examples</h2>
+<p>R functions use parentheses:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">function_name</span>(object, <span class="at">option =</span> value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Pipes organize a sequence from left to right:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_object <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">first_step</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">next_step</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Assignment saves a result so it can be inspected or reused:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>result_name <span class="ot">&lt;-</span> data_object <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">analysis_step</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="run" class="level3">
-<h3 class="anchored" data-anchor-id="run">Run</h3>
-<p>Begin with the relationship between stress and family support.</p>
-<!-- script-comment: Calculate the correlation between stress and family support. -->
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>family_correlation <span class="ot">&lt;-</span> <span class="fu">cor</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  eammi<span class="sc">$</span>Stress,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  eammi<span class="sc">$</span>SupportFamily,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">use =</span> <span class="st">"complete.obs"</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>family_correlation</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.03098761</code></pre>
-</div>
-</div>
-<p><code>cor()</code> calculates a Pearson correlation coefficient. The two variables identify the scores to correlate. <code>use = "complete.obs"</code> tells R to use observations that have scores for both variables.</p>
-<p>Now calculate several correlations at once.</p>
-<!-- script-comment: Build a correlation matrix for stress and all three support variables. -->
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>support_correlations <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Stress, SupportFamily, SupportFriends, SupportSpecial) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>support_correlations</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                    Stress SupportFamily SupportFriends SupportSpecial
-Stress          1.00000000   -0.03098761     0.01778431     0.08823717
-SupportFamily  -0.03098761    1.00000000     0.59775855     0.36507167
-SupportFriends  0.01778431    0.59775855     1.00000000     0.43018407
-SupportSpecial  0.08823717    0.36507167     0.43018407     1.00000000</code></pre>
-</div>
-</div>
-<p><code>select()</code> keeps the four variables needed for this analysis. <code>cor()</code> then creates a correlation matrix. Because each pair can have a different pattern of missing scores, <code>use = "pairwise.complete.obs"</code> uses the available complete pairs for each correlation.</p>
+<section id="chapter-commands" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-commands">Chapter Commands</h2>
+<section id="chapters-1-and-2-inspect-label-tabulate-and-graph" class="level3">
+<h3 class="anchored" data-anchor-id="chapters-1-and-2-inspect-label-tabulate-and-graph">Chapters 1 And 2: Inspect, Label, Tabulate, And Graph</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Command or pattern</th>
+<th>What it does</th>
+<th>First explained</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>source()</code></td>
+<td>Runs code saved in another script.</td>
+<td><a href="../chapters/01-introduction.html#get-ready">Chapter 1</a></td>
+</tr>
+<tr class="even">
+<td><code>dim()</code></td>
+<td>Reports observations and variables together.</td>
+<td><a href="../chapters/01-introduction.html#inspect-the-dataset">Chapter 1</a></td>
+</tr>
+<tr class="odd">
+<td><code>factor()</code></td>
+<td>Gives category codes readable labels and an order.</td>
+<td><a href="../chapters/01-introduction.html#understand-variable-types">Chapter 1</a></td>
+</tr>
+<tr class="even">
+<td><code>$</code></td>
+<td>Selects one variable inside a data frame.</td>
+<td><a href="../chapters/01-introduction.html#investigate-the-code-1">Chapter 1</a></td>
+</tr>
+<tr class="odd">
+<td><code>levels()</code></td>
+<td>Shows the labels and order of a factor.</td>
+<td><a href="../chapters/01-introduction.html#understand-variable-types">Chapter 1</a></td>
+</tr>
+<tr class="even">
+<td><code>mutate()</code></td>
+<td>Changes or creates variables.</td>
+<td><a href="../chapters/01-introduction.html#understand-variable-types">Chapter 1</a></td>
+</tr>
+<tr class="odd">
+<td><code>ggplot()</code> + <code>aes()</code></td>
+<td>Starts a graph and maps variables to visual positions.</td>
+<td><a href="../chapters/01-introduction.html#create-a-bar-chart">Chapter 1</a></td>
+</tr>
+<tr class="even">
+<td><code>geom_col()</code></td>
+<td>Creates bars from values already calculated in a table.</td>
+<td><a href="../chapters/01-introduction.html#create-a-bar-chart">Chapter 1</a></td>
+</tr>
+<tr class="odd">
+<td><code>labs()</code></td>
+<td>Adds readable graph labels.</td>
+<td><a href="../chapters/01-introduction.html#create-a-bar-chart">Chapter 1</a></td>
+</tr>
+<tr class="even">
+<td><code>class()</code></td>
+<td>Shows how R represents an object or variable.</td>
+<td><a href="../chapters/02-exploring-data.html#examine-satisfaction-with-life">Chapter 2</a></td>
+</tr>
+<tr class="odd">
+<td><code>cumsum()</code></td>
+<td>Creates a running total.</td>
+<td><a href="../chapters/02-exploring-data.html#create-frequency-tables">Chapter 2</a></td>
+</tr>
+<tr class="even">
+<td><code>drop_na()</code></td>
+<td>Omits observations missing specified values from an analysis.</td>
+<td><a href="../chapters/02-exploring-data.html#create-frequency-tables">Chapter 2</a></td>
+</tr>
+<tr class="odd">
+<td><code>geom_histogram()</code></td>
+<td>Groups quantitative scores into intervals and graphs their frequencies.</td>
+<td><a href="../chapters/02-exploring-data.html#examine-satisfaction-with-life">Chapter 2</a></td>
+</tr>
+<tr class="even">
+<td><code>coord_flip()</code></td>
+<td>Turns a graph so long category labels are easier to read.</td>
+<td><a href="../chapters/02-exploring-data.html#create-bar-charts">Chapter 2</a></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="investigate" class="level3">
-<h3 class="anchored" data-anchor-id="investigate">Investigate</h3>
-<p>The same variables appear in the rows and columns of a correlation matrix. Find the point where the row for one variable meets the column for the other variable. The values above and below the diagonal repeat the same correlations.</p>
-<p>Use the matrix to answer these questions:</p>
-<ul>
-<li>What is the <em>r</em> value for stress and family support?</li>
-<li>What is the <em>r</em> value for stress and friend support?</li>
-<li>What is the <em>r</em> value for stress and support from a special someone?</li>
-<li>What is the <em>r</em> value for family support and friend support?</li>
-<li>Which of your predictions were supported?</li>
-</ul>
-<p>For each relationship with stress, identify its direction and strength. A correlation describes an association; it does not show that one variable causes the other.</p>
-<p>Now calculate shared variance.</p>
-<!-- script-comment: Square every correlation to calculate shared variance. -->
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>support_correlations<span class="sc">^</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                     Stress SupportFamily SupportFriends SupportSpecial
-Stress         1.0000000000  0.0009602322   0.0003162818    0.007785799
-SupportFamily  0.0009602322  1.0000000000   0.3573152820    0.133277327
-SupportFriends 0.0003162818  0.3573152820   1.0000000000    0.185058336
-SupportSpecial 0.0077857990  0.1332773269   0.1850583360    1.000000000</code></pre>
-</div>
-</div>
-<p>In R, <code>^2</code> means “squared.” Squaring <em>r</em> gives (r^2), the proportion of variance shared by two variables. Multiply (r^2) by 100 to describe the percentage of shared variance.</p>
+<section id="chapters-3-5-describe-distributions" class="level3">
+<h3 class="anchored" data-anchor-id="chapters-3-5-describe-distributions">Chapters 3-5: Describe Distributions</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Command or pattern</th>
+<th>What it does</th>
+<th>First explained</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>filter()</code></td>
+<td>Keeps observations that meet a condition.</td>
+<td><a href="../chapters/03-04-central-tendency-variability.html#check-the-data">Chapters 3 and 4</a></td>
+</tr>
+<tr class="even">
+<td><code>group_by()</code></td>
+<td>Requests later calculations separately for each group.</td>
+<td><a href="../chapters/03-04-central-tendency-variability.html#inspect-the-observed-range">Chapters 3 and 4</a></td>
+</tr>
+<tr class="odd">
+<td><code>summarise()</code></td>
+<td>Reduces observations to named summary values.</td>
+<td><a href="../chapters/03-04-central-tendency-variability.html#inspect-the-observed-range">Chapters 3 and 4</a></td>
+</tr>
+<tr class="even">
+<td><code>n()</code></td>
+<td>Counts observations inside a summary.</td>
+<td><a href="../chapters/03-04-central-tendency-variability.html#inspect-the-observed-range">Chapters 3 and 4</a></td>
+</tr>
+<tr class="odd">
+<td><code>mean()</code>, <code>median()</code>, <code>sd()</code></td>
+<td>Calculate center and variability.</td>
+<td><a href="../chapters/03-04-central-tendency-variability.html#inspect-the-observed-range">Chapters 3 and 4</a></td>
+</tr>
+<tr class="even">
+<td><code>min()</code>, <code>max()</code></td>
+<td>Find the observed endpoints.</td>
+<td><a href="../chapters/03-04-central-tendency-variability.html#inspect-the-observed-range">Chapters 3 and 4</a></td>
+</tr>
+<tr class="odd">
+<td><code>sum()</code>, <code>is.na()</code></td>
+<td>Count missing values when they matter to a summary.</td>
+<td><a href="../chapters/03-04-central-tendency-variability.html#inspect-the-observed-range">Chapters 3 and 4</a></td>
+</tr>
+<tr class="even">
+<td><code>facet_wrap()</code></td>
+<td>Repeats a graph in separate group panels.</td>
+<td><a href="../chapters/03-04-central-tendency-variability.html#compare-distribution-shapes">Chapters 3 and 4</a></td>
+</tr>
+<tr class="odd">
+<td><code>statistical_mode()</code></td>
+<td>Returns the most common observed value. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/03-04-central-tendency-variability.html#investigate-the-code">Chapters 3 and 4</a></td>
+</tr>
+<tr class="even">
+<td><code>head()</code></td>
+<td>Displays the first observations or values in an object.</td>
+<td><a href="../chapters/05-other-descriptive-statistics.html#create-z-scores">Chapter 5</a></td>
+</tr>
+<tr class="odd">
+<td><code>quantile()</code></td>
+<td>Calculates quartiles or other percentiles.</td>
+<td><a href="../chapters/05-other-descriptive-statistics.html#investigate-the-code">Chapter 5</a></td>
+</tr>
+<tr class="even">
+<td><code>IQR()</code></td>
+<td>Calculates the interquartile range.</td>
+<td><a href="../chapters/05-other-descriptive-statistics.html#investigate-the-code">Chapter 5</a></td>
+</tr>
+<tr class="odd">
+<td><code>geom_boxplot()</code></td>
+<td>Creates a boxplot.</td>
+<td><a href="../chapters/05-other-descriptive-statistics.html#identify-potential-outliers-with-iqr">Chapter 5</a></td>
+</tr>
+<tr class="even">
+<td><code>independent_cohens_d()</code></td>
+<td>Calculates Cohen’s <em>d</em> for two independent groups. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/05-other-descriptive-statistics.html#calculate-cohens-d">Chapter 5</a></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="fit-regression-models" class="level3">
-<h3 class="anchored" data-anchor-id="fit-regression-models">Fit Regression Models</h3>
-<p>Next, examine the same relationships through simple linear regression. Start with family support.</p>
-<!-- script-comment: Predict stress from family support with a linear model. -->
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>family_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Stress <span class="sc">~</span> SupportFamily, <span class="at">data =</span> eammi)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coefficients</span>(family_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  (Intercept) SupportFamily 
-  33.20246513   -0.09481975 </code></pre>
-</div>
-</div>
-<p><code>lm()</code> fits a linear model. R formulas follow the pattern <code>outcome ~ predictor</code>, which you can read as “outcome predicted by predictor.” Here, <code>Stress</code> is the outcome and <code>SupportFamily</code> is the predictor. <code>coefficients()</code> shows the intercept, (a), and slope, (b).</p>
-<p>Interpret the coefficients before continuing:</p>
-<ul>
-<li>The intercept is the predicted stress score when family support equals 0.</li>
-<li>The slope is the predicted change in stress for a 1-unit increase in family support.</li>
-</ul>
-<p>Now copy the model, give the new object a clear name, and replace only the predictor. Compare your code with these completed versions after you try it.</p>
-<!-- script-comment: Refit the same model pattern with friend and special-someone support. -->
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>friends_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Stress <span class="sc">~</span> SupportFriends, <span class="at">data =</span> eammi)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>special_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Stress <span class="sc">~</span> SupportSpecial, <span class="at">data =</span> eammi)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">coefficients</span>(friends_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   (Intercept) SupportFriends 
-   32.38134098     0.05486374 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coefficients</span>(special_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   (Intercept) SupportSpecial 
-    31.4298333      0.2238189 </code></pre>
-</div>
-</div>
-<p>Create a scatterplot for the family-support model.</p>
-<!-- script-comment: Add observed points, then layer the fitted regression line on the same graph. -->
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Stress, SupportFamily) <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SupportFamily, <span class="at">y =</span> Stress)) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Perceived social support from family"</span>,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Perceived stress score"</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-rd-ch6-family-scatter" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatterplot of perceived family support and stress scores with a nearly flat line of best fit, showing almost no linear relationship.">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-rd-ch6-family-scatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="06-correlation-regression_files/figure-html/fig-rd-ch6-family-scatter-1.png" class="img-fluid figure-img" alt="Scatterplot of perceived family support and stress scores with a nearly flat line of best fit, showing almost no linear relationship." width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rd-ch6-family-scatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Perceived stress by perceived social support from family.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>The <code>+</code> signs build one graph by adding layers in order. <code>geom_point()</code> adds the observed pairs of scores, and <code>geom_smooth(method = "lm", formula = y ~ x, se = FALSE)</code> places the fitted regression line over those points. <code>labs()</code> then adds readable labels. The plot places the predictor on the x-axis and the outcome on the y-axis, matching <code>Stress ~ SupportFamily</code>.</p>
-<p>Modify this graph twice: first replace <code>SupportFamily</code> with <code>SupportFriends</code>, and then replace it with <code>SupportSpecial</code>. Update the axis label each time. Check whether each line rises, falls, or stays nearly flat.</p>
+<section id="chapters-6-9-and-10-correlation-and-t-tests" class="level3">
+<h3 class="anchored" data-anchor-id="chapters-6-9-and-10-correlation-and-t-tests">Chapters 6, 9, And 10: Correlation And t Tests</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Command or pattern</th>
+<th>What it does</th>
+<th>First explained</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>select()</code></td>
+<td>Keeps specified variables.</td>
+<td><a href="../chapters/06-correlation-regression.html#run">Chapter 6</a></td>
+</tr>
+<tr class="even">
+<td><code>cor()</code></td>
+<td>Calculates Pearson correlation coefficients.</td>
+<td><a href="../chapters/06-correlation-regression.html#run">Chapter 6</a></td>
+</tr>
+<tr class="odd">
+<td><code>outcome ~ predictor</code></td>
+<td>Identifies the outcome and predictor in an R model formula.</td>
+<td><a href="../chapters/06-correlation-regression.html#fit-regression-models">Chapter 6</a></td>
+</tr>
+<tr class="even">
+<td><code>lm()</code></td>
+<td>Fits a linear model.</td>
+<td><a href="../chapters/06-correlation-regression.html#fit-regression-models">Chapter 6</a></td>
+</tr>
+<tr class="odd">
+<td><code>coefficients()</code></td>
+<td>Shows a model’s intercept and slope.</td>
+<td><a href="../chapters/06-correlation-regression.html#fit-regression-models">Chapter 6</a></td>
+</tr>
+<tr class="even">
+<td><code>geom_point()</code>, <code>geom_smooth()</code></td>
+<td>Add observed score pairs and a fitted line.</td>
+<td><a href="../chapters/06-correlation-regression.html#fit-regression-models">Chapter 6</a></td>
+</tr>
+<tr class="odd">
+<td><code>t.test()</code></td>
+<td>Conducts a <em>t</em> test.</td>
+<td><a href="../chapters/09-one-sample-designs.html#run">Chapter 9</a></td>
+</tr>
+<tr class="even">
+<td><code>sample_skewness()</code></td>
+<td>Calculates sample skewness. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/09-one-sample-designs.html#run">Chapter 9</a></td>
+</tr>
+<tr class="odd">
+<td><code>cohens_d()</code></td>
+<td>Divides a mean difference by a standard deviation. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/09-one-sample-designs.html#calculate-cohens-d">Chapter 9</a></td>
+</tr>
+<tr class="even">
+<td><code>mu =</code></td>
+<td>Supplies the comparison value for a one-sample test.</td>
+<td><a href="../chapters/09-one-sample-designs.html#run">Chapter 9</a></td>
+</tr>
+<tr class="odd">
+<td><code>alternative = "two.sided"</code></td>
+<td>Requests a non-directional test.</td>
+<td><a href="../chapters/09-one-sample-designs.html#run">Chapter 9</a></td>
+</tr>
+<tr class="even">
+<td><code>$conf.int</code></td>
+<td>Retrieves the confidence interval stored in a test object.</td>
+<td><a href="../chapters/09-one-sample-designs.html#calculate-cohens-d">Chapter 9</a></td>
+</tr>
+<tr class="odd">
+<td><code>pull()</code></td>
+<td>Takes one variable from a data frame for use by a function.</td>
+<td><a href="../chapters/10-two-sample-designs.html#run">Chapter 10</a></td>
+</tr>
+<tr class="even">
+<td><code>shapiro.test()</code></td>
+<td>Checks whether scores differ significantly from a normal distribution.</td>
+<td><a href="../chapters/10-two-sample-designs.html#run">Chapter 10</a></td>
+</tr>
+<tr class="odd">
+<td><code>var.test()</code></td>
+<td>Conducts an F test comparing two group variances.</td>
+<td><a href="../chapters/10-two-sample-designs.html#run">Chapter 10</a></td>
+</tr>
+<tr class="even">
+<td><code>var.equal = TRUE</code></td>
+<td>Requests Student’s independent-samples <em>t</em> test.</td>
+<td><a href="../chapters/10-two-sample-designs.html#run">Chapter 10</a></td>
+</tr>
+<tr class="odd">
+<td><code>paired = TRUE</code></td>
+<td>Identifies two related sets of scores.</td>
+<td><a href="../chapters/10-two-sample-designs.html#run-1">Chapter 10</a></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="produce" class="level3">
-<h3 class="anchored" data-anchor-id="produce">Produce</h3>
-<p>Write a short paragraph that answers the research question. For each source of support:</p>
-<ul>
-<li>name both variables;</li>
-<li>report <em>r</em> and (r^2);</li>
-<li>describe the direction and strength of the relationship; and</li>
-<li>compare the result with your prediction.</li>
-</ul>
-<p>Then write one sentence interpreting the intercept and one sentence interpreting the slope for each regression model. Use the actual variable names rather than only calling them X and Y.</p>
+<section id="chapters-11-14-anova-and-chi-square" class="level3">
+<h3 class="anchored" data-anchor-id="chapters-11-14-anova-and-chi-square">Chapters 11-14: ANOVA And Chi-Square</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Command or pattern</th>
+<th>What it does</th>
+<th>First explained</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>aov()</code></td>
+<td>Fits an analysis-of-variance model.</td>
+<td><a href="../chapters/11-independent-anova.html#run">Chapter 11</a></td>
+</tr>
+<tr class="even">
+<td><code>summary(model)</code></td>
+<td>Prints the ANOVA table stored in a model object.</td>
+<td><a href="../chapters/11-independent-anova.html#run">Chapter 11</a></td>
+</tr>
+<tr class="odd">
+<td><code>residuals()</code></td>
+<td>Retrieves observed-minus-predicted differences from a model.</td>
+<td><a href="../chapters/11-independent-anova.html#run">Chapter 11</a></td>
+</tr>
+<tr class="even">
+<td><code>bartlett.test()</code></td>
+<td>Checks whether three or more group variances differ.</td>
+<td><a href="../chapters/11-independent-anova.html#run">Chapter 11</a></td>
+</tr>
+<tr class="odd">
+<td><code>anova_eta_squared()</code></td>
+<td>Calculates eta squared for a one-way ANOVA. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/11-independent-anova.html#investigate">Chapter 11</a></td>
+</tr>
+<tr class="even">
+<td><code>TukeyHSD()</code></td>
+<td>Conducts adjusted pairwise comparisons.</td>
+<td><a href="../chapters/11-independent-anova.html#investigate">Chapter 11</a></td>
+</tr>
+<tr class="odd">
+<td><code>tukey_cohens_d()</code></td>
+<td>Calculates Cohen’s <em>d</em> for Tukey comparisons. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/11-independent-anova.html#calculate-effect-sizes">Chapter 11</a></td>
+</tr>
+<tr class="even">
+<td><code>geom_errorbar()</code></td>
+<td>Adds confidence intervals to a graph.</td>
+<td><a href="../chapters/11-independent-anova.html#calculate-effect-sizes">Chapter 11</a></td>
+</tr>
+<tr class="odd">
+<td><code>row_number()</code></td>
+<td>Creates a participant label from observation order.</td>
+<td><a href="../chapters/12-repeated-anova.html#get-ready">Chapter 12</a></td>
+</tr>
+<tr class="even">
+<td><code>pivot_longer()</code></td>
+<td>Reshapes repeated scores from wide to long format.</td>
+<td><a href="../chapters/12-repeated-anova.html#run-and-investigate-reshape-the-data">Chapter 12</a></td>
+</tr>
+<tr class="odd">
+<td><code>repeated_eta_squared()</code></td>
+<td>Calculates partial eta squared for the repeated condition. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/12-repeated-anova.html#run-the-analysis">Chapter 12</a></td>
+</tr>
+<tr class="even">
+<td><code>repeated_pairwise_tests()</code></td>
+<td>Compares each pair of repeated scores and reports mean differences, Tukey-adjusted <em>p</em> values, and Cohen’s <em>d</em>. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/12-repeated-anova.html#run-the-analysis">Chapter 12</a></td>
+</tr>
+<tr class="odd">
+<td><code>interaction()</code></td>
+<td>Combines grouping variables for an assumption check.</td>
+<td><a href="../chapters/13-two-way-anova.html#check-the-assumptions">Chapter 13</a></td>
+</tr>
+<tr class="even">
+<td><code>predictor_1 * predictor_2</code></td>
+<td>Requests two main effects and their interaction.</td>
+<td><a href="../chapters/13-two-way-anova.html#run-the-model">Chapter 13</a></td>
+</tr>
+<tr class="odd">
+<td><code>two_way_anova_table()</code></td>
+<td>Reports two-way tests with partial eta squared. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/13-two-way-anova.html#run-the-analysis">Chapter 13</a></td>
+</tr>
+<tr class="even">
+<td><code>geom_line()</code></td>
+<td>Connects means in an interaction plot.</td>
+<td><a href="../chapters/13-two-way-anova.html#inspect-and-interpret">Chapter 13</a></td>
+</tr>
+<tr class="odd">
+<td><code>table()</code></td>
+<td>Creates observed frequency or contingency tables.</td>
+<td><a href="../chapters/14-chi-square.html#run-the-analysis">Chapter 14</a></td>
+</tr>
+<tr class="even">
+<td><code>chisq.test()</code></td>
+<td>Conducts chi-square tests.</td>
+<td><a href="../chapters/14-chi-square.html#run-the-analysis">Chapter 14</a></td>
+</tr>
+<tr class="odd">
+<td><code>test_object$expected</code></td>
+<td>Retrieves expected counts.</td>
+<td><a href="../chapters/14-chi-square.html#run-the-analysis">Chapter 14</a></td>
+</tr>
+<tr class="even">
+<td><code>cramers_v()</code></td>
+<td>Calculates Cramer’s V. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/14-chi-square.html#run-the-analysis">Chapter 14</a></td>
+</tr>
+<tr class="odd">
+<td><code>prop.table()</code></td>
+<td>Converts counts to proportions.</td>
+<td><a href="../chapters/14-chi-square.html#plan-and-predict">Chapter 14</a></td>
+</tr>
+<tr class="even">
+<td><code>p = c(...)</code></td>
+<td>Supplies the expected proportions for a goodness-of-fit test.</td>
+<td><a href="../chapters/14-chi-square.html#run-and-investigate">Chapter 14</a></td>
+</tr>
+</tbody>
+</table>
 </section>
-</section>
-<section id="research-question-2-choose-a-relationship" class="level2">
-<h2 class="anchored" data-anchor-id="research-question-2-choose-a-relationship">Research Question 2: Choose a Relationship</h2>
-<p>Review <a href="../data/codebook.html">Understanding EAMMi2</a> and choose two quantitative variables that interest you. Conduct both a correlation and a simple linear regression to learn about their relationship.</p>
-<section id="predict-1" class="level3">
-<h3 class="anchored" data-anchor-id="predict-1">Predict</h3>
-<p>Write the direction and approximate strength you expect before running the analysis. Explain your reasoning in one sentence.</p>
-</section>
-<section id="run-1" class="level3">
-<h3 class="anchored" data-anchor-id="run-1">Run</h3>
-<p>Copy the code pattern from Research Question 1. Replace the variable names and create new object names that describe your analysis.</p>
-</section>
-<section id="investigate-1" class="level3">
-<h3 class="anchored" data-anchor-id="investigate-1">Investigate</h3>
-<p>Identify <em>r</em>, calculate (r^2), and interpret the intercept and slope. Check that the predictor appears on the x-axis and the outcome appears on the y-axis of your scatterplot.</p>
-</section>
-<section id="check-the-code-and-labels" class="level3">
-<h3 class="anchored" data-anchor-id="check-the-code-and-labels">Check The Code And Labels</h3>
-<p>If your first object or axis names still refer to stress or support, revise them. Clear names and labels help you verify that the output belongs to the analysis you intended to run.</p>
-</section>
-<section id="produce-1" class="level3">
-<h3 class="anchored" data-anchor-id="produce-1">Produce</h3>
-<p>Write a short paragraph summarizing the relationship. Include the variables, direction, strength, <em>r</em>, (r^2), and what the slope predicts. Do not use causal language.</p>
-</section>
-</section>
-<section id="check-your-work" class="level2">
-<h2 class="anchored" data-anchor-id="check-your-work">Check Your Work</h2>
-<section id="research-question-1" class="level3">
-<h3 class="anchored" data-anchor-id="research-question-1">Research Question 1</h3>
-<p>Correlation coefficients:</p>
-<ul>
-<li>Stress and family support: <em>r</em> = -.031</li>
-<li>Stress and friend support: <em>r</em> = .018</li>
-<li>Stress and support from a special someone: <em>r</em> = .088</li>
-<li>Family support and friend support: <em>r</em> = .598</li>
-</ul>
-<p>In our reduced EAMMi2 sample, the correlations between perceived stress and all three sources of social support were very small and close to zero. The relationship was strongest for support from a special someone, <em>r</em> = .09, followed by family support, <em>r</em> = -.03, and friend support, <em>r</em> = .02. The percentage of shared variance was less than 1% for each relationship: family (r^2 = .001), friends (r^2 = .0003), and special someone (r^2 = .008).</p>
-<p>The regression coefficients can be interpreted as follows:</p>
-<ul>
-<li>Family support: if family support were 0, the predicted stress score would be 33.20. Each 1-unit increase in family support predicts a 0.09-point decrease in stress.</li>
-<li>Friend support: if friend support were 0, the predicted stress score would be 32.38. Each 1-unit increase in friend support predicts a 0.05-point increase in stress.</li>
-<li>Support from a special someone: if support from a special someone were 0, the predicted stress score would be 31.43. Each 1-unit increase in support from a special someone predicts a 0.22-point increase in stress.</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Reporting note">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Reporting note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A fully APA-formatted correlation paragraph would also include degrees of freedom and <em>p</em> values, which have not yet been emphasized in the course.</p>
-</div>
-</div>
-</section>
-<section id="research-question-2" class="level3">
-<h3 class="anchored" data-anchor-id="research-question-2">Research Question 2</h3>
-<p>Use these questions to check your work.</p>
-<ol type="1">
-<li>Did you select two quantitative variables?</li>
-<li>For the correlation interpretation, did you reference:
-<ul>
-<li>the variables themselves;</li>
-<li>the direction and strength of the relationship;</li>
-<li>the <em>r</em> value; and</li>
-<li>the (r^2) value and its interpretation?</li>
-</ul></li>
-<li>For the regression interpretation, did you reference:
-<ul>
-<li>a correct interpretation of (a), the intercept, including its value? The intercept is the predicted value of the outcome when the predictor equals 0. R labels this coefficient <code>(Intercept)</code>.</li>
-<li>a correct interpretation of (b), the slope, including its value? The slope is the predicted change in the outcome for a 1-unit increase in the predictor. R labels this coefficient with the predictor’s variable name.</li>
-<li>the actual variables used in the analysis rather than only calling them X and Y?</li>
-</ul></li>
-<li>Does the scatterplot use readable axis labels and a line of best fit?</li>
-<li>Did you avoid saying that one measured variable caused the other?</li>
-</ol>
-</section>
-</section>
-<section id="chapter-takeaway" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-takeaway">Chapter Takeaway</h2>
-<p>Correlation describes the direction and strength of a linear relationship between quantitative variables. Squaring the correlation gives the proportion of shared variance. Simple linear regression uses an intercept and slope to predict an outcome from a predictor.</p>
-<p>New R commands and patterns in this chapter:</p>
-<ul>
-<li><code>select()</code> keeps specified variables.</li>
-<li><code>cor()</code> calculates correlation coefficients.</li>
-<li><code>outcome ~ predictor</code> identifies the outcome and predictor in an R formula.</li>
-<li><code>lm()</code> fits a linear model.</li>
-<li><code>coefficients()</code> shows the model’s intercept and slope.</li>
-<li><code>geom_point()</code> adds observed pairs of scores to a scatterplot.</li>
-<li><code>geom_smooth()</code> adds a fitted line.</li>
-</ul>
+<section id="chapter-15-nonparametric-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="chapter-15-nonparametric-statistics">Chapter 15: Nonparametric Statistics</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Command or pattern</th>
+<th>What it does</th>
+<th>First explained</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>wilcox.test(outcome ~ group)</code></td>
+<td>Conducts a Mann-Whitney U test for two independent groups.</td>
+<td><a href="../chapters/15-nonparametric-statistics.html#run-the-analysis">Chapter 15</a></td>
+</tr>
+<tr class="even">
+<td><code>wilcox.test(x, y, paired = TRUE)</code></td>
+<td>Conducts a Wilcoxon signed-rank test for paired scores.</td>
+<td><a href="../chapters/15-nonparametric-statistics.html#run-the-analysis-1">Chapter 15</a></td>
+</tr>
+<tr class="odd">
+<td><code>rank_biserial_independent()</code></td>
+<td>Calculates rank-biserial correlation for two independent groups. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/15-nonparametric-statistics.html#run-the-analysis">Chapter 15</a></td>
+</tr>
+<tr class="even">
+<td><code>rank_biserial_paired()</code></td>
+<td>Calculates rank-biserial correlation for paired scores. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/15-nonparametric-statistics.html#run-the-analysis-1">Chapter 15</a></td>
+</tr>
+<tr class="odd">
+<td><code>kruskal.test()</code></td>
+<td>Conducts a Kruskal-Wallis test.</td>
+<td><a href="../chapters/15-nonparametric-statistics.html#run-the-analysis-2">Chapter 15</a></td>
+</tr>
+<tr class="even">
+<td><code>kruskal_epsilon_squared()</code></td>
+<td>Calculates epsilon squared for a Kruskal-Wallis test. This helper is supplied by the setup file.</td>
+<td><a href="../chapters/15-nonparametric-statistics.html#run-the-analysis-2">Chapter 15</a></td>
+</tr>
+<tr class="odd">
+<td><code>dscfAllPairsTest()</code></td>
+<td>Conducts DSCF post hoc comparisons after a significant Kruskal-Wallis test.</td>
+<td><a href="../chapters/15-nonparametric-statistics.html#read-the-output-2">Chapter 15</a></td>
+</tr>
+<tr class="even">
+<td><code>cor.test(..., method = "spearman")</code></td>
+<td>Conducts a Spearman rank correlation.</td>
+<td><a href="../chapters/15-nonparametric-statistics.html#run-the-analysis-3">Chapter 15</a></td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1130,13 +1316,13 @@ Figure&nbsp;1: Perceived stress by perceived social support from family.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/05-other-descriptive-statistics.html" class="pagination-link" aria-label="Chapter 5: Other Descriptive Statistics">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chapter 5: Other Descriptive Statistics</span>
+      <a href="../chapters/15-nonparametric-statistics.html" class="pagination-link" aria-label="Chapter 15: Nonparametric Statistics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chapter 15: Nonparametric Statistics</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/09-one-sample-designs.html" class="pagination-link" aria-label="Chapter 9: One-Sample Designs">
-        <span class="nav-page-text">Chapter 9: One-Sample Designs</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../reference/troubleshooting.html" class="pagination-link" aria-label="Troubleshooting">
+        <span class="nav-page-text">Troubleshooting</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

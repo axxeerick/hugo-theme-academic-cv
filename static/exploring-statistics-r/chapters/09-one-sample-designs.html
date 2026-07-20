@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Compare an observed mean with a known or expected value.">
 
-<title>One-Sample Designs – Exploring Statistics with R</title>
+<title>Chapter 9: One-Sample Designs – Exploring Statistics with R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -34,21 +70,17 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../chapters/10-two-sample-designs.html" rel="next">
-<link href="../chapters/08-sampling-distributions.html" rel="prev">
+<link href="../chapters/06-correlation-regression.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-39d72d2d8fc74c86a6f3fad29307908e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-92eb9d6b9ba6868aca9c04a4b27d82cd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-7d4bf5ba88f0d43632e1ea06990e7a45.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-92eb9d6b9ba6868aca9c04a4b27d82cd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,172 +110,39 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -265,24 +164,20 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../chapters/01-getting-started.html"> 
-<span class="menu-text">Chapters</span></a>
+    <a class="nav-link" href="../start/00-choose-your-path.html"> 
+<span class="menu-text">Start Here</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../data/codebook.html"> 
-<span class="menu-text">Understanding EAMMi2</span></a>
+    <a class="nav-link" href="../reference/r-command-index.html"> 
+<span class="menu-text">R Reference</span></a>
   </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/axxe/exploring-statistics-r"> <i class="bi bi-github" role="img" aria-label="GitHub source repository">
-</i> 
-<span class="menu-text"></span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../instructor/instructor-guide.html"> 
+<span class="menu-text">Instructor Guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -296,7 +191,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-getting-started.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/09-one-sample-designs.html">One-Sample Designs</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/09-one-sample-designs.html">Chapter 9: One-Sample Designs</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -325,8 +220,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00-intro-to-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Intro to R</span></a>
+  <a href="../start/00-choose-your-path.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choose Your Path</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/01-set-up-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Set Up RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/02-run-your-first-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Run Your First Script</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -348,86 +255,120 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01-getting-started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+  <a href="../chapters/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 1: Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02-frequency-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring Data: Frequency Distributions and Graphs</span></a>
+  <a href="../chapters/02-exploring-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 2: Exploring Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring Data: Central Tendency and Variability</span></a>
+ <span class="menu-text">Chapters 3 and 4: Central Tendency And Variability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05-other-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Other Descriptive Statistics</span></a>
+ <span class="menu-text">Chapter 5: Other Descriptive Statistics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06-correlation-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Correlation and Regression</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07-probability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Probability</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/08-sampling-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sampling Distributions</span></a>
+ <span class="menu-text">Chapter 6: Correlation and Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09-one-sample-designs.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">One-Sample Designs</span></a>
+ <span class="menu-text">Chapter 9: One-Sample Designs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10-two-sample-designs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Sample Designs</span></a>
+ <span class="menu-text">Chapter 10: Two-Sample Designs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/11-anova-independent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analysis of Variance: Independent Samples</span></a>
+  <a href="../chapters/11-independent-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 11: Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/12-anova-repeated.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analysis of Variance: Repeated Measures</span></a>
+  <a href="../chapters/12-repeated-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 12: Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13-two-way-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Way Independent Analysis of Variance</span></a>
+ <span class="menu-text">Chapter 13: Two-Way Independent Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14-chi-square.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chi-Square Tests</span></a>
+ <span class="menu-text">Chapter 14: Chi-Square Tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/15-nonparametric.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">More Nonparametric Tests</span></a>
+  <a href="../chapters/15-nonparametric-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 15: Nonparametric Statistics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">R help and reference</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/r-command-index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Command Index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Troubleshooting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/statistical-language.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Language</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Instructor resources</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/instructor-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instructor Guide</span></a>
   </div>
 </li>
       </ul>
@@ -442,20 +383,48 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-tools" id="toc-r-tools" class="nav-link active" data-scroll-target="#r-tools">R tools</a></li>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning Goals</a></li>
+  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">Research Questions</a></li>
+  <li><a href="#research-question-1-survey-duration" id="toc-research-question-1-survey-duration" class="nav-link" data-scroll-target="#research-question-1-survey-duration">Research Question 1: Survey Duration</a>
+  <ul class="collapse">
+  <li><a href="#get-ready" id="toc-get-ready" class="nav-link" data-scroll-target="#get-ready">Get Ready</a></li>
+  <li><a href="#predict" id="toc-predict" class="nav-link" data-scroll-target="#predict">Predict</a></li>
+  <li><a href="#run" id="toc-run" class="nav-link" data-scroll-target="#run">Run</a></li>
+  <li><a href="#investigate" id="toc-investigate" class="nav-link" data-scroll-target="#investigate">Investigate</a></li>
+  <li><a href="#screen-and-reanalyze" id="toc-screen-and-reanalyze" class="nav-link" data-scroll-target="#screen-and-reanalyze">Screen And Reanalyze</a></li>
+  <li><a href="#produce" id="toc-produce" class="nav-link" data-scroll-target="#produce">Produce</a></li>
+  </ul></li>
+  <li><a href="#research-question-2-mindfulness" id="toc-research-question-2-mindfulness" class="nav-link" data-scroll-target="#research-question-2-mindfulness">Research Question 2: Mindfulness</a>
+  <ul class="collapse">
+  <li><a href="#predict-1" id="toc-predict-1" class="nav-link" data-scroll-target="#predict-1">Predict</a></li>
+  <li><a href="#run-1" id="toc-run-1" class="nav-link" data-scroll-target="#run-1">Run</a></li>
+  <li><a href="#investigate-1" id="toc-investigate-1" class="nav-link" data-scroll-target="#investigate-1">Investigate</a></li>
+  <li><a href="#run-the-comparisons" id="toc-run-the-comparisons" class="nav-link" data-scroll-target="#run-the-comparisons">Run The Comparisons</a></li>
+  <li><a href="#produce-1" id="toc-produce-1" class="nav-link" data-scroll-target="#produce-1">Produce</a></li>
+  </ul></li>
+  <li><a href="#check-your-work" id="toc-check-your-work" class="nav-link" data-scroll-target="#check-your-work">Check Your Work</a>
+  <ul class="collapse">
+  <li><a href="#research-question-1" id="toc-research-question-1" class="nav-link" data-scroll-target="#research-question-1">Research Question 1</a></li>
+  <li><a href="#research-question-2" id="toc-research-question-2" class="nav-link" data-scroll-target="#research-question-2">Research Question 2</a></li>
+  </ul></li>
+  <li><a href="#chapter-takeaway" id="toc-chapter-takeaway" class="nav-link" data-scroll-target="#chapter-takeaway">Chapter Takeaway</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-getting-started.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/09-one-sample-designs.html">One-Sample Designs</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/09-one-sample-designs.html">Chapter 9: One-Sample Designs</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">One-Sample Designs</h1>
-<p class="subtitle lead">Chapter 9: NHST, effect size, and confidence intervals</p>
+<h1 class="title">Chapter 9: One-Sample Designs</h1>
+<p class="subtitle lead">One-sample t tests, effect size, and confidence intervals</p>
 </div>
 
+<div>
+  <div class="description">
+    Compare an observed mean with a known or expected value.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -470,11 +439,478 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><span class="chapter-status">In development</span></p>
-<p>This chapter will evaluate whether average EAMMi2 survey duration differs from 30 minutes, diagnose its skew and outliers, and conduct a one-sample <em>t</em> test only after checking assumptions.</p>
-<section id="r-tools" class="level2">
-<h2 class="anchored" data-anchor-id="r-tools">R tools</h2>
-<p><code>t.test()</code>, <code>quantile()</code>, <code>IQR()</code>, <code>filter()</code>, and effect-size calculations</p>
+<p>Chapter 9 of <em>Exploring Statistics</em> introduces one-sample designs. You will compare a sample mean with a known or expected value while practicing an important habit: pause and look at the data before trusting an inferential test.</p>
+<section id="learning-goals" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals">Learning Goals</h2>
+<p>By the end of this chapter, you should be able to:</p>
+<ul>
+<li>write null and alternative hypotheses for a one-sample design;</li>
+<li>choose a directional or non-directional alternative hypothesis;</li>
+<li>conduct and interpret a one-sample <em>t</em> test.</li>
+</ul>
+</section>
+<section id="research-questions" class="level2">
+<h2 class="anchored" data-anchor-id="research-questions">Research Questions</h2>
+<ol type="1">
+<li>The EAMMi2 consent form estimated that the study would take 30 minutes. Was that a reasonable estimate?</li>
+<li>Are emerging adults significantly different in mindfulness from Zen practitioners? What about undergraduate students?</li>
+</ol>
+</section>
+<section id="research-question-1-survey-duration" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-1-survey-duration">Research Question 1: Survey Duration</h2>
+<p>We want to know whether the average time participants took to complete the EAMMi2 survey is significantly different from 30 minutes.</p>
+<section id="get-ready" class="level3">
+<h3 class="anchored" data-anchor-id="get-ready">Get Ready</h3>
+<p>Open <code>09-one-sample-designs.R</code> from the <code>scripts</code> folder. Run the shared setup line first, and then run the script one section at a time.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/_setup.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The analysis uses <code>Duration</code>, the number of minutes a participant took to finish the survey. Review it in <a href="../data/codebook.html#var-duration">Understanding EAMMi2</a>.</p>
+</section>
+<section id="predict" class="level3">
+<h3 class="anchored" data-anchor-id="predict">Predict</h3>
+<p>Before you see the sample mean:</p>
+<ol type="1">
+<li>Write the null and alternative hypotheses in words and statistical notation.</li>
+<li>Identify the comparison value.</li>
+<li>Decide whether the alternative should be directional or non-directional.</li>
+<li>Predict whether survey duration will be roughly symmetric or positively skewed.</li>
+</ol>
+<p>The research question asks whether the mean is <em>different</em> from 30, without naming a direction. We will therefore use a two-tailed test with a comparison value of 30.</p>
+</section>
+<section id="run" class="level3">
+<h3 class="anchored" data-anchor-id="run">Run</h3>
+<p>Run the one-sample <em>t</em> test.</p>
+<!-- script-comment: Run an initial comparison with the 30-minute estimate, but do not interpret it yet. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>duration_first_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  eammi<span class="sc">$</span>Duration,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu =</span> <span class="dv">30</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>duration_first_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  eammi$Duration
+t = 7.1859, df = 2072, p-value = 9.274e-13
+alternative hypothesis: true mean is not equal to 30
+95 percent confidence interval:
+ 120.9337 189.1970
+sample estimates:
+mean of x 
+ 155.0654 </code></pre>
+</div>
+</div>
+<p><code>t.test()</code> conducts the test. <code>eammi$Duration</code> selects the <code>Duration</code> variable from the <code>eammi</code> data frame. <code>mu = 30</code> supplies the comparison value, and <code>alternative = "two.sided"</code> represents a non-directional alternative hypothesis.</p>
+<p>Do not interpret the test yet. First, examine the variable.</p>
+<!-- script-comment: Inspect survey duration before deciding whether the initial test is trustworthy. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>duration_first_summary <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(Duration),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(Duration),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Duration),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Minimum =</span> <span class="fu">min</span>(Duration),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Duration, <span class="fl">0.25</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Duration, <span class="fl">0.75</span>),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Duration),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Maximum =</span> <span class="fu">max</span>(Duration),</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Skewness =</span> <span class="fu">sample_skewness</span>(Duration)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>duration_first_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 10
+      N  Mean Median    SD Minimum    Q1    Q3   IQR Maximum Skewness
+  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+1  2073  155.   27.3  792.    10.2  20.8  40.4  19.6   9887.     8.70</code></pre>
+</div>
+</div>
+<p><code>sample_skewness()</code> is supplied by the setup file. It calculates a distribution’s skewness.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">100</span>, <span class="at">boundary =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Survey duration in minutes"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-rd-ch9-duration-first" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram with most survey durations near the lower end and a long right tail created by a small number of extremely long durations.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rd-ch9-duration-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09-one-sample-designs_files/figure-html/fig-rd-ch9-duration-first-1.png" class="img-fluid figure-img" alt="Histogram with most survey durations near the lower end and a long right tail created by a small number of extremely long durations." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rd-ch9-duration-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Survey duration before potential upper outliers are set aside.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="investigate" class="level3">
+<h3 class="anchored" data-anchor-id="investigate">Investigate</h3>
+<p>Does anything seem odd? Compare the mean with the median, inspect the standard deviation and maximum, and describe the histogram. A survey duration measured in the thousands of minutes deserves a second look.</p>
+<p>The mean is much larger than the median, the standard deviation is extremely large, and the histogram has a long right tail. The initial distribution is strongly positively skewed. An important assumption of many statistical analyses, including <em>t</em> tests, is that the dependent variable is normally distributed. These data are not normally distributed, which means the results from our first <em>t</em> test will be misleading. We should not interpret or report that first test.</p>
+<p>The next step is not to set unusual scores aside automatically. It is to identify potential outliers, decide what they represent, and state any decision we make.</p>
+<p>Use the IQR boundaries:</p>
+<p><span class="math display">\[
+\text{Lower boundary} = Q1 - (1.5 \times IQR)
+\]</span></p>
+<p><span class="math display">\[
+\text{Upper boundary} = Q3 + (1.5 \times IQR)
+\]</span></p>
+<!-- script-comment: Calculate boundaries that flag potential survey-duration outliers. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>duration_bounds <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Duration, <span class="fl">0.25</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Duration, <span class="fl">0.75</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Duration),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">LowerBoundary =</span> Q1 <span class="sc">-</span> (<span class="fl">1.5</span> <span class="sc">*</span> IQR),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">UpperBoundary =</span> Q3 <span class="sc">+</span> (<span class="fl">1.5</span> <span class="sc">*</span> IQR)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>duration_bounds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+     Q1    Q3   IQR LowerBoundary UpperBoundary
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+1  20.8  40.4  19.6         -8.59          69.7</code></pre>
+</div>
+</div>
+<p>The lower boundary is negative, and survey duration cannot be negative. The upper boundary is a little under 70 minutes. For this demonstration, we will set aside durations above that boundary and state that decision in the final report.</p>
+</section>
+<section id="screen-and-reanalyze" class="level3">
+<h3 class="anchored" data-anchor-id="screen-and-reanalyze">Screen And Reanalyze</h3>
+<p>Store the upper boundary and use it to create a new data frame. The original <code>eammi</code> object remains unchanged.</p>
+<!-- script-comment: Set aside durations above the upper boundary while preserving the original data frame. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>duration_upper_boundary <span class="ot">&lt;-</span> duration_bounds<span class="sc">$</span>UpperBoundary</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>duration_no_outliers <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Duration <span class="sc">&lt;=</span> duration_upper_boundary)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>filter()</code> keeps observations that meet the condition. Reuse the descriptive code with <code>duration_no_outliers</code> as the data frame.</p>
+<!-- script-comment: Recheck the duration distribution after the data decision. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>duration_filtered_summary <span class="ot">&lt;-</span> duration_no_outliers <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(Duration),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(Duration),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Duration),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Minimum =</span> <span class="fu">min</span>(Duration),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Duration, <span class="fl">0.25</span>),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Duration, <span class="fl">0.75</span>),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Duration),</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Maximum =</span> <span class="fu">max</span>(Duration),</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Skewness =</span> <span class="fu">sample_skewness</span>(Duration)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>duration_filtered_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 10
+      N  Mean Median    SD Minimum    Q1    Q3   IQR Maximum Skewness
+  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+1  1814  28.4   25.5  11.7    10.2  20.1  34.0  14.0    69.2     1.20</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>duration_no_outliers <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">boundary =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Survey duration in minutes"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-rd-ch9-duration-filtered" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram of survey durations after upper outliers are set aside. Most observations fall between about 10 and 45 minutes, with a modest right tail.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rd-ch9-duration-filtered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09-one-sample-designs_files/figure-html/fig-rd-ch9-duration-filtered-1.png" class="img-fluid figure-img" alt="Histogram of survey durations after upper outliers are set aside. Most observations fall between about 10 and 45 minutes, with a modest right tail." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rd-ch9-duration-filtered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Survey duration after potential upper outliers are set aside.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The distribution still has a slight positive skew, but the skewness statistic is now within the guideline of -2.00 to +2.00. Run the final test on the modified data frame.</p>
+<!-- script-comment: Run the final one-sample t test on the screened duration data. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>duration_final_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  duration_no_outliers<span class="sc">$</span>Duration,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu =</span> <span class="dv">30</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>duration_final_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  duration_no_outliers$Duration
+t = -5.8678, df = 1813, p-value = 5.24e-09
+alternative hypothesis: true mean is not equal to 30
+95 percent confidence interval:
+ 27.85437 28.92939
+sample estimates:
+mean of x 
+ 28.39188 </code></pre>
+</div>
+</div>
+<p>The confidence interval printed by <code>t.test()</code> is for the sample mean. The research question concerns the difference from 30, so subtract 30 from both confidence limits.</p>
+<section id="calculate-cohens-d" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-cohens-d">Calculate Cohen’s d</h4>
+<p><code>cohens_d()</code> is a workbook helper first introduced here and supplied by the setup file. For a one-sample design, it calculates Cohen’s <em>d</em> by dividing the mean difference by the sample standard deviation.</p>
+<!-- script-comment: Calculate the mean difference and confidence interval, then use the setup file's cohens_d() helper. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>duration_mean_difference <span class="ot">&lt;-</span> <span class="fu">mean</span>(duration_no_outliers<span class="sc">$</span>Duration) <span class="sc">-</span> <span class="dv">30</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>duration_difference_ci <span class="ot">&lt;-</span> duration_final_test<span class="sc">$</span>conf.int <span class="sc">-</span> <span class="dv">30</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>duration_d <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  duration_mean_difference,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sd</span>(duration_no_outliers<span class="sc">$</span>Duration)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>duration_mean_difference</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.608122</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>duration_difference_ci</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.145630 -1.070614
+attr(,"conf.level")
+[1] 0.95</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>duration_d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.1377695</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="produce" class="level3">
+<h3 class="anchored" data-anchor-id="produce">Produce</h3>
+<p>Write an interpretation that includes:</p>
+<ul>
+<li>the comparison value and the data decision;</li>
+<li>the sample mean and standard deviation;</li>
+<li><em>t</em>, degrees of freedom, and <em>p</em>;</li>
+<li>Cohen’s <em>d</em> and its magnitude;</li>
+<li>the confidence interval for the mean difference; and</li>
+<li>a conclusion in the context of survey duration.</li>
+</ul>
+</section>
+</section>
+<section id="research-question-2-mindfulness" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-2-mindfulness">Research Question 2: Mindfulness</h2>
+<p>Mindfulness is the tendency to focus on the present moment without judging one’s experiences. Brown and Ryan (2003) reported a mean mindfulness score of 4.29 for Zen practitioners and 3.85 for undergraduate students using the Mindful Attention Awareness Scale. The same measure is named <code>Mindfulness</code> in the EAMMi2 data.</p>
+<p>Are emerging adults significantly different from Zen practitioners on mindfulness? What about undergraduate students?</p>
+<section id="predict-1" class="level3">
+<h3 class="anchored" data-anchor-id="predict-1">Predict</h3>
+<p>Write a null and alternative hypothesis for each comparison in words and notation. Both questions ask whether the means are different, so identify the correct two-tailed alternative.</p>
+</section>
+<section id="run-1" class="level3">
+<h3 class="anchored" data-anchor-id="run-1">Run</h3>
+<p>Copy the descriptive summary and histogram pattern from Research Question 1. Replace <code>Duration</code> with <code>Mindfulness</code>, use an informative object name, and choose a bin width that shows the distribution clearly.</p>
+</section>
+<section id="investigate-1" class="level3">
+<h3 class="anchored" data-anchor-id="investigate-1">Investigate</h3>
+<p>Use the mean, median, skewness, and histogram to decide whether the distribution is close enough to normal for this analysis. Do not apply the duration boundary to a different variable.</p>
+</section>
+<section id="run-the-comparisons" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-comparisons">Run The Comparisons</h3>
+<p>Copy the final <code>t.test()</code> pattern twice. In the first copy, use <code>mu = 4.29</code>. In the second, use <code>mu = 3.85</code>. Create distinct object names, mean differences, confidence intervals, and Cohen’s <em>d</em> values.</p>
+</section>
+<section id="produce-1" class="level3">
+<h3 class="anchored" data-anchor-id="produce-1">Produce</h3>
+<p>Write a separate interpretation for each comparison. Explain which group had the higher mean and describe the magnitude of the difference.</p>
+</section>
+</section>
+<section id="check-your-work" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-work">Check Your Work</h2>
+<section id="research-question-1" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-1">Research Question 1</h3>
+<p><span class="math display">\[
+H_0: \mu = 30
+\]</span></p>
+<p>The average EAMMi2 survey duration does not differ from 30 minutes.</p>
+<p><span class="math display">\[
+H_1: \mu \neq 30
+\]</span></p>
+<p>The average EAMMi2 survey duration differs from 30 minutes.</p>
+<p>A one-sample <em>t</em> test revealed a significant difference between the average time participants took to complete the EAMMi2 survey (<em>M</em> = 28.39 minutes, <em>SD</em> = 11.67) and the 30-minute estimate in the informed consent form, <em>t</em>(1813) = -5.87, <em>p</em> &lt; .001, <em>d</em> = -0.14, 95% CI [-2.15, -1.07]. Potential upper outliers above the IQR boundary were set aside before this final analysis. On average, participants took less time than expected, although the magnitude of the difference was small.</p>
+</section>
+<section id="research-question-2" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-2">Research Question 2</h3>
+<p>For the Zen-practitioner comparison:</p>
+<p><span class="math display">\[
+H_0: \mu = 4.29
+\]</span></p>
+<p>The mean mindfulness score for emerging adults does not differ from 4.29.</p>
+<p><span class="math display">\[
+H_1: \mu \neq 4.29
+\]</span></p>
+<p>The mean mindfulness score for emerging adults differs from 4.29.</p>
+<p>For the undergraduate comparison:</p>
+<p><span class="math display">\[
+H_0: \mu = 3.85
+\]</span></p>
+<p>The mean mindfulness score for emerging adults does not differ from 3.85.</p>
+<p><span class="math display">\[
+H_1: \mu \neq 3.85
+\]</span></p>
+<p>The mean mindfulness score for emerging adults differs from 3.85.</p>
+<p>Check the distribution first.</p>
+<!-- script-comment: Check Your Work: inspect the mindfulness distribution. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mindfulness_summary <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(Mindfulness),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(Mindfulness),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Mindfulness),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Minimum =</span> <span class="fu">min</span>(Mindfulness),</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Maximum =</span> <span class="fu">max</span>(Mindfulness),</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Skewness =</span> <span class="fu">sample_skewness</span>(Mindfulness)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>mindfulness_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+      N  Mean Median    SD Minimum Maximum Skewness
+  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+1  2073  3.69   3.73 0.839       0       6   -0.159</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Mindfulness)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.25</span>, <span class="at">boundary =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Mindfulness score"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-rd-ch9-mindfulness" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram with mindfulness scores clustered near the middle of the scale and little overall skew.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rd-ch9-mindfulness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09-one-sample-designs_files/figure-html/fig-rd-ch9-mindfulness-1.png" class="img-fluid figure-img" alt="Histogram with mindfulness scores clustered near the middle of the scale and little overall skew." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rd-ch9-mindfulness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Mindfulness scores in the reduced EAMMi2 sample.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><code>Mindfulness</code> is close to normally distributed.</p>
+<p>For the Zen-practitioner comparison:</p>
+<!-- script-comment: Check Your Work: compare emerging adults with the Zen-practitioner mean. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mindfulness_zen_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  eammi<span class="sc">$</span>Mindfulness,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu =</span> <span class="fl">4.29</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>mindfulness_zen_difference <span class="ot">&lt;-</span> <span class="fu">mean</span>(eammi<span class="sc">$</span>Mindfulness) <span class="sc">-</span> <span class="fl">4.29</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>mindfulness_zen_ci <span class="ot">&lt;-</span> mindfulness_zen_test<span class="sc">$</span>conf.int <span class="sc">-</span> <span class="fl">4.29</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>mindfulness_zen_d <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  mindfulness_zen_difference,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sd</span>(eammi<span class="sc">$</span>Mindfulness)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>mindfulness_zen_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  eammi$Mindfulness
+t = -32.651, df = 2072, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is not equal to 4.29
+95 percent confidence interval:
+ 3.652204 3.724480
+sample estimates:
+mean of x 
+ 3.688342 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>mindfulness_zen_ci</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.6377955 -0.5655201
+attr(,"conf.level")
+[1] 0.95</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>mindfulness_zen_d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.7171186</code></pre>
+</div>
+</div>
+<p>Zen practitioners had higher mindfulness (<em>M</em> = 4.29) than emerging adults (<em>M</em> = 3.69, <em>SD</em> = 0.84), <em>t</em>(2072) = -32.65, <em>p</em> &lt; .001, <em>d</em> = -0.72, 95% CI [-0.64, -0.57]. The difference was medium-to-large.</p>
+<p>For the undergraduate comparison:</p>
+<!-- script-comment: Check Your Work: compare emerging adults with the undergraduate mean. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mindfulness_undergraduate_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  eammi<span class="sc">$</span>Mindfulness,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu =</span> <span class="fl">3.85</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>mindfulness_undergraduate_difference <span class="ot">&lt;-</span> <span class="fu">mean</span>(eammi<span class="sc">$</span>Mindfulness) <span class="sc">-</span> <span class="fl">3.85</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>mindfulness_undergraduate_ci <span class="ot">&lt;-</span> mindfulness_undergraduate_test<span class="sc">$</span>conf.int <span class="sc">-</span> <span class="fl">3.85</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>mindfulness_undergraduate_d <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  mindfulness_undergraduate_difference,</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sd</span>(eammi<span class="sc">$</span>Mindfulness)</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>mindfulness_undergraduate_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  eammi$Mindfulness
+t = -8.7728, df = 2072, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is not equal to 3.85
+95 percent confidence interval:
+ 3.652204 3.724480
+sample estimates:
+mean of x 
+ 3.688342 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>mindfulness_undergraduate_ci</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.1977955 -0.1255201
+attr(,"conf.level")
+[1] 0.95</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mindfulness_undergraduate_d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.1926807</code></pre>
+</div>
+</div>
+<p>Undergraduate students had higher mindfulness (<em>M</em> = 3.85) than emerging adults (<em>M</em> = 3.69, <em>SD</em> = 0.84), <em>t</em>(2072) = -8.77, <em>p</em> &lt; .001, <em>d</em> = -0.19, 95% CI [-0.20, -0.13]. The difference was small.</p>
+</section>
+</section>
+<section id="chapter-takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-takeaway">Chapter Takeaway</h2>
+<p>A one-sample <em>t</em> test compares a sample mean with a known or expected value. Examine the distribution before interpreting the test. When extreme values create severe skew, make a defensible data decision and report it.</p>
+<p>New R commands and patterns in this chapter:</p>
+<ul>
+<li><code>t.test()</code> conducts a one-sample <em>t</em> test when supplied with one variable and <code>mu</code>.</li>
+<li><code>sample_skewness()</code> is supplied by the setup file and calculates sample skewness.</li>
+<li><code>cohens_d()</code> is supplied by the setup file and divides a mean difference by a standard deviation.</li>
+<li><code>mu =</code> supplies the comparison value.</li>
+<li><code>alternative = "two.sided"</code> requests a non-directional test.</li>
+<li><code>conf.int</code> extracts the confidence interval stored in a test object.</li>
+</ul>
 
 
 </section>
@@ -482,19 +918,6 @@ ul.task-list li input[type="checkbox"] {
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
-    }
-    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -900,13 +1323,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/08-sampling-distributions.html" class="pagination-link" aria-label="Sampling Distributions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Sampling Distributions</span>
+      <a href="../chapters/06-correlation-regression.html" class="pagination-link" aria-label="Chapter 6: Correlation and Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chapter 6: Correlation and Regression</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/10-two-sample-designs.html" class="pagination-link" aria-label="Two-Sample Designs">
-        <span class="nav-page-text">Two-Sample Designs</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/10-two-sample-designs.html" class="pagination-link" aria-label="Chapter 10: Two-Sample Designs">
+        <span class="nav-page-text">Chapter 10: Two-Sample Designs</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -914,7 +1337,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Instructor resource for <em>Exploring Statistics: Tales of Distributions</em></p>
+<p>Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

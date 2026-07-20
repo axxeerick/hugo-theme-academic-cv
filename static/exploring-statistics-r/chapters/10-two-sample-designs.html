@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Compare two means from different groups or from the same participants.">
 
-<title>Two-Sample Designs – Exploring Statistics with R</title>
+<title>Chapter 10: Two-Sample Designs – Exploring Statistics with R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -33,7 +69,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/11-anova-independent.html" rel="next">
+<link href="../chapters/11-independent-anova.html" rel="next">
 <link href="../chapters/09-one-sample-designs.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -41,14 +77,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-39d72d2d8fc74c86a6f3fad29307908e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-92eb9d6b9ba6868aca9c04a4b27d82cd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-7d4bf5ba88f0d43632e1ea06990e7a45.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-92eb9d6b9ba6868aca9c04a4b27d82cd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,172 +110,39 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -265,24 +164,20 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../chapters/01-getting-started.html"> 
-<span class="menu-text">Chapters</span></a>
+    <a class="nav-link" href="../start/00-choose-your-path.html"> 
+<span class="menu-text">Start Here</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../data/codebook.html"> 
-<span class="menu-text">Understanding EAMMi2</span></a>
+    <a class="nav-link" href="../reference/r-command-index.html"> 
+<span class="menu-text">R Reference</span></a>
   </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/axxe/exploring-statistics-r"> <i class="bi bi-github" role="img" aria-label="GitHub source repository">
-</i> 
-<span class="menu-text"></span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../instructor/instructor-guide.html"> 
+<span class="menu-text">Instructor Guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -296,7 +191,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-getting-started.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/10-two-sample-designs.html">Two-Sample Designs</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/10-two-sample-designs.html">Chapter 10: Two-Sample Designs</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -325,8 +220,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00-intro-to-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Intro to R</span></a>
+  <a href="../start/00-choose-your-path.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choose Your Path</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/01-set-up-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Set Up RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/02-run-your-first-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Run Your First Script</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -348,86 +255,120 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01-getting-started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+  <a href="../chapters/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 1: Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02-frequency-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring Data: Frequency Distributions and Graphs</span></a>
+  <a href="../chapters/02-exploring-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 2: Exploring Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring Data: Central Tendency and Variability</span></a>
+ <span class="menu-text">Chapters 3 and 4: Central Tendency And Variability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05-other-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Other Descriptive Statistics</span></a>
+ <span class="menu-text">Chapter 5: Other Descriptive Statistics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06-correlation-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Correlation and Regression</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07-probability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Probability</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/08-sampling-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sampling Distributions</span></a>
+ <span class="menu-text">Chapter 6: Correlation and Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09-one-sample-designs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">One-Sample Designs</span></a>
+ <span class="menu-text">Chapter 9: One-Sample Designs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10-two-sample-designs.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Two-Sample Designs</span></a>
+ <span class="menu-text">Chapter 10: Two-Sample Designs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/11-anova-independent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analysis of Variance: Independent Samples</span></a>
+  <a href="../chapters/11-independent-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 11: Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/12-anova-repeated.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analysis of Variance: Repeated Measures</span></a>
+  <a href="../chapters/12-repeated-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 12: Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13-two-way-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Way Independent Analysis of Variance</span></a>
+ <span class="menu-text">Chapter 13: Two-Way Independent Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14-chi-square.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chi-Square Tests</span></a>
+ <span class="menu-text">Chapter 14: Chi-Square Tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/15-nonparametric.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">More Nonparametric Tests</span></a>
+  <a href="../chapters/15-nonparametric-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 15: Nonparametric Statistics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">R help and reference</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/r-command-index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Command Index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Troubleshooting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/statistical-language.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Language</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Instructor resources</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/instructor-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instructor Guide</span></a>
   </div>
 </li>
       </ul>
@@ -442,20 +383,57 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-tools" id="toc-r-tools" class="nav-link active" data-scroll-target="#r-tools">R tools</a></li>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning Goals</a></li>
+  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">Research Questions</a></li>
+  <li><a href="#research-question-1-political-views-and-belonging" id="toc-research-question-1-political-views-and-belonging" class="nav-link" data-scroll-target="#research-question-1-political-views-and-belonging">Research Question 1: Political Views and Belonging</a>
+  <ul class="collapse">
+  <li><a href="#get-ready" id="toc-get-ready" class="nav-link" data-scroll-target="#get-ready">Get Ready</a></li>
+  <li><a href="#predict" id="toc-predict" class="nav-link" data-scroll-target="#predict">Predict</a></li>
+  <li><a href="#run" id="toc-run" class="nav-link" data-scroll-target="#run">Run</a></li>
+  <li><a href="#investigate" id="toc-investigate" class="nav-link" data-scroll-target="#investigate">Investigate</a></li>
+  <li><a href="#calculate-effect-size" id="toc-calculate-effect-size" class="nav-link" data-scroll-target="#calculate-effect-size">Calculate Effect Size</a></li>
+  <li><a href="#produce" id="toc-produce" class="nav-link" data-scroll-target="#produce">Produce</a></li>
+  </ul></li>
+  <li><a href="#research-question-2-american-dream-ratings" id="toc-research-question-2-american-dream-ratings" class="nav-link" data-scroll-target="#research-question-2-american-dream-ratings">Research Question 2: American Dream Ratings</a>
+  <ul class="collapse">
+  <li><a href="#predict-1" id="toc-predict-1" class="nav-link" data-scroll-target="#predict-1">Predict</a></li>
+  <li><a href="#run-1" id="toc-run-1" class="nav-link" data-scroll-target="#run-1">Run</a></li>
+  <li><a href="#investigate-1" id="toc-investigate-1" class="nav-link" data-scroll-target="#investigate-1">Investigate</a></li>
+  <li><a href="#calculate-effect-size-1" id="toc-calculate-effect-size-1" class="nav-link" data-scroll-target="#calculate-effect-size-1">Calculate Effect Size</a></li>
+  <li><a href="#produce-1" id="toc-produce-1" class="nav-link" data-scroll-target="#produce-1">Produce</a></li>
+  </ul></li>
+  <li><a href="#research-question-3-exploration-and-identity-formation" id="toc-research-question-3-exploration-and-identity-formation" class="nav-link" data-scroll-target="#research-question-3-exploration-and-identity-formation">Research Question 3: Exploration and Identity Formation</a>
+  <ul class="collapse">
+  <li><a href="#predict-2" id="toc-predict-2" class="nav-link" data-scroll-target="#predict-2">Predict</a></li>
+  <li><a href="#run-2" id="toc-run-2" class="nav-link" data-scroll-target="#run-2">Run</a></li>
+  <li><a href="#investigate-2" id="toc-investigate-2" class="nav-link" data-scroll-target="#investigate-2">Investigate</a></li>
+  <li><a href="#calculate-effect-size-2" id="toc-calculate-effect-size-2" class="nav-link" data-scroll-target="#calculate-effect-size-2">Calculate Effect Size</a></li>
+  <li><a href="#produce-2" id="toc-produce-2" class="nav-link" data-scroll-target="#produce-2">Produce</a></li>
+  </ul></li>
+  <li><a href="#check-your-work" id="toc-check-your-work" class="nav-link" data-scroll-target="#check-your-work">Check Your Work</a>
+  <ul class="collapse">
+  <li><a href="#research-question-1" id="toc-research-question-1" class="nav-link" data-scroll-target="#research-question-1">Research Question 1</a></li>
+  <li><a href="#research-question-2" id="toc-research-question-2" class="nav-link" data-scroll-target="#research-question-2">Research Question 2</a></li>
+  <li><a href="#research-question-3" id="toc-research-question-3" class="nav-link" data-scroll-target="#research-question-3">Research Question 3</a></li>
+  </ul></li>
+  <li><a href="#chapter-takeaway" id="toc-chapter-takeaway" class="nav-link" data-scroll-target="#chapter-takeaway">Chapter Takeaway</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-getting-started.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/10-two-sample-designs.html">Two-Sample Designs</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/10-two-sample-designs.html">Chapter 10: Two-Sample Designs</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Two-Sample Designs</h1>
-<p class="subtitle lead">Chapter 10: NHST, effect size, and confidence intervals</p>
+<h1 class="title">Chapter 10: Two-Sample Designs</h1>
+<p class="subtitle lead">Independent-samples and paired-samples t tests</p>
 </div>
 
+<div>
+  <div class="description">
+    Compare two means from different groups or from the same participants.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -470,11 +448,485 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><span class="chapter-status">In development</span></p>
-<p>This chapter will cover independent-samples and paired-samples <em>t</em> tests, assumption checks, confidence intervals, and Cohen’s <em>d</em>.</p>
-<section id="r-tools" class="level2">
-<h2 class="anchored" data-anchor-id="r-tools">R tools</h2>
-<p><code>t.test()</code>, <code>var.test()</code>, <code>shapiro.test()</code>, <code>broom::tidy()</code>, and effect-size calculations</p>
+<p>Chapter 10 of <em>Exploring Statistics</em> introduces two-sample designs. Sometimes two means come from different groups of people; other times the same people supply both scores. That distinction determines which <em>t</em> test we use and what assumptions we check.</p>
+<section id="learning-goals" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals">Learning Goals</h2>
+<p>By the end of this chapter, you should be able to:</p>
+<ul>
+<li>identify the independent and dependent variables in a two-sample question;</li>
+<li>distinguish independent-samples from paired-samples designs;</li>
+<li>examine normality and homogeneity of variance as appropriate;</li>
+<li>conduct and interpret both types of <em>t</em> test;</li>
+<li>calculate Cohen’s <em>d</em> for both designs; and</li>
+<li>report the means, standard deviations, <em>t</em>, <em>p</em>, Cohen’s <em>d</em>, and confidence interval.</li>
+</ul>
+</section>
+<section id="research-questions" class="level2">
+<h2 class="anchored" data-anchor-id="research-questions">Research Questions</h2>
+<ol type="1">
+<li>Do students with conservative and liberal political views differ in feelings of belonging?</li>
+<li>Do participants differ in how strongly they value the American Dream and how strongly they believe they can achieve it?</li>
+<li>Do participants differ in their ratings of emerging adulthood as a time for exploration and identity formation?</li>
+</ol>
+</section>
+<section id="research-question-1-political-views-and-belonging" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-1-political-views-and-belonging">Research Question 1: Political Views and Belonging</h2>
+<p><code>Belonging</code> is measured from 1, not at all, to 5, very much. <code>PoliticsDichotomous</code> places participants into liberal and conservative groups. Because the scores come from different groups of people, we will conduct an independent-samples <em>t</em> test.</p>
+<section id="get-ready" class="level3">
+<h3 class="anchored" data-anchor-id="get-ready">Get Ready</h3>
+<p>Open <code>10-two-sample-designs.R</code> from the <code>scripts</code> folder. Run the shared setup line first, and then run one section at a time.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/_setup.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Review the variables in <a href="../data/codebook.html#var-politicsdichotomous">Understanding EAMMi2</a>. Give the political-view codes readable labels.</p>
+<!-- script-comment: Give the political-view codes readable group labels. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">PoliticsDichotomous =</span> <span class="fu">factor</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      PoliticsDichotomous,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Liberal"</span>, <span class="st">"Conservative"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="predict" class="level3">
+<h3 class="anchored" data-anchor-id="predict">Predict</h3>
+<p>Before running the analysis:</p>
+<ol type="1">
+<li>Identify the independent and dependent variables.</li>
+<li>Write the null and alternative hypotheses in words and notation.</li>
+<li>Predict which group will have the higher mean, or predict no meaningful difference.</li>
+<li>State what you would need to inspect before using Student’s independent-samples <em>t</em> test.</li>
+</ol>
+</section>
+<section id="run" class="level3">
+<h3 class="anchored" data-anchor-id="run">Run</h3>
+<p>Start with a table and a graph. These are familiar code patterns, so focus on what they reveal about the assumptions and the direction of any difference.</p>
+<!-- script-comment: Keep complete cases and summarize belonging within each political group. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>belonging_data <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(PoliticsDichotomous, Belonging)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>belonging_summary <span class="ot">&lt;-</span> belonging_data <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PoliticsDichotomous) <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(Belonging),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(Belonging),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Belonging),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Skewness =</span> <span class="fu">sample_skewness</span>(Belonging)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>belonging_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 6
+  PoliticsDichotomous     N  Mean Median    SD Skewness
+  &lt;fct&gt;               &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+1 Liberal               897  3.47      4  1.00   -0.566
+2 Conservative          438  3.75      4  1.04   -0.778</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>belonging_data <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PoliticsDichotomous, <span class="at">y =</span> Belonging)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Political orientation"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Belonging score"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-rd-ch10-belonging" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two boxplots showing slightly higher belonging scores among conservative participants than liberal participants, with substantial overlap between groups.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rd-ch10-belonging-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-two-sample-designs_files/figure-html/fig-rd-ch10-belonging-1.png" class="img-fluid figure-img" alt="Two boxplots showing slightly higher belonging scores among conservative participants than liberal participants, with substantial overlap between groups." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rd-ch10-belonging-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Belonging scores for liberal and conservative participants.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Two important assumptions must be considered before conducting Student’s independent-samples <em>t</em> test. First, the dependent variable should be close enough to normally distributed within each group. Second, the groups should have similar variances.</p>
+<p>Use the Shapiro-Wilk test to check normality within each group.</p>
+<!-- script-comment: Separate the two groups and test each belonging distribution for normality. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>liberal_belonging <span class="ot">&lt;-</span> belonging_data <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(PoliticsDichotomous <span class="sc">==</span> <span class="st">"Liberal"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Belonging)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>conservative_belonging <span class="ot">&lt;-</span> belonging_data <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(PoliticsDichotomous <span class="sc">==</span> <span class="st">"Conservative"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Belonging)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(liberal_belonging)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  liberal_belonging
+W = 0.88271, p-value &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(conservative_belonging)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  conservative_belonging
+W = 0.86074, p-value &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p><code>pull()</code> takes one variable from a data frame so that a function can use its values. <code>shapiro.test()</code> tests the null hypothesis that the scores came from a normal distribution. A <em>p</em> value below .05 provides evidence that the distribution differs from normal.</p>
+<p>Both Shapiro-Wilk tests are significant, so the normality assumption is not met. However, tests of normality are sensitive to small departures from normality in large samples. <code>Belonging</code> contains only valid scores from 1 to 5, and the skewness values are below 2.00 in both groups. Setting valid endpoint scores aside would be hard to justify. For this teaching analysis, we will keep all valid scores, proceed with the test, and report the assumption result.</p>
+<p>Now examine whether the groups have similar variance.</p>
+<!-- script-comment: Test whether the two political groups have similar belonging variances. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>belonging_variance_test <span class="ot">&lt;-</span> <span class="fu">var.test</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  Belonging <span class="sc">~</span> PoliticsDichotomous,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> belonging_data</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>belonging_variance_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    F test to compare two variances
+
+data:  Belonging by PoliticsDichotomous
+F = 0.92717, num df = 896, denom df = 437, p-value = 0.3527
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 0.7867828 1.0876209
+sample estimates:
+ratio of variances 
+         0.9271695 </code></pre>
+</div>
+</div>
+<p><code>var.test()</code> conducts an F test comparing the two group variances. Focus on the <em>p</em> value. A value above .05 means the output does not provide evidence that the variances differ. Here, <em>p</em> is greater than .05, so we will treat the variances as similar enough for Student’s <em>t</em> test.</p>
+<p>The formula repeats the pattern introduced in Chapter 6: <code>outcome ~ predictor</code>. When the predictor identifies groups, you can read it as <code>outcome ~ group</code>.</p>
+<p>Run the independent-samples <em>t</em> test.</p>
+<!-- script-comment: Compare mean belonging across the two independent political groups. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>belonging_t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  Belonging <span class="sc">~</span> PoliticsDichotomous,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> belonging_data,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var.equal =</span> <span class="cn">TRUE</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>belonging_t_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Two Sample t-test
+
+data:  Belonging by PoliticsDichotomous
+t = -4.6974, df = 1333, p-value = 2.908e-06
+alternative hypothesis: true difference in means between group Liberal and group Conservative is not equal to 0
+95 percent confidence interval:
+ -0.3948206 -0.1621959
+sample estimates:
+     mean in group Liberal mean in group Conservative 
+                  3.474916                   3.753425 </code></pre>
+</div>
+</div>
+<p><code>var.equal = TRUE</code> requests Student’s independent-samples <em>t</em> test.</p>
+</section>
+<section id="investigate" class="level3">
+<h3 class="anchored" data-anchor-id="investigate">Investigate</h3>
+<p>Read the output in this order:</p>
+<ol type="1">
+<li>Use the <em>p</em> value to decide whether the group means significantly differ.</li>
+<li>Use the group means to identify the direction of the difference.</li>
+<li>Use the confidence interval to identify a plausible range for the mean difference.</li>
+<li>Check whether the result supports your prediction.</li>
+</ol>
+<p>The test shows a significant difference, and conservative participants have the higher mean. The overlapping boxplots remind us that a statistically significant mean difference does not mean the two groups are completely separate.</p>
+</section>
+<section id="calculate-effect-size" class="level3">
+<h3 class="anchored" data-anchor-id="calculate-effect-size">Calculate Effect Size</h3>
+<p>Calculate Cohen’s <em>d</em> for the magnitude of the difference.</p>
+<!-- script-comment: Summarize the groups, then use the setup file's independent_cohens_d() helper. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>belonging_group_stats <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(PoliticsDichotomous, Belonging) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PoliticsDichotomous) <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(Belonging),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Belonging)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>belonging_d <span class="ot">&lt;-</span> <span class="fu">independent_cohens_d</span>(</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  eammi,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  Belonging,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  PoliticsDichotomous</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>belonging_group_stats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  PoliticsDichotomous     N  Mean    SD
+  &lt;fct&gt;               &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Liberal               897  3.47  1.00
+2 Conservative          438  3.75  1.04</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>belonging_d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  MeanDifference PooledSD CohensD
+           &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1         -0.279     1.02  -0.274</code></pre>
+</div>
+</div>
+<p>This reuses <code>independent_cohens_d()</code> from Chapter 5. For independent samples, Cohen’s <em>d</em> divides the mean difference by a pooled standard deviation. The function finds each group’s sample size, mean, and standard deviation and then performs that calculation. To reuse it, change the data frame, outcome, and grouping variable.</p>
+</section>
+<section id="produce" class="level3">
+<h3 class="anchored" data-anchor-id="produce">Produce</h3>
+<p>Write an interpretation with the assumption results and decision to proceed, analysis name, both group means and standard deviations, <em>t</em>, degrees of freedom, <em>p</em>, Cohen’s <em>d</em>, its magnitude, and the confidence interval. Describe a difference or association; political views were measured, not assigned.</p>
+</section>
+</section>
+<section id="research-question-2-american-dream-ratings" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-2-american-dream-ratings">Research Question 2: American Dream Ratings</h2>
+<p>Participants rated both the importance of achieving the American Dream (<code>USdream1</code>) and whether they believed they would achieve it (<code>USdream2</code>) on a 1-to-5 scale. Because both scores come from each participant, we will conduct a paired-samples <em>t</em> test.</p>
+<section id="predict-1" class="level3">
+<h3 class="anchored" data-anchor-id="predict-1">Predict</h3>
+<p>Identify the independent and dependent variables, write the hypotheses, and predict which mean will be higher. Explain why the observations are paired rather than independent.</p>
+</section>
+<section id="run-1" class="level3">
+<h3 class="anchored" data-anchor-id="run-1">Run</h3>
+<p>Begin by creating a data frame that contains the paired scores and each participant’s difference score. For a paired-samples <em>t</em> test, the normality assumption applies to these difference scores.</p>
+<!-- script-comment: Keep complete pairs and calculate one difference score per participant. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>usdream_data <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(USdream1, USdream2) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Difference =</span> USdream1 <span class="sc">-</span> USdream2</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>usdream_summary <span class="ot">&lt;-</span> usdream_data <span class="sc">|&gt;</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">USdream1_Mean =</span> <span class="fu">mean</span>(USdream1),</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">USdream1_SD =</span> <span class="fu">sd</span>(USdream1),</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">USdream2_Mean =</span> <span class="fu">mean</span>(USdream2),</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">USdream2_SD =</span> <span class="fu">sd</span>(USdream2),</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">DifferenceSkewness =</span> <span class="fu">sample_skewness</span>(Difference)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>usdream_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 6
+      N USdream1_Mean USdream1_SD USdream2_Mean USdream2_SD DifferenceSkewness
+  &lt;int&gt;         &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;              &lt;dbl&gt;
+1  2063          3.41        1.22          3.57        1.07             -0.282</code></pre>
+</div>
+</div>
+<p>Run the Shapiro-Wilk test on the difference scores.</p>
+<!-- script-comment: Test whether the paired difference scores are normally distributed. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>usdream_normality_test <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(usdream_data<span class="sc">$</span>Difference)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>usdream_normality_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  usdream_data$Difference
+W = 0.86755, p-value &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>The Shapiro-Wilk test is significant, so the difference scores differ statistically from normal. Their skewness is about -0.28, however, which does not indicate severe skew. The two ratings also use a short 1-to-5 scale with no invalid values. For this teaching analysis, we will proceed and report the assumption result.</p>
+<p>Run the paired test.</p>
+<!-- script-comment: Compare the two American Dream ratings from the same participants. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>usdream_t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  usdream_data<span class="sc">$</span>USdream1,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  usdream_data<span class="sc">$</span>USdream2,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">paired =</span> <span class="cn">TRUE</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>usdream_t_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  usdream_data$USdream1 and usdream_data$USdream2
+t = -7.6047, df = 2062, p-value = 4.312e-14
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ -0.2073099 -0.1223071
+sample estimates:
+mean difference 
+     -0.1648085 </code></pre>
+</div>
+</div>
+<p><code>paired = TRUE</code> tells R that the scores in the two variables belong to the same participants. R analyzes each participant’s difference score rather than treating the variables as unrelated groups.</p>
+</section>
+<section id="investigate-1" class="level3">
+<h3 class="anchored" data-anchor-id="investigate-1">Investigate</h3>
+<p>Identify which measure has the higher mean. Then use <em>t</em> and <em>p</em> to decide whether the mean difference is statistically significant. Check the confidence interval and determine whether it contains 0.</p>
+</section>
+<section id="calculate-effect-size-1" class="level3">
+<h3 class="anchored" data-anchor-id="calculate-effect-size-1">Calculate Effect Size</h3>
+<p>Create the difference scores and calculate Cohen’s <em>d</em>.</p>
+<!-- script-comment: Use the setup file's cohens_d() helper to standardize the mean paired difference. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>usdream_difference <span class="ot">&lt;-</span> usdream_data<span class="sc">$</span>Difference</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>usdream_d <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(usdream_difference),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sd</span>(usdream_difference)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>usdream_d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.1674288</code></pre>
+</div>
+</div>
+<p>For paired samples, Cohen’s <em>d</em> is the mean of the difference scores divided by their standard deviation. The subtraction order affects the sign. Here, negative values mean that attainability ratings tend to be higher than importance ratings.</p>
+</section>
+<section id="produce-1" class="level3">
+<h3 class="anchored" data-anchor-id="produce-1">Produce</h3>
+<p>Write an interpretation that reports the normality result and decision to proceed, names both ratings, reports both means and standard deviations, and includes <em>t</em>, <em>p</em>, Cohen’s <em>d</em>, its magnitude, and the confidence interval.</p>
+</section>
+</section>
+<section id="research-question-3-exploration-and-identity-formation" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-3-exploration-and-identity-formation">Research Question 3: Exploration and Identity Formation</h2>
+<p>Participants rated emerging adulthood as a time for exploration (<code>Exploration</code>) and identity formation (<code>Identity</code>) on a scale from 1, strongly disagree, to 4, strongly agree.</p>
+<section id="predict-2" class="level3">
+<h3 class="anchored" data-anchor-id="predict-2">Predict</h3>
+<p>Identify the variables, select an independent- or paired-samples test, write the hypotheses, and predict which mean will be higher.</p>
+</section>
+<section id="run-2" class="level3">
+<h3 class="anchored" data-anchor-id="run-2">Run</h3>
+<p>Copy the Research Question 2 code. Replace the American Dream variables with <code>Exploration</code> and <code>Identity</code>, create the participant-level difference scores, and use new object names.</p>
+</section>
+<section id="investigate-2" class="level3">
+<h3 class="anchored" data-anchor-id="investigate-2">Investigate</h3>
+<p>Use <code>shapiro.test()</code> to check the difference scores. Then check the means, <em>t</em>, <em>p</em>, confidence interval, and the sign of the difference. Confirm that <code>paired = TRUE</code> remains in your test.</p>
+</section>
+<section id="calculate-effect-size-2" class="level3">
+<h3 class="anchored" data-anchor-id="calculate-effect-size-2">Calculate Effect Size</h3>
+<p>Create <code>exploration_identity_difference</code>, then use its mean and standard deviation with <code>cohens_d()</code>.</p>
+</section>
+<section id="produce-2" class="level3">
+<h3 class="anchored" data-anchor-id="produce-2">Produce</h3>
+<p>Write a paragraph that answers the research question and reports the normality result, decision to proceed, and required statistics.</p>
+</section>
+</section>
+<section id="check-your-work" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-work">Check Your Work</h2>
+<section id="research-question-1" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-1">Research Question 1</h3>
+<p>Independent variable: political orientation. Dependent variable: feelings of belonging.</p>
+<p><span class="math display">\[
+H_0: \mu_{\text{liberal}} = \mu_{\text{conservative}}
+\]</span></p>
+<p><span class="math display">\[
+H_1: \mu_{\text{liberal}} \neq \mu_{\text{conservative}}
+\]</span></p>
+<p>An independent-samples <em>t</em> test compared belonging among emerging adults who identified as liberal and conservative. Conservative emerging adults reported significantly greater belonging (<em>M</em> = 3.75, <em>SD</em> = 1.04) than liberal emerging adults (<em>M</em> = 3.47, <em>SD</em> = 1.00), <em>t</em>(1333) = -4.70, <em>p</em> &lt; .001, <em>d</em> = -0.27, 95% CI [-0.39, -0.16]. The magnitude of the difference was small.</p>
+<p>The Shapiro-Wilk tests were significant for both groups, so the normality assumption was not met. The skewness values were below 2.00, and all scores were valid values on the 1-to-5 scale, so we proceeded with the analysis. The F test was not significant, so the homogeneity-of-variance assumption was met.</p>
+</section>
+<section id="research-question-2" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-2">Research Question 2</h3>
+<p>Independent variable: type of American Dream rating. Dependent variable: American Dream rating.</p>
+<p><span class="math display">\[
+H_0: \mu_{\text{importance}} = \mu_{\text{attainability}}
+\]</span></p>
+<p><span class="math display">\[
+H_1: \mu_{\text{importance}} \neq \mu_{\text{attainability}}
+\]</span></p>
+<p>A paired-samples <em>t</em> test compared ratings of the importance and attainability of the American Dream. Emerging adults believed more strongly that they would achieve the American Dream (<em>M</em> = 3.57, <em>SD</em> = 1.07) than that the American Dream was important (<em>M</em> = 3.41, <em>SD</em> = 1.22), <em>t</em>(2062) = -7.60, <em>p</em> &lt; .001, <em>d</em> = -0.17, 95% CI [-0.21, -0.12]. The magnitude of the difference was small.</p>
+<p>The Shapiro-Wilk test of the paired difference scores was significant, so the normality assumption was not met. The difference scores were not severely skewed, so we proceeded with the analysis and reported the assumption result.</p>
+</section>
+<section id="research-question-3" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-3">Research Question 3</h3>
+<p>The appropriate analysis is a paired-samples <em>t</em> test because each participant supplied both ratings.</p>
+<!-- script-comment: Check Your Work: complete the exploration-versus-identity paired analysis. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>exploration_identity_data <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Exploration, Identity) <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Difference =</span> Exploration <span class="sc">-</span> Identity</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>exploration_identity_summary <span class="ot">&lt;-</span> exploration_identity_data <span class="sc">|&gt;</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Exploration_Mean =</span> <span class="fu">mean</span>(Exploration),</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Exploration_SD =</span> <span class="fu">sd</span>(Exploration),</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Identity_Mean =</span> <span class="fu">mean</span>(Identity),</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Identity_SD =</span> <span class="fu">sd</span>(Identity),</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">DifferenceSkewness =</span> <span class="fu">sample_skewness</span>(Difference)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>exploration_identity_normality_test <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>  exploration_identity_data<span class="sc">$</span>Difference</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>exploration_identity_t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>  exploration_identity_data<span class="sc">$</span>Exploration,</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>  exploration_identity_data<span class="sc">$</span>Identity,</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">paired =</span> <span class="cn">TRUE</span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>exploration_identity_difference <span class="ot">&lt;-</span> exploration_identity_data<span class="sc">$</span>Difference</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>exploration_identity_d <span class="ot">&lt;-</span> <span class="fu">cohens_d</span>(</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(exploration_identity_difference),</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sd</span>(exploration_identity_difference)</span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>exploration_identity_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 6
+      N Exploration_Mean Exploration_SD Identity_Mean Identity_SD
+  &lt;int&gt;            &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;
+1  2073             3.64          0.493          3.58       0.521
+# ℹ 1 more variable: DifferenceSkewness &lt;dbl&gt;</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>exploration_identity_normality_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  exploration_identity_data$Difference
+W = 0.89736, p-value &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>exploration_identity_t_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  exploration_identity_data$Exploration and exploration_identity_data$Identity
+t = 4.3895, df = 2072, p-value = 1.193e-05
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 0.02815515 0.07362971
+sample estimates:
+mean difference 
+     0.05089243 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>exploration_identity_d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.09640884</code></pre>
+</div>
+</div>
+<p>Respondents rated emerging adulthood significantly more strongly as a time for exploration (<em>M</em> = 3.64, <em>SD</em> = 0.49) than identity formation (<em>M</em> = 3.58, <em>SD</em> = 0.52), <em>t</em>(2072) = 4.39, <em>p</em> &lt; .001, <em>d</em> = 0.10, 95% CI [0.03, 0.07]. The magnitude of the difference was quite small.</p>
+<p>The Shapiro-Wilk test of the paired difference scores was significant, so the normality assumption was not met. The difference scores were approximately symmetric, and we proceeded while keeping the assumption result in mind.</p>
+</section>
+</section>
+<section id="chapter-takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-takeaway">Chapter Takeaway</h2>
+<p>Use an independent-samples <em>t</em> test when two means come from different groups of people. Use a paired-samples <em>t</em> test when two means come from the same or matched participants.</p>
+<p>New R commands and patterns in this chapter:</p>
+<ul>
+<li><code>pull()</code> takes one variable from a data frame for use by a function.</li>
+<li><code>shapiro.test()</code> checks whether scores differ significantly from a normal distribution.</li>
+<li><code>var.test()</code> conducts an F test comparing two group variances.</li>
+<li><code>outcome ~ group</code> repeats the formula pattern from Chapter 6 for a group comparison.</li>
+<li><code>var.equal = TRUE</code> requests Student’s independent-samples <em>t</em> test.</li>
+<li><code>paired = TRUE</code> identifies related scores in a paired-samples <em>t</em> test.</li>
+</ul>
 
 
 </section>
@@ -482,19 +934,6 @@ ul.task-list li input[type="checkbox"] {
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
-    }
-    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -900,13 +1339,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/09-one-sample-designs.html" class="pagination-link" aria-label="One-Sample Designs">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">One-Sample Designs</span>
+      <a href="../chapters/09-one-sample-designs.html" class="pagination-link" aria-label="Chapter 9: One-Sample Designs">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chapter 9: One-Sample Designs</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/11-anova-independent.html" class="pagination-link" aria-label="Analysis of Variance: Independent Samples">
-        <span class="nav-page-text">Analysis of Variance: Independent Samples</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/11-independent-anova.html" class="pagination-link" aria-label="Chapter 11: Analysis of Variance">
+        <span class="nav-page-text">Chapter 11: Analysis of Variance</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -914,7 +1353,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Instructor resource for <em>Exploring Statistics: Tales of Distributions</em></p>
+<p>Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

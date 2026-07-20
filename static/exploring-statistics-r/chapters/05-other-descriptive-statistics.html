@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Use z scores, IQR, boxplots, and effect size to describe stress and compare groups.">
 
-<title>Other Descriptive Statistics – Exploring Statistics with R</title>
+<title>Chapter 5: Other Descriptive Statistics – Exploring Statistics with R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -41,14 +77,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-39d72d2d8fc74c86a6f3fad29307908e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-92eb9d6b9ba6868aca9c04a4b27d82cd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-7d4bf5ba88f0d43632e1ea06990e7a45.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-92eb9d6b9ba6868aca9c04a4b27d82cd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,172 +110,39 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -265,24 +164,20 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../chapters/01-getting-started.html"> 
-<span class="menu-text">Chapters</span></a>
+    <a class="nav-link" href="../start/00-choose-your-path.html"> 
+<span class="menu-text">Start Here</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../data/codebook.html"> 
-<span class="menu-text">Understanding EAMMi2</span></a>
+    <a class="nav-link" href="../reference/r-command-index.html"> 
+<span class="menu-text">R Reference</span></a>
   </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/axxe/exploring-statistics-r"> <i class="bi bi-github" role="img" aria-label="GitHub source repository">
-</i> 
-<span class="menu-text"></span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../instructor/instructor-guide.html"> 
+<span class="menu-text">Instructor Guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -296,7 +191,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-getting-started.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/05-other-descriptive-statistics.html">Other Descriptive Statistics</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/05-other-descriptive-statistics.html">Chapter 5: Other Descriptive Statistics</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -325,8 +220,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00-intro-to-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Intro to R</span></a>
+  <a href="../start/00-choose-your-path.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choose Your Path</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/01-set-up-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Set Up RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../start/02-run-your-first-script.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Run Your First Script</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -348,86 +255,120 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01-getting-started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+  <a href="../chapters/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 1: Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02-frequency-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring Data: Frequency Distributions and Graphs</span></a>
+  <a href="../chapters/02-exploring-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 2: Exploring Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring Data: Central Tendency and Variability</span></a>
+ <span class="menu-text">Chapters 3 and 4: Central Tendency And Variability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05-other-descriptive-statistics.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Other Descriptive Statistics</span></a>
+ <span class="menu-text">Chapter 5: Other Descriptive Statistics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06-correlation-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Correlation and Regression</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07-probability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Probability</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/08-sampling-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sampling Distributions</span></a>
+ <span class="menu-text">Chapter 6: Correlation and Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09-one-sample-designs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">One-Sample Designs</span></a>
+ <span class="menu-text">Chapter 9: One-Sample Designs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10-two-sample-designs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Sample Designs</span></a>
+ <span class="menu-text">Chapter 10: Two-Sample Designs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/11-anova-independent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analysis of Variance: Independent Samples</span></a>
+  <a href="../chapters/11-independent-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 11: Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/12-anova-repeated.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analysis of Variance: Repeated Measures</span></a>
+  <a href="../chapters/12-repeated-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 12: Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13-two-way-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Way Independent Analysis of Variance</span></a>
+ <span class="menu-text">Chapter 13: Two-Way Independent Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14-chi-square.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chi-Square Tests</span></a>
+ <span class="menu-text">Chapter 14: Chi-Square Tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/15-nonparametric.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">More Nonparametric Tests</span></a>
+  <a href="../chapters/15-nonparametric-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 15: Nonparametric Statistics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">R help and reference</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/r-command-index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Command Index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Troubleshooting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/statistical-language.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Language</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Instructor resources</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../instructor/instructor-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instructor Guide</span></a>
   </div>
 </li>
       </ul>
@@ -442,20 +383,39 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-tools" id="toc-r-tools" class="nav-link active" data-scroll-target="#r-tools">R tools</a></li>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning Goals</a></li>
+  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">Research Questions</a></li>
+  <li><a href="#research-question-1-perceived-stress" id="toc-research-question-1-perceived-stress" class="nav-link" data-scroll-target="#research-question-1-perceived-stress">Research Question 1: Perceived Stress</a>
+  <ul class="collapse">
+  <li><a href="#get-ready" id="toc-get-ready" class="nav-link" data-scroll-target="#get-ready">Get Ready</a></li>
+  <li><a href="#run-the-analysis" id="toc-run-the-analysis" class="nav-link" data-scroll-target="#run-the-analysis">Run The Analysis</a></li>
+  <li><a href="#investigate-the-code" id="toc-investigate-the-code" class="nav-link" data-scroll-target="#investigate-the-code">Investigate The Code</a></li>
+  <li><a href="#produce-your-interpretation" id="toc-produce-your-interpretation" class="nav-link" data-scroll-target="#produce-your-interpretation">Produce Your Interpretation</a></li>
+  </ul></li>
+  <li><a href="#research-question-2-produce-an-outlier-and-group-comparison-analysis" id="toc-research-question-2-produce-an-outlier-and-group-comparison-analysis" class="nav-link" data-scroll-target="#research-question-2-produce-an-outlier-and-group-comparison-analysis">Research Question 2: Produce An Outlier And Group-Comparison Analysis</a></li>
+  <li><a href="#check-your-work" id="toc-check-your-work" class="nav-link" data-scroll-target="#check-your-work">Check Your Work</a>
+  <ul class="collapse">
+  <li><a href="#research-question-1" id="toc-research-question-1" class="nav-link" data-scroll-target="#research-question-1">Research Question 1</a></li>
+  <li><a href="#research-question-2-sample" id="toc-research-question-2-sample" class="nav-link" data-scroll-target="#research-question-2-sample">Research Question 2 Sample</a></li>
+  </ul></li>
+  <li><a href="#chapter-takeaway" id="toc-chapter-takeaway" class="nav-link" data-scroll-target="#chapter-takeaway">Chapter Takeaway</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-getting-started.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/05-other-descriptive-statistics.html">Other Descriptive Statistics</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-introduction.html">Workbook chapters</a></li><li class="breadcrumb-item"><a href="../chapters/05-other-descriptive-statistics.html">Chapter 5: Other Descriptive Statistics</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Other Descriptive Statistics</h1>
-<p class="subtitle lead">Chapter 5</p>
+<h1 class="title">Chapter 5: Other Descriptive Statistics</h1>
+<p class="subtitle lead">Z scores, IQR, boxplots, and effect size</p>
 </div>
 
+<div>
+  <div class="description">
+    Use z scores, IQR, boxplots, and effect size to describe stress and compare groups.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -470,11 +430,702 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><span class="chapter-status">In development</span></p>
-<p>This chapter will cover standard scores, distribution shape, outlier identification, boxplots, and transparent decisions about retaining or filtering observations.</p>
-<section id="r-tools" class="level2">
-<h2 class="anchored" data-anchor-id="r-tools">R tools</h2>
-<p><code>scale()</code>, <code>quantile()</code>, <code>IQR()</code>, <code>filter()</code>, <code>geom_histogram()</code>, and <code>geom_boxplot()</code></p>
+<p>Chapter 5 of <em>Exploring Statistics</em> introduces additional tools for describing distributions. This time, we will look beyond the average: z scores show where individual scores sit, boxplots flag values worth investigating, and effect sizes help us judge whether a group difference is substantial.</p>
+<section id="learning-goals" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals">Learning Goals</h2>
+<p>By the end of this chapter, you should be able to:</p>
+<ul>
+<li>calculate and interpret standard deviation, range, quartiles, and IQR;</li>
+<li>create a new variable in a data frame;</li>
+<li>calculate z scores from the z-score formula;</li>
+<li>use z scores and IQR boundaries to identify potential outliers;</li>
+<li>create and interpret boxplots;</li>
+<li>explain why outlier decisions require judgment; and</li>
+<li>compare descriptive statistics across two groups.</li>
+</ul>
+</section>
+<section id="research-questions" class="level2">
+<h2 class="anchored" data-anchor-id="research-questions">Research Questions</h2>
+<ol type="1">
+<li>How is perceived stress distributed in emerging adults? Are there any participants in our EAMMi2 data file who are particularly high or low on stress? To what extent is perceived stress distributed differently for people with and without a disability?</li>
+<li>Pick another variable in our data set that you suspect might not be normally distributed. Use the IQR method to identify potential outliers. Filter out the outliers and then write a paragraph summarizing your final descriptive-statistics report. Then, compare two groups on this variable and write another descriptive-statistics report.</li>
+</ol>
+<p>Research Question 1 provides a complete worked analysis. Research Question 2 asks you to apply the same process to a variable you select.</p>
+</section>
+<section id="research-question-1-perceived-stress" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-1-perceived-stress">Research Question 1: Perceived Stress</h2>
+<section id="get-ready" class="level3">
+<h3 class="anchored" data-anchor-id="get-ready">Get Ready</h3>
+<p>Open <code>scripts/05-other-descriptive-statistics.R</code> in the starter project and run one complete expression at a time.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/_setup.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<table class="caption-top table">
+<caption>Research Question 1 variables</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>What it measures</th>
+<th>Role in the analysis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Stress</code></td>
+<td>Perceived stress over the last month</td>
+<td>quantitative outcome</td>
+</tr>
+<tr class="even">
+<td><code>Disability</code></td>
+<td>Whether the participant identified as having a disability</td>
+<td>categorical grouping variable</td>
+</tr>
+</tbody>
+</table>
+<p><code>Stress</code> is the sum of 10 questions rated from 1 to 5, so possible scores range from 10 to 50. Give <code>Disability</code> readable labels.</p>
+<!-- script-comment: Give Disability readable category labels before comparing groups. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Disability =</span> <span class="fu">factor</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      Disability,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="run-the-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-analysis">Run The Analysis</h3>
+<section id="describe-stress" class="level4">
+<h4 class="anchored" data-anchor-id="describe-stress">Describe Stress</h4>
+<!-- script-comment: Calculate a complete set of descriptive statistics for Stress. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>stress_summary <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Stress) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(Stress),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(Stress),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mode =</span> <span class="fu">statistical_mode</span>(Stress),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Stress),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Minimum =</span> <span class="fu">min</span>(Stress),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Maximum =</span> <span class="fu">max</span>(Stress),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Range =</span> Maximum <span class="sc">-</span> Minimum,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Stress, <span class="fl">0.25</span>),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Stress, <span class="fl">0.75</span>),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Stress)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>stress_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 11
+      N  Mean Median  Mode    SD Minimum Maximum Range    Q1    Q3   IQR
+  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  2071  32.7     33    33  4.05      10      50    40    30    35     5</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="investigate-the-code" class="level3">
+<h3 class="anchored" data-anchor-id="investigate-the-code">Investigate The Code</h3>
+<p>Most of this summary repeats the pattern from Chapters 3 and 4. The new lines are:</p>
+<ul>
+<li><code>quantile(Stress, 0.25)</code> for Q1;</li>
+<li><code>quantile(Stress, 0.75)</code> for Q3; and</li>
+<li><code>IQR(Stress)</code> for the distance between Q1 and Q3.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Stress) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Stress)) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">boundary =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Perceived stress score"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch5-stress-histogram" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram showing that perceived stress scores are concentrated in the low-to-mid thirties, with a small tail toward lower stress scores.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch5-stress-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-other-descriptive-statistics_files/figure-html/fig-redesign-ch5-stress-histogram-1.png" class="img-fluid figure-img" alt="Histogram showing that perceived stress scores are concentrated in the low-to-mid thirties, with a small tail toward lower stress scores." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch5-stress-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Distribution of perceived stress scores in the reduced EAMMi2 sample.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Looking at this output, you might say that this distribution has a slight negative skew. The mean is similar to the median, but the histogram has a tail pointing toward lower scores.</p>
+<section id="create-z-scores" class="level4">
+<h4 class="anchored" data-anchor-id="create-z-scores">Create Z Scores</h4>
+<p>The formula for a z score is:</p>
+<p><span class="math display">\[
+z = \frac{X - M}{SD}
+\]</span></p>
+<p>In words, subtract the mean from a person’s score and divide by the standard deviation.</p>
+<p>Use <code>head()</code> to display the first two observed stress scores.</p>
+<!-- script-comment: Inspect the first stress scores before creating a new variable. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(eammi<span class="sc">$</span>Stress, <span class="at">n =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 33 36</code></pre>
+</div>
+</div>
+<p>Using what you learned in the textbook, calculate the z score for each of these observations by hand. Use the mean and standard deviation for <code>Stress</code> from the summary output above.</p>
+<p>If you use the rounded values shown in the output, you should get approximately 0.074 and 0.815. Keep those answers nearby while R creates the new variable.</p>
+<!-- script-comment: Add a z score for Stress to every observation in the data frame. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Stress_z =</span> (Stress <span class="sc">-</span> <span class="fu">mean</span>(Stress, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> <span class="fu">sd</span>(Stress, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(eammi<span class="sc">$</span>Stress_z, <span class="at">n =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07741713 0.81854603</code></pre>
+</div>
+</div>
+<p>This <code>mutate()</code> step creates <code>Stress_z</code> inside <code>eammi</code>. The formula in the code follows the statistical formula in the same order. R reports approximately 0.077 and 0.819 for the first two observations. These results differ slightly from the hand calculations because R uses the complete, unrounded mean and standard deviation stored in the data.</p>
+<p>To check your work creating the z scores, ask R for the mean and standard deviation of the new variable. Before running the code, decide what these numbers should be for a distribution of z scores.</p>
+<!-- script-comment: Find the smallest and largest stress z scores. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Stress_z) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(Stress_z),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Stress_z),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Minimum =</span> <span class="fu">min</span>(Stress_z),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Maximum =</span> <span class="fu">max</span>(Stress_z)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+      Mean    SD Minimum Maximum
+     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 3.77e-16 1.000   -5.60    4.28</code></pre>
+</div>
+</div>
+<p>The mean is displayed in scientific notation as a number extremely close to 0, and the standard deviation is 1. This is the expected result for a distribution of z scores.</p>
+<p>Next, call back to our discussion in the textbook about how to use z scores to identify outliers in a distribution of scores. Use the general rule that z scores greater than an absolute value of 3 may be outliers. Compare that rule with the descriptive statistics for <code>Stress_z</code> to identify whether we have potential outliers before continuing.</p>
+<p>Using this approach, we do have potential outliers: the minimum z score is -5.60 and the maximum is 4.28.</p>
+</section>
+<section id="identify-potential-outliers-with-iqr" class="level4">
+<h4 class="anchored" data-anchor-id="identify-potential-outliers-with-iqr">Identify Potential Outliers With IQR</h4>
+<p>Another way to identify potential outliers relies on the interquartile range. The IQR boundaries are:</p>
+<p><span class="math display">\[
+\text{Lower outlier boundary} = Q1 - (1.5 \times IQR)
+\]</span></p>
+<p><span class="math display">\[
+\text{Upper outlier boundary} = Q3 + (1.5 \times IQR)
+\]</span></p>
+<!-- script-comment: Calculate the IQR boundaries used to flag potential outliers. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>stress_iqr <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Stress) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Stress, <span class="fl">0.25</span>),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Stress, <span class="fl">0.75</span>),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Stress),</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">LowerBoundary =</span> Q1 <span class="sc">-</span> (<span class="fl">1.5</span> <span class="sc">*</span> IQR),</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">UpperBoundary =</span> Q3 <span class="sc">+</span> (<span class="fl">1.5</span> <span class="sc">*</span> IQR)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>stress_iqr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+     Q1    Q3   IQR LowerBoundary UpperBoundary
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+1    30    35     5          22.5          42.5</code></pre>
+</div>
+</div>
+<p>The lower boundary is 22.5 and the upper boundary is 42.5. Scores below 22.5 or above 42.5 are flagged as potential outliers. With this approach, many more scores will be considered outliers compared with the z-score approach.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Stress) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Stress)) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Perceived stress score"</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch5-stress-boxplot" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Boxplot showing the median stress score near 33, with potential outliers below the lower whisker and above the upper whisker.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch5-stress-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-other-descriptive-statistics_files/figure-html/fig-redesign-ch5-stress-boxplot-1.png" class="img-fluid figure-img" alt="Boxplot showing the median stress score near 33, with potential outliers below the lower whisker and above the upper whisker." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch5-stress-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Boxplot of perceived stress scores in the reduced EAMMi2 sample.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The IQR approach is what R uses to identify potential outliers in boxplots. You can see that the dots beyond the whiskers begin around 22.5 and 42.5, respectively.</p>
+</section>
+<section id="filter-the-potential-outliers" class="level4">
+<h4 class="anchored" data-anchor-id="filter-the-potential-outliers">Filter The Potential Outliers</h4>
+<p>The next code creates a new data frame that contains only stress scores between the two IQR boundaries.</p>
+<!-- script-comment: Create a new data frame that sets aside scores outside the IQR boundaries. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>stress_filtered <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Stress <span class="sc">&gt;</span> <span class="fl">22.5</span>, Stress <span class="sc">&lt;</span> <span class="fl">42.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The new object is named <code>stress_filtered</code>. The original <code>eammi</code> data frame remains unchanged. Keeping the original data untouched makes it possible to check the decision, compare results, or choose a different approach later.</p>
+<p>Now repeat the descriptive statistics and graphs with the filtered data.</p>
+<!-- script-comment: Recalculate descriptive statistics after potential outliers are set aside. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>stress_filtered_summary <span class="ot">&lt;-</span> stress_filtered <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(Stress),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(Stress),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mode =</span> <span class="fu">statistical_mode</span>(Stress),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Stress),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Minimum =</span> <span class="fu">min</span>(Stress),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Maximum =</span> <span class="fu">max</span>(Stress),</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Range =</span> Maximum <span class="sc">-</span> Minimum,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Stress, <span class="fl">0.25</span>),</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Stress, <span class="fl">0.75</span>),</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Stress)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>stress_filtered_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 11
+      N  Mean Median  Mode    SD Minimum Maximum Range    Q1    Q3   IQR
+  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  2032  32.7     33    33  3.60      23      42    19    30    35     5</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>stress_filtered <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Stress)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">boundary =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Perceived stress score"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch5-filtered-histogram" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram of filtered perceived stress scores showing a distribution centered near 33 with no extreme tails.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch5-filtered-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-other-descriptive-statistics_files/figure-html/fig-redesign-ch5-filtered-histogram-1.png" class="img-fluid figure-img" alt="Histogram of filtered perceived stress scores showing a distribution centered near 33 with no extreme tails." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch5-filtered-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Distribution of perceived stress after scores outside the original IQR boundaries were filtered.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>stress_filtered <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Stress)) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Perceived stress score"</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch5-filtered-boxplot" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Boxplot of filtered perceived stress scores with no points extending beyond the whiskers.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch5-filtered-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-other-descriptive-statistics_files/figure-html/fig-redesign-ch5-filtered-boxplot-1.png" class="img-fluid figure-img" alt="Boxplot of filtered perceived stress scores with no points extending beyond the whiskers." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch5-filtered-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Boxplot of perceived stress after scores outside the original IQR boundaries were filtered.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Because the original version of our <code>Stress</code> variable was not appreciably skewed by the potential outliers we filtered, not much has changed in the descriptive-statistics output. You may notice that the standard deviation has gotten smaller. Think through why this would be. You should also see that the boxplot is no longer flagging any potential outliers.</p>
+<p>Before moving on, write a paragraph summarizing the filtered version of the <code>Stress</code> distribution that also tells your audience about our approach to handling potential outliers. You can check your work at the end of this module.</p>
+<p>As a reminder, in real research, your decision to keep or set aside potential outliers is a judgment that you need to justify to your audience. In this case, the original variable was very close to a normal distribution, so we suggest erring on the side of inclusion by keeping all of the data. We filtered the potential outliers here for demonstration purposes.</p>
+</section>
+<section id="compare-stress-by-disability-status" class="level4">
+<h4 class="anchored" data-anchor-id="compare-stress-by-disability-status">Compare Stress By Disability Status</h4>
+<p>As a final step, let’s compare how <code>Stress</code> is distributed between individuals who do and do not identify as having a disability.</p>
+<p>The next summary reuses <code>group_by()</code> to compare the two groups. Before running it, identify the grouping variable and the quantitative outcome.</p>
+<!-- script-comment: Compare stress descriptives for participants with and without a disability. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>stress_disability_summary <span class="ot">&lt;-</span> stress_filtered <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Disability) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Disability) <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(Stress),</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(Stress),</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mode =</span> <span class="fu">statistical_mode</span>(Stress),</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Stress),</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Minimum =</span> <span class="fu">min</span>(Stress),</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Maximum =</span> <span class="fu">max</span>(Stress),</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Range =</span> Maximum <span class="sc">-</span> Minimum,</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Stress, <span class="fl">0.25</span>),</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Stress, <span class="fl">0.75</span>),</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Stress)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>stress_disability_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 12
+  Disability     N  Mean Median  Mode    SD Minimum Maximum Range    Q1    Q3
+  &lt;fct&gt;      &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Yes          171  33.4     34    34  3.23      24      42    18    31    35
+2 No          1861  32.6     33    33  3.63      23      42    19    30    35
+# ℹ 1 more variable: IQR &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>stress_filtered <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Disability) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Disability, <span class="at">y =</span> Stress)) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Identifies as having a disability"</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Perceived stress score"</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch5-stress-disability-boxplot" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two boxplots showing similar filtered perceived stress distributions for participants who did and did not identify as having a disability.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch5-stress-disability-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-other-descriptive-statistics_files/figure-html/fig-redesign-ch5-stress-disability-boxplot-1.png" class="img-fluid figure-img" alt="Two boxplots showing similar filtered perceived stress distributions for participants who did and did not identify as having a disability." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch5-stress-disability-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Filtered perceived stress scores for participants with and without a disability.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="calculate-cohens-d" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-cohens-d">Calculate Cohen’s d</h4>
+<p>Cohen’s <em>d</em> describes the mean difference in standard deviation units:</p>
+<p><span class="math display">\[
+d = \frac{\text{mean difference}}{\text{standard deviation}}
+\]</span></p>
+<p>The setup file includes <code>independent_cohens_d()</code>, which gets each group’s sample size, mean, and standard deviation, calculates the pooled standard deviation, and then calculates Cohen’s <em>d</em>.</p>
+<!-- script-comment: Use the setup file's independent_cohens_d() helper to compare the two groups. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>stress_disability_d <span class="ot">&lt;-</span> <span class="fu">independent_cohens_d</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  stress_filtered,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  Stress,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  Disability</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>stress_disability_d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  MeanDifference PooledSD CohensD
+           &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1          0.739     3.60   0.205</code></pre>
+</div>
+</div>
+<p>The three inputs are the data frame, the quantitative outcome, and the grouping variable. Focus on the result: Cohen’s <em>d</em> expresses the difference between the group means relative to the variability in the scores.</p>
+</section>
+</section>
+<section id="produce-your-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="produce-your-interpretation">Produce Your Interpretation</h3>
+<p>Before moving on to Research Question 2, write a summary that compares these two distributions of <code>Stress</code> and tells your audience about our approach to handling potential outliers. You can check your work at the end of this module.</p>
+</section>
+</section>
+<section id="research-question-2-produce-an-outlier-and-group-comparison-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-2-produce-an-outlier-and-group-comparison-analysis">Research Question 2: Produce An Outlier And Group-Comparison Analysis</h2>
+<p>Pick another variable in our data set that you suspect might not be normally distributed and use the IQR method to identify potential outliers. Filter out the potential outliers and then write a paragraph summarizing your final descriptive-statistics report. Then, compare two groups on this variable and write another descriptive-statistics report. You can check your work by comparing your paragraphs with the sample paragraphs at the end of this module.</p>
+<p><code>MOA_ACH</code>, <code>SocialSupport</code>, and <code>Symptoms</code> are good options. Use Research Question 1 as your model, and create descriptive object names for your own summaries and filtered data.</p>
+</section>
+<section id="check-your-work" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-work">Check Your Work</h2>
+<section id="research-question-1" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-1">Research Question 1</h3>
+<section id="summary-for-perceived-stress" class="level4">
+<h4 class="anchored" data-anchor-id="summary-for-perceived-stress">Summary For Perceived Stress</h4>
+<p>Using the EAMMi2 sample, we examined emerging adults’ ratings of perceived stress over the last month, which had a possible score range of 10 to 50. An initial inspection of the data revealed potential outliers below 22.5 and above 42.5; these values were set aside for this demonstration analysis. Participants’ ratings of perceived stress were normally distributed, with a mean of 32.70 and a median and mode of 33. The standard deviation was 3.60, with a range of 19 and an IQR of 5. The graph presents a boxplot of these data.</p>
+</section>
+<section id="summary-for-perceived-stress-of-individuals-with-and-without-a-disability" class="level4">
+<h4 class="anchored" data-anchor-id="summary-for-perceived-stress-of-individuals-with-and-without-a-disability">Summary For Perceived Stress Of Individuals With And Without A Disability</h4>
+<p>Using the EAMMi2 sample, we compared ratings of perceived stress over the last month for emerging adults with and without a disability. This scale had a possible score range of 10 to 50. An initial inspection of the data revealed potential outliers below 22.5 and above 42.5; these values were set aside for this demonstration analysis. The graph shows boxplots of perceived stress ratings for each group. The difference in means produced an effect size of <em>d</em> = 0.21.</p>
+<p>The mean perceived stress rating for emerging adults with a disability was 33.35, and the median was 34. The mean for emerging adults without a disability was 32.61, and the median was 33. Thus, emerging adults with a disability reported slightly higher stress than emerging adults without a disability, although the mean difference of 0.74 points was small. Perceived stress ratings for those without a disability were slightly more variable (<em>SD</em> = 3.63, range = 19, IQR = 5) than ratings for those with a disability (<em>SD</em> = 3.23, range = 18, IQR = 4). Both distributions closely approximated a normal distribution.</p>
+</section>
+</section>
+<section id="research-question-2-sample" class="level3">
+<h3 class="anchored" data-anchor-id="research-question-2-sample">Research Question 2 Sample</h3>
+<p>The following example uses <code>MOA_ACH</code> and compares participants who identified as Democrats or Republicans using <code>PartyDichotomous</code>.</p>
+<section id="inspect-the-original-variable" class="level4">
+<h4 class="anchored" data-anchor-id="inspect-the-original-variable">Inspect The Original Variable</h4>
+<!-- script-comment: Check Your Work: inspect the original MOA_ACH distribution. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>moa_original_summary <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(MOA_ACH) <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(MOA_ACH),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(MOA_ACH),</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mode =</span> <span class="fu">statistical_mode</span>(MOA_ACH),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(MOA_ACH),</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Minimum =</span> <span class="fu">min</span>(MOA_ACH),</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Maximum =</span> <span class="fu">max</span>(MOA_ACH),</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Range =</span> Maximum <span class="sc">-</span> Minimum,</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(MOA_ACH, <span class="fl">0.25</span>),</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(MOA_ACH, <span class="fl">0.75</span>),</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(MOA_ACH)</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>moa_original_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 11
+      N  Mean Median  Mode    SD Minimum Maximum Range    Q1    Q3   IQR
+  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  2073  37.8     37    36  6.56       0      60    60    34    41     7</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(MOA_ACH) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> MOA_ACH)) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">boundary =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Markers of adulthood achieved"</span>,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch5-moa-original-histogram" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram showing a slightly negatively skewed distribution of markers of adulthood achieved.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch5-moa-original-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-other-descriptive-statistics_files/figure-html/fig-redesign-ch5-moa-original-histogram-1.png" class="img-fluid figure-img" alt="Histogram showing a slightly negatively skewed distribution of markers of adulthood achieved." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch5-moa-original-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Original distribution of markers of adulthood achieved.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>eammi <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(MOA_ACH) <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> MOA_ACH)) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Markers of adulthood achieved"</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch5-moa-original-boxplot" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Boxplot showing potential outliers in both tails of the original markers-of-adulthood distribution.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch5-moa-original-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-other-descriptive-statistics_files/figure-html/fig-redesign-ch5-moa-original-boxplot-1.png" class="img-fluid figure-img" alt="Boxplot showing potential outliers in both tails of the original markers-of-adulthood distribution." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch5-moa-original-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Original boxplot for markers of adulthood achieved.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The original distribution has a slight negative skew. Calculate the IQR boundaries.</p>
+<!-- script-comment: Check Your Work: calculate IQR boundaries for MOA_ACH. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>moa_iqr <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(MOA_ACH) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(MOA_ACH, <span class="fl">0.25</span>),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(MOA_ACH, <span class="fl">0.75</span>),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(MOA_ACH),</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">LowerBoundary =</span> Q1 <span class="sc">-</span> (<span class="fl">1.5</span> <span class="sc">*</span> IQR),</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">UpperBoundary =</span> Q3 <span class="sc">+</span> (<span class="fl">1.5</span> <span class="sc">*</span> IQR)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>moa_iqr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+     Q1    Q3   IQR LowerBoundary UpperBoundary
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+1    34    41     7          23.5          51.5</code></pre>
+</div>
+</div>
+<p>The lower boundary is 23.5, and the upper boundary is 51.5.</p>
+</section>
+<section id="filter-and-describe-the-variable" class="level4">
+<h4 class="anchored" data-anchor-id="filter-and-describe-the-variable">Filter And Describe The Variable</h4>
+<!-- script-comment: Check Your Work: set aside MOA_ACH scores beyond the IQR boundaries. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>moa_filtered <span class="ot">&lt;-</span> eammi <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MOA_ACH <span class="sc">&gt;</span> <span class="fl">23.5</span>, MOA_ACH <span class="sc">&lt;</span> <span class="fl">51.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<!-- script-comment: Check Your Work: summarize the filtered MOA_ACH scores. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>moa_filtered_summary <span class="ot">&lt;-</span> moa_filtered <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(MOA_ACH),</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(MOA_ACH),</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mode =</span> <span class="fu">statistical_mode</span>(MOA_ACH),</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(MOA_ACH),</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Minimum =</span> <span class="fu">min</span>(MOA_ACH),</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Maximum =</span> <span class="fu">max</span>(MOA_ACH),</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Range =</span> Maximum <span class="sc">-</span> Minimum,</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(MOA_ACH, <span class="fl">0.25</span>),</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(MOA_ACH, <span class="fl">0.75</span>),</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(MOA_ACH)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>moa_filtered_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 11
+      N  Mean Median  Mode    SD Minimum Maximum Range    Q1    Q3   IQR
+  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  1987  37.5     37    36  5.00      24      51    27    34    40     6</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>moa_filtered <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> MOA_ACH)) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">boundary =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Markers of adulthood achieved"</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch5-moa-filtered-histogram" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram showing markers of adulthood achieved after values outside the original IQR boundaries were filtered.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch5-moa-filtered-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-other-descriptive-statistics_files/figure-html/fig-redesign-ch5-moa-filtered-histogram-1.png" class="img-fluid figure-img" alt="Histogram showing markers of adulthood achieved after values outside the original IQR boundaries were filtered." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch5-moa-filtered-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Filtered distribution of markers of adulthood achieved.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>moa_filtered <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> MOA_ACH)) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Markers of adulthood achieved"</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch5-moa-filtered-boxplot" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Boxplot showing markers of adulthood achieved after values outside the original IQR boundaries were filtered.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch5-moa-filtered-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-other-descriptive-statistics_files/figure-html/fig-redesign-ch5-moa-filtered-boxplot-1.png" class="img-fluid figure-img" alt="Boxplot showing markers of adulthood achieved after values outside the original IQR boundaries were filtered." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch5-moa-filtered-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Filtered boxplot for markers of adulthood achieved.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Using the EAMMi2 sample, we examined the number of markers of adulthood achieved by emerging adults, which had a possible score range of 20, or none achieved, to 60, or all achieved. An initial inspection revealed potential outliers below 23.5 and above 51.5; these values were set aside for the analysis. Participants’ achievement of markers of adulthood was close to normally distributed, with a mean of 37.50, a median of 37, and a mode of 36. The standard deviation was 5.00, with a range of 27 and an IQR of 6. The graph presents a boxplot of these data.</p>
+</section>
+<section id="compare-political-party-groups" class="level4">
+<h4 class="anchored" data-anchor-id="compare-political-party-groups">Compare Political-Party Groups</h4>
+<!-- script-comment: Check Your Work: give political-party codes readable labels. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>moa_filtered <span class="ot">&lt;-</span> moa_filtered <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">PartyDichotomous =</span> <span class="fu">factor</span>(</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>      PartyDichotomous,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Democrat"</span>, <span class="st">"Republican"</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<!-- script-comment: Check Your Work: compare MOA_ACH descriptives across party groups. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>moa_party_summary <span class="ot">&lt;-</span> moa_filtered <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(PartyDichotomous) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PartyDichotomous) <span class="sc">|&gt;</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(MOA_ACH),</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(MOA_ACH),</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mode =</span> <span class="fu">statistical_mode</span>(MOA_ACH),</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(MOA_ACH),</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Minimum =</span> <span class="fu">min</span>(MOA_ACH),</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Maximum =</span> <span class="fu">max</span>(MOA_ACH),</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Range =</span> Maximum <span class="sc">-</span> Minimum,</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(MOA_ACH, <span class="fl">0.25</span>),</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(MOA_ACH, <span class="fl">0.75</span>),</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(MOA_ACH)</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>moa_party_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 12
+  PartyDichotomous     N  Mean Median  Mode    SD Minimum Maximum Range    Q1
+  &lt;fct&gt;            &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Democrat          1007  37.4     37    35  5.00      24      51    27    34
+2 Republican         458  37.6     37    38  4.80      26      51    25    34
+# ℹ 2 more variables: Q3 &lt;dbl&gt;, IQR &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>moa_filtered <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(PartyDichotomous) <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PartyDichotomous, <span class="at">y =</span> MOA_ACH)) <span class="sc">+</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Political-party identification"</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Markers of adulthood achieved"</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-redesign-ch5-moa-party" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two similar boxplots showing markers-of-adulthood scores for participants identified as Democrats and Republicans.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-redesign-ch5-moa-party-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-other-descriptive-statistics_files/figure-html/fig-redesign-ch5-moa-party-1.png" class="img-fluid figure-img" alt="Two similar boxplots showing markers-of-adulthood scores for participants identified as Democrats and Republicans." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-redesign-ch5-moa-party-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Filtered markers-of-adulthood scores for Democrats and Republicans.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<!-- script-comment: Check Your Work: calculate Cohen's d for the party-group difference. -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>moa_party_d <span class="ot">&lt;-</span> <span class="fu">independent_cohens_d</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  moa_filtered,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  MOA_ACH,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  PartyDichotomous</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>moa_party_d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  MeanDifference PooledSD CohensD
+           &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1         -0.230     4.94 -0.0466</code></pre>
+</div>
+</div>
+<p>Using the EAMMi2 sample, we compared achievement of markers of adulthood between participants who identified as Democrats and participants who identified as Republicans. This scale had a possible score range of 20, or none achieved, to 60, or all achieved. An initial inspection revealed potential outliers below 23.5 and above 51.5; these values were set aside for the analysis. The graph shows boxplots of achievement of markers of adulthood for each group. The difference in means produced an effect size of <em>d</em> = -0.05.</p>
+<p>The mean achievement of markers of adulthood for emerging adults who identified as Democrats was 37.43, and the median was 37. The mean for participants who identified as Republicans was 37.66, and the median was 37. The difference between these means was close to zero. Variability for Democrats (<em>SD</em> = 5.00, range = 27, IQR = 6) was very similar to variability for Republicans (<em>SD</em> = 4.80, range = 25, IQR = 6). Both distributions closely approximated a normal distribution and were very similar to one another.</p>
+</section>
+</section>
+</section>
+<section id="chapter-takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-takeaway">Chapter Takeaway</h2>
+<p>Z scores describe how far a score is from the mean in standard deviation units. IQR boundaries and boxplots help identify potential outliers. When values are unusual but still possible, deciding whether to keep or set them aside is a research judgment that should be explained clearly.</p>
+<p>In this chapter, we focused on these new R commands:</p>
+<ul>
+<li><code>head()</code> displays the first observations or values in an object.</li>
+<li><code>quantile()</code> calculates quartiles and other percentiles.</li>
+<li><code>IQR()</code> calculates the interquartile range.</li>
+<li><code>geom_boxplot()</code> creates a boxplot.</li>
+<li><code>independent_cohens_d()</code> calculates Cohen’s <em>d</em> for two independent groups.</li>
+</ul>
 
 
 </section>
@@ -482,19 +1133,6 @@ ul.task-list li input[type="checkbox"] {
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
-    }
-    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -900,13 +1538,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/03-04-central-tendency-variability.html" class="pagination-link" aria-label="Exploring Data: Central Tendency and Variability">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Exploring Data: Central Tendency and Variability</span>
+      <a href="../chapters/03-04-central-tendency-variability.html" class="pagination-link" aria-label="Chapters 3 and 4: Central Tendency And Variability">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chapters 3 and 4: Central Tendency And Variability</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/06-correlation-regression.html" class="pagination-link" aria-label="Correlation and Regression">
-        <span class="nav-page-text">Correlation and Regression</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/06-correlation-regression.html" class="pagination-link" aria-label="Chapter 6: Correlation and Regression">
+        <span class="nav-page-text">Chapter 6: Correlation and Regression</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -914,7 +1552,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Instructor resource for <em>Exploring Statistics: Tales of Distributions</em></p>
+<p>Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

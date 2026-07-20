@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Learn introductory statistics by asking research questions, running analyses in R, and interpreting the results.">
+<meta name="description" content="Plain-language help for common problems with the starter project, scripts, objects, and R commands.">
 
-<title>Exploring Statistics with R</title>
+<title>Troubleshooting – Exploring Statistics with R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -27,24 +27,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./start/00-choose-your-path.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../reference/statistical-language.html" rel="next">
+<link href="../reference/r-command-index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -84,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Exploring Statistics with R</span>
     </a>
   </div>
@@ -95,19 +96,19 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./start/00-choose-your-path.html"> 
+    <a class="nav-link" href="../start/00-choose-your-path.html"> 
 <span class="menu-text">Start Here</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./reference/r-command-index.html"> 
+    <a class="nav-link" href="../reference/r-command-index.html"> 
 <span class="menu-text">R Reference</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./instructor/instructor-guide.html"> 
+    <a class="nav-link" href="../instructor/instructor-guide.html"> 
 <span class="menu-text">Instructor Guide</span></a>
   </li>  
 </ul>
@@ -126,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Start here</a></li><li class="breadcrumb-item"><a href="./index.html">Exploring Statistics with R</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/r-command-index.html">R help and reference</a></li><li class="breadcrumb-item"><a href="../reference/troubleshooting.html">Troubleshooting</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -140,40 +141,40 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Start here</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exploring Statistics with R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start/00-choose-your-path.html" class="sidebar-item-text sidebar-link">
+  <a href="../start/00-choose-your-path.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Choose Your Path</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start/01-set-up-rstudio.html" class="sidebar-item-text sidebar-link">
+  <a href="../start/01-set-up-rstudio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Set Up RStudio</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start/02-run-your-first-script.html" class="sidebar-item-text sidebar-link">
+  <a href="../start/02-run-your-first-script.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Run Your First Script</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data/codebook.html" class="sidebar-item-text sidebar-link">
+  <a href="../data/codebook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Understanding EAMMi2</span></a>
   </div>
 </li>
@@ -190,73 +191,73 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/01-introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/01-introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapter 1: Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/02-exploring-data.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/02-exploring-data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapter 2: Exploring Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapters 3 and 4: Central Tendency And Variability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/05-other-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/05-other-descriptive-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapter 5: Other Descriptive Statistics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/06-correlation-regression.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/06-correlation-regression.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapter 6: Correlation and Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/09-one-sample-designs.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/09-one-sample-designs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapter 9: One-Sample Designs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/10-two-sample-designs.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/10-two-sample-designs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapter 10: Two-Sample Designs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/11-independent-anova.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/11-independent-anova.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapter 11: Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/12-repeated-anova.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/12-repeated-anova.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapter 12: Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/13-two-way-anova.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/13-two-way-anova.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapter 13: Two-Way Independent Analysis of Variance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/14-chi-square.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/14-chi-square.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapter 14: Chi-Square Tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/15-nonparametric-statistics.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/15-nonparametric-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chapter 15: Nonparametric Statistics</span></a>
   </div>
 </li>
@@ -264,28 +265,28 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">R help and reference</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./reference/r-command-index.html" class="sidebar-item-text sidebar-link">
+  <a href="../reference/r-command-index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R Command Index</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./reference/troubleshooting.html" class="sidebar-item-text sidebar-link">
+  <a href="../reference/troubleshooting.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Troubleshooting</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./reference/statistical-language.html" class="sidebar-item-text sidebar-link">
+  <a href="../reference/statistical-language.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Statistical Language</span></a>
   </div>
 </li>
@@ -302,7 +303,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./instructor/instructor-guide.html" class="sidebar-item-text sidebar-link">
+  <a href="../instructor/instructor-guide.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Instructor Guide</span></a>
   </div>
 </li>
@@ -318,25 +319,26 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-this-workbook-works" id="toc-how-this-workbook-works" class="nav-link active" data-scroll-target="#how-this-workbook-works">How This Workbook Works</a></li>
-  <li><a href="#begin-here" id="toc-begin-here" class="nav-link" data-scroll-target="#begin-here">Begin Here</a></li>
-  <li><a href="#workbook-chapters" id="toc-workbook-chapters" class="nav-link" data-scroll-target="#workbook-chapters">Workbook Chapters</a></li>
-  <li><a href="#help-while-you-work" id="toc-help-while-you-work" class="nav-link" data-scroll-target="#help-while-you-work">Help While You Work</a></li>
+  <li><a href="#a-quick-recovery-routine" id="toc-a-quick-recovery-routine" class="nav-link active" data-scroll-target="#a-quick-recovery-routine">A Quick Recovery Routine</a></li>
+  <li><a href="#common-problems" id="toc-common-problems" class="nav-link" data-scroll-target="#common-problems">Common Problems</a></li>
+  <li><a href="#read-an-error-message" id="toc-read-an-error-message" class="nav-link" data-scroll-target="#read-an-error-message">Read An Error Message</a></li>
+  <li><a href="#restart-when-the-sequence-is-unclear" id="toc-restart-when-the-sequence-is-unclear" class="nav-link" data-scroll-target="#restart-when-the-sequence-is-unclear">Restart When The Sequence Is Unclear</a></li>
+  <li><a href="#before-asking-for-help" id="toc-before-asking-for-help" class="nav-link" data-scroll-target="#before-asking-for-help">Before Asking For Help</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Start here</a></li><li class="breadcrumb-item"><a href="./index.html">Exploring Statistics with R</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/r-command-index.html">R help and reference</a></li><li class="breadcrumb-item"><a href="../reference/troubleshooting.html">Troubleshooting</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Exploring Statistics with R</h1>
-<p class="subtitle lead">An R workbook to accompany Exploring Statistics: Tales of Distributions</p>
+<h1 class="title">Troubleshooting</h1>
+<p class="subtitle lead">What to check when R does not produce the expected result</p>
 </div>
 
 <div>
   <div class="description">
-    Learn introductory statistics by asking research questions, running analyses in R, and interpreting the results.
+    Plain-language help for common problems with the starter project, scripts, objects, and R commands.
   </div>
 </div>
 
@@ -353,108 +355,105 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled" title="Welcome">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Welcome
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If you are new to R, begin with <a href="./start/00-choose-your-path.html">Choose Your Path</a>, then work through the remaining Start Here pages in order. If you already use R and RStudio, review the starter-file instructions and then begin Chapter 1.</p>
-<p>Everyone needs the starter files. They contain the RStudio project, the EAMMi2 data, and the R scripts used with the workbook chapters.</p>
-</div>
-</div>
-<section id="how-this-workbook-works" class="level2">
-<h2 class="anchored" data-anchor-id="how-this-workbook-works">How This Workbook Works</h2>
-<p>Each chapter begins with a research question from <em>Exploring Statistics</em>. You will plan the analysis, run R code, inspect the output, and write an interpretation in ordinary statistical language.</p>
-<p>You do not need to memorize every R command. Early chapters provide complete examples and explain how the code is organized. Later chapters ask you to reuse and adapt familiar patterns with less guidance.</p>
-<p>Most analyses follow the same routine:</p>
+<p>Errors are information about where R became unable to continue. Begin with the first error message, check the code immediately above it, and change only one thing at a time.</p>
+<section id="a-quick-recovery-routine" class="level2">
+<h2 class="anchored" data-anchor-id="a-quick-recovery-routine">A Quick Recovery Routine</h2>
 <ol type="1">
-<li>Identify the research question and variables.</li>
-<li>Decide what the analysis needs to show.</li>
-<li>Predict what you expect before running the code.</li>
-<li>Run one section of the chapter script.</li>
-<li>Inspect the output and check that it makes sense.</li>
-<li>Interpret the result in words.</li>
+<li>Stop and read the first message in the Console.</li>
+<li>Check whether the <code>&gt;</code> prompt has returned.</li>
+<li>Compare the code with the workbook example.</li>
+<li>Check spelling, capitalization, parentheses, commas, and quotation marks.</li>
+<li>Run the setup line again if an expected object is missing.</li>
+<li>Run the smallest complete section that could produce the result.</li>
 </ol>
 </section>
-<section id="begin-here" class="level2">
-<h2 class="anchored" data-anchor-id="begin-here">Begin Here</h2>
-<ul>
-<li><a href="./start/00-choose-your-path.html">Choose Your Path</a> explains where to begin based on your R experience.</li>
-<li><a href="./start/01-set-up-rstudio.html">Set Up RStudio</a> guides you through installing the software, downloading the starter files, and opening the project.</li>
-<li><a href="./start/02-run-your-first-script.html">Run Your First Script</a> introduces the RStudio panes and the basic ideas used in the chapter scripts.</li>
-<li><a href="./data/codebook.html">Understanding EAMMi2</a> provides background about the study and a complete codebook for the variables used in the workbook.</li>
-</ul>
-</section>
-<section id="workbook-chapters" class="level2">
-<h2 class="anchored" data-anchor-id="workbook-chapters">Workbook Chapters</h2>
-<p>The workbook follows the textbook chapter sequence:</p>
+<section id="common-problems" class="level2">
+<h2 class="anchored" data-anchor-id="common-problems">Common Problems</h2>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Chapter</th>
-<th>Statistical focus</th>
+<th>What you see</th>
+<th>What it usually means</th>
+<th>What to try</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="./chapters/01-introduction.html">1</a></td>
-<td>Introduction and the R workflow</td>
+<td><code>object 'eammi' not found</code></td>
+<td>The shared setup has not created the data object in this R session.</td>
+<td>Open the project and run <code>source("scripts/_setup.R")</code>.</td>
 </tr>
 <tr class="even">
-<td><a href="./chapters/02-exploring-data.html">2</a></td>
-<td>Frequency distributions and graphs</td>
+<td>R cannot find <code>scripts/_setup.R</code> or the data file</td>
+<td>The RStudio project may not be open, or part of the starter folder was moved.</td>
+<td>Open <code>exploring-statistics-r.Rproj</code> and keep the starter files together.</td>
 </tr>
 <tr class="odd">
-<td><a href="./chapters/03-04-central-tendency-variability.html">3 and 4</a></td>
-<td>Central tendency and variability</td>
+<td>A <code>+</code> prompt</td>
+<td>R is waiting for the rest of an unfinished command.</td>
+<td>Press Esc, check for a missing parenthesis or quotation mark, and run the complete command.</td>
 </tr>
 <tr class="even">
-<td><a href="./chapters/05-other-descriptive-statistics.html">5</a></td>
-<td>Other descriptive statistics</td>
+<td><code>could not find function</code></td>
+<td>The setup section may not have run, or the function name may be misspelled.</td>
+<td>Run the setup line and compare the function spelling with the example.</td>
 </tr>
 <tr class="odd">
-<td><a href="./chapters/06-correlation-regression.html">6</a></td>
-<td>Correlation and regression</td>
+<td><code>object 'VariableName' not found</code></td>
+<td>The variable name may be misspelled or used outside the data frame.</td>
+<td>Check <code>names(eammi)</code> and remember that capitalization matters.</td>
 </tr>
 <tr class="even">
-<td><a href="./chapters/09-one-sample-designs.html">9</a></td>
-<td>One-sample designs</td>
+<td>A graph does not appear</td>
+<td>The plotting code may be incomplete or the wrong Output tab may be selected.</td>
+<td>Run the entire graph expression and open the <strong>Plots</strong> tab.</td>
 </tr>
 <tr class="odd">
-<td><a href="./chapters/10-two-sample-designs.html">10</a></td>
-<td>Two-sample designs</td>
-</tr>
-<tr class="even">
-<td><a href="./chapters/11-independent-anova.html">11</a></td>
-<td>Independent-groups analysis of variance</td>
-</tr>
-<tr class="odd">
-<td><a href="./chapters/12-repeated-anova.html">12</a></td>
-<td>Repeated-measures analysis of variance</td>
-</tr>
-<tr class="even">
-<td><a href="./chapters/13-two-way-anova.html">13</a></td>
-<td>Two-way analysis of variance</td>
-</tr>
-<tr class="odd">
-<td><a href="./chapters/14-chi-square.html">14</a></td>
-<td>Chi-square tests</td>
-</tr>
-<tr class="even">
-<td><a href="./chapters/15-nonparametric-statistics.html">15</a></td>
-<td>Nonparametric statistics</td>
+<td>The output differs from the workbook</td>
+<td>An earlier recode, filter, or object may differ.</td>
+<td>Restart R, run setup, and repeat the chapter code in order.</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="help-while-you-work" class="level2">
-<h2 class="anchored" data-anchor-id="help-while-you-work">Help While You Work</h2>
-<p>Use the <a href="./reference/r-command-index.html">R Command Index</a> to review commands, <a href="./reference/troubleshooting.html">Troubleshooting</a> when an analysis does not run as expected, and <a href="./reference/statistical-language.html">Statistical Language</a> when you need a reminder about variables, distributions, or model formulas.</p>
+<section id="read-an-error-message" class="level2">
+<h2 class="anchored" data-anchor-id="read-an-error-message">Read An Error Message</h2>
+<p>You do not need to understand every word. Look first for:</p>
+<ul>
+<li>the object or function named in the message;</li>
+<li>a line number, if one is shown;</li>
+<li>wording such as <code>not found</code>, <code>unexpected</code>, or <code>missing</code>; and</li>
+<li>the first error, rather than messages that followed it.</li>
+</ul>
+<p>Copying only the final line of a long message can remove useful context. When asking for help, include the code you ran and the first complete error message.</p>
+</section>
+<section id="restart-when-the-sequence-is-unclear" class="level2">
+<h2 class="anchored" data-anchor-id="restart-when-the-sequence-is-unclear">Restart When The Sequence Is Unclear</h2>
+<p>If you have run sections out of order and no longer know which objects have been changed:</p>
+<ol type="1">
+<li>choose <strong>Session &gt; Restart R</strong>;</li>
+<li>confirm that the project is still open;</li>
+<li>run <code>source("scripts/_setup.R")</code>; and</li>
+<li>repeat the chapter code from the beginning.</li>
+</ol>
+<p>Restarting R clears objects from memory. It does not delete your script or data files.</p>
+</section>
+<section id="before-asking-for-help" class="level2">
+<h2 class="anchored" data-anchor-id="before-asking-for-help">Before Asking For Help</h2>
+<p>Be ready to describe:</p>
+<ul>
+<li>which script you opened;</li>
+<li>which line or section you ran;</li>
+<li>what you expected;</li>
+<li>what appeared instead; and</li>
+<li>the complete first error message.</li>
+</ul>
+<p>This information helps another person reproduce the problem and identify the relevant step.</p>
 
 
 </section>
@@ -867,10 +866,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../reference/r-command-index.html" class="pagination-link" aria-label="R Command Index">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">R Command Index</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./start/00-choose-your-path.html" class="pagination-link" aria-label="Choose Your Path">
-        <span class="nav-page-text">Choose Your Path</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../reference/statistical-language.html" class="pagination-link" aria-label="Statistical Language">
+        <span class="nav-page-text">Statistical Language</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -892,5 +894,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
