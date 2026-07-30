@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Erick Axxe">
 <meta name="description" content="Compare three independent groups with one-way ANOVA and Tukey HSD tests.">
 
 <title>Chapter 11: Analysis of Variance – Exploring Statistics with R</title>
@@ -77,10 +78,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-493a2c706aba61872f77d293b2778159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -268,7 +269,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapters 3 and 4: Central Tendency And Variability</span></a>
+ <span class="menu-text">Chapters 3 and 4: Central Tendency and Variability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -537,6 +538,7 @@ window.Quarto = {
 <section id="run" class="level3">
 <h3 class="anchored" data-anchor-id="run">Run</h3>
 <p>Begin by examining each group.</p>
+<p>The graph later in this chapter will show 95% confidence intervals around the group means. <code>qt()</code> supplies the critical <em>t</em> value needed to calculate those intervals; the remaining pieces use the sample size and standard error you have already seen.</p>
 <!-- script-comment: Summarize markers-of-adulthood scores within each adult-status group. -->
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>moa_adult_summary <span class="ot">&lt;-</span> moa_adult_data <span class="sc">|&gt;</span></span>
@@ -695,12 +697,12 @@ Yes-Maybe 2.217522 1.6233026 2.811741 0.0000000</code></pre>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Mean achieved independence"</span></span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-rd-ch11-moa-means" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Dots and 95 percent confidence intervals show achieved-independence means increasing from participants who answered no, to maybe, to yes when asked whether they were adults.">
+<div id="fig-ch11-moa-means" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Dots and 95 percent confidence intervals show achieved-independence means increasing from participants who answered no, to maybe, to yes when asked whether they were adults.">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-rd-ch11-moa-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="11-independent-anova_files/figure-html/fig-rd-ch11-moa-means-1.png" class="img-fluid figure-img" alt="Dots and 95 percent confidence intervals show achieved-independence means increasing from participants who answered no, to maybe, to yes when asked whether they were adults." width="672">
+<div aria-describedby="fig-ch11-moa-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="11-independent-anova_files/figure-html/fig-ch11-moa-means-1.png" class="img-fluid figure-img" alt="Dots and 95 percent confidence intervals show achieved-independence means increasing from participants who answered no, to maybe, to yes when asked whether they were adults." width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rd-ch11-moa-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch11-moa-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Mean achieved independence by adult identity.
 </figcaption>
 </figure>
@@ -934,12 +936,12 @@ Yes-Maybe 1.091829 0.5656565 1.618001 0.0000036</code></pre>
 <span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Mean self-efficacy"</span></span>
 <span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-rd-ch11-self-efficacy-means" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Dots and 95 percent confidence intervals show self-efficacy increasing from participants who answered no, to maybe, to yes when asked whether they were adults.">
+<div id="fig-ch11-self-efficacy-means" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Dots and 95 percent confidence intervals show self-efficacy increasing from participants who answered no, to maybe, to yes when asked whether they were adults.">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-rd-ch11-self-efficacy-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="11-independent-anova_files/figure-html/fig-rd-ch11-self-efficacy-means-1.png" class="img-fluid figure-img" alt="Dots and 95 percent confidence intervals show self-efficacy increasing from participants who answered no, to maybe, to yes when asked whether they were adults." width="672">
+<div aria-describedby="fig-ch11-self-efficacy-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="11-independent-anova_files/figure-html/fig-ch11-self-efficacy-means-1.png" class="img-fluid figure-img" alt="Dots and 95 percent confidence intervals show self-efficacy increasing from participants who answered no, to maybe, to yes when asked whether they were adults." width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rd-ch11-self-efficacy-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch11-self-efficacy-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Mean self-efficacy by adult identity.
 </figcaption>
 </figure>
@@ -1053,7 +1055,6 @@ Residuals    2047  33573  16.401               </code></pre>
 <li><code>TukeyHSD()</code> conducts adjusted pairwise comparisons.</li>
 <li><code>tukey_cohens_d()</code> calculates Cohen’s <em>d</em> for Tukey comparisons.</li>
 <li><code>geom_errorbar()</code> adds confidence intervals to a graph.</li>
-<li><code>outcome ~ group</code> is the repeated formula pattern used for one-way ANOVA.</li>
 </ul>
 
 
@@ -1133,7 +1134,7 @@ Residuals    2047  33573  16.401               </code></pre>
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/axxe\.netlify\.app\/exploring-statistics-r\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1481,7 +1482,7 @@ Residuals    2047  33573  16.401               </code></pre>
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
+<p>Prepared by Erick Axxe · Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

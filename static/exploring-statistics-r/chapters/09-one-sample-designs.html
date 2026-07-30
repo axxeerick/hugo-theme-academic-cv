@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Erick Axxe">
 <meta name="description" content="Compare an observed mean with a known or expected value.">
 
 <title>Chapter 9: One-Sample Designs – Exploring Statistics with R</title>
@@ -77,10 +78,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-493a2c706aba61872f77d293b2778159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -268,7 +269,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapters 3 and 4: Central Tendency And Variability</span></a>
+ <span class="menu-text">Chapters 3 and 4: Central Tendency and Variability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -540,12 +541,12 @@ mean of x
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-rd-ch9-duration-first" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram with most survey durations near the lower end and a long right tail created by a small number of extremely long durations.">
+<div id="fig-ch9-duration-first" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram with most survey durations near the lower end and a long right tail created by a small number of extremely long durations.">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-rd-ch9-duration-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="09-one-sample-designs_files/figure-html/fig-rd-ch9-duration-first-1.png" class="img-fluid figure-img" alt="Histogram with most survey durations near the lower end and a long right tail created by a small number of extremely long durations." width="672">
+<div aria-describedby="fig-ch9-duration-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09-one-sample-designs_files/figure-html/fig-ch9-duration-first-1.png" class="img-fluid figure-img" alt="Histogram with most survey durations near the lower end and a long right tail created by a small number of extremely long durations." width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rd-ch9-duration-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch9-duration-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Survey duration before potential upper outliers are set aside.
 </figcaption>
 </figure>
@@ -630,12 +631,12 @@ Figure&nbsp;1: Survey duration before potential upper outliers are set aside.
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-rd-ch9-duration-filtered" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram of survey durations after upper outliers are set aside. Most observations fall between about 10 and 45 minutes, with a modest right tail.">
+<div id="fig-ch9-duration-filtered" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram of survey durations after upper outliers are set aside. Most observations fall between about 10 and 45 minutes, with a modest right tail.">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-rd-ch9-duration-filtered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="09-one-sample-designs_files/figure-html/fig-rd-ch9-duration-filtered-1.png" class="img-fluid figure-img" alt="Histogram of survey durations after upper outliers are set aside. Most observations fall between about 10 and 45 minutes, with a modest right tail." width="672">
+<div aria-describedby="fig-ch9-duration-filtered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09-one-sample-designs_files/figure-html/fig-ch9-duration-filtered-1.png" class="img-fluid figure-img" alt="Histogram of survey durations after upper outliers are set aside. Most observations fall between about 10 and 45 minutes, with a modest right tail." width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rd-ch9-duration-filtered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch9-duration-filtered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Survey duration after potential upper outliers are set aside.
 </figcaption>
 </figure>
@@ -800,12 +801,12 @@ H_1: \mu \neq 3.85
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-rd-ch9-mindfulness" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram with mindfulness scores clustered near the middle of the scale and little overall skew.">
+<div id="fig-ch9-mindfulness" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram with mindfulness scores clustered near the middle of the scale and little overall skew.">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-rd-ch9-mindfulness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="09-one-sample-designs_files/figure-html/fig-rd-ch9-mindfulness-1.png" class="img-fluid figure-img" alt="Histogram with mindfulness scores clustered near the middle of the scale and little overall skew." width="672">
+<div aria-describedby="fig-ch9-mindfulness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09-one-sample-designs_files/figure-html/fig-ch9-mindfulness-1.png" class="img-fluid figure-img" alt="Histogram with mindfulness scores clustered near the middle of the scale and little overall skew." width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rd-ch9-mindfulness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch9-mindfulness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Mindfulness scores in the reduced EAMMi2 sample.
 </figcaption>
 </figure>
@@ -989,7 +990,7 @@ attr(,"conf.level")
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/axxe\.netlify\.app\/exploring-statistics-r\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1337,7 +1338,7 @@ attr(,"conf.level")
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
+<p>Prepared by Erick Axxe · Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Erick Axxe">
 <meta name="description" content="A running reference for R commands and the chapter where each one is introduced.">
 
 <title>R Command Index – Exploring Statistics with R</title>
@@ -77,10 +78,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-493a2c706aba61872f77d293b2778159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -239,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapters 3 and 4: Central Tendency And Variability</span></a>
+ <span class="menu-text">Chapters 3 and 4: Central Tendency and Variability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -758,91 +759,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><a href="../chapters/11-independent-anova.html#run">Chapter 11</a></td>
 </tr>
 <tr class="odd">
+<td><code>qt()</code></td>
+<td>Supplies the critical <em>t</em> value used to calculate a confidence interval.</td>
+<td><a href="../chapters/11-independent-anova.html#run">Chapter 11</a></td>
+</tr>
+<tr class="even">
 <td><code>anova_eta_squared()</code></td>
 <td>Calculates eta squared for a one-way ANOVA. This helper is supplied by the setup file.</td>
 <td><a href="../chapters/11-independent-anova.html#investigate">Chapter 11</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>TukeyHSD()</code></td>
 <td>Conducts adjusted pairwise comparisons.</td>
 <td><a href="../chapters/11-independent-anova.html#investigate">Chapter 11</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>tukey_cohens_d()</code></td>
 <td>Calculates Cohen’s <em>d</em> for Tukey comparisons. This helper is supplied by the setup file.</td>
 <td><a href="../chapters/11-independent-anova.html#calculate-effect-sizes">Chapter 11</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>geom_errorbar()</code></td>
 <td>Adds confidence intervals to a graph.</td>
 <td><a href="../chapters/11-independent-anova.html#calculate-effect-sizes">Chapter 11</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>row_number()</code></td>
 <td>Creates a participant label from observation order.</td>
 <td><a href="../chapters/12-repeated-anova.html#get-ready">Chapter 12</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>pivot_longer()</code></td>
 <td>Reshapes repeated scores from wide to long format.</td>
 <td><a href="../chapters/12-repeated-anova.html#run-and-investigate-reshape-the-data">Chapter 12</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>repeated_eta_squared()</code></td>
 <td>Calculates partial eta squared for the repeated condition. This helper is supplied by the setup file.</td>
 <td><a href="../chapters/12-repeated-anova.html#run-the-analysis">Chapter 12</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>repeated_pairwise_tests()</code></td>
 <td>Compares each pair of repeated scores and reports mean differences, Tukey-adjusted <em>p</em> values, and Cohen’s <em>d</em>. This helper is supplied by the setup file.</td>
 <td><a href="../chapters/12-repeated-anova.html#run-the-analysis">Chapter 12</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>interaction()</code></td>
 <td>Combines grouping variables for an assumption check.</td>
 <td><a href="../chapters/13-two-way-anova.html#check-the-assumptions">Chapter 13</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>predictor_1 * predictor_2</code></td>
 <td>Requests two main effects and their interaction.</td>
 <td><a href="../chapters/13-two-way-anova.html#run-the-model">Chapter 13</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>two_way_anova_table()</code></td>
 <td>Reports two-way tests with partial eta squared. This helper is supplied by the setup file.</td>
 <td><a href="../chapters/13-two-way-anova.html#run-the-analysis">Chapter 13</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>geom_line()</code></td>
 <td>Connects means in an interaction plot.</td>
 <td><a href="../chapters/13-two-way-anova.html#inspect-and-interpret">Chapter 13</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>table()</code></td>
 <td>Creates observed frequency or contingency tables.</td>
 <td><a href="../chapters/14-chi-square.html#run-the-analysis">Chapter 14</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>chisq.test()</code></td>
 <td>Conducts chi-square tests.</td>
 <td><a href="../chapters/14-chi-square.html#run-the-analysis">Chapter 14</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>test_object$expected</code></td>
 <td>Retrieves expected counts.</td>
 <td><a href="../chapters/14-chi-square.html#run-the-analysis">Chapter 14</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>cramers_v()</code></td>
 <td>Calculates Cramer’s V. This helper is supplied by the setup file.</td>
 <td><a href="../chapters/14-chi-square.html#run-the-analysis">Chapter 14</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>prop.table()</code></td>
 <td>Converts counts to proportions.</td>
 <td><a href="../chapters/14-chi-square.html#plan-and-predict">Chapter 14</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>p = c(...)</code></td>
 <td>Supplies the expected proportions for a goodness-of-fit test.</td>
 <td><a href="../chapters/14-chi-square.html#run-and-investigate">Chapter 14</a></td>
@@ -982,7 +988,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/axxe\.netlify\.app\/exploring-statistics-r\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1330,7 +1336,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
+<p>Prepared by Erick Axxe · Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

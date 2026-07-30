@@ -6,7 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="A general guide to the workbook formats, student workflow, starter files, solutions, and instructional support.">
+<meta name="author" content="Erick Axxe">
+<meta name="description" content="A guide to adopting, distributing, teaching, and adapting the R workbook.">
 
 <title>Instructor Guide – Exploring Statistics with R</title>
 <style>
@@ -41,10 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3acd1a9e0a36fa73befe01192217db1c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1854b6488f5b449c2a6b302095f9e039.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-493a2c706aba61872f77d293b2778159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -203,7 +204,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03-04-central-tendency-variability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapters 3 and 4: Central Tendency And Variability</span></a>
+ <span class="menu-text">Chapters 3 and 4: Central Tendency and Variability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -318,16 +319,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#intended-audience" id="toc-intended-audience" class="nav-link active" data-scroll-target="#intended-audience">Intended Audience</a></li>
-  <li><a href="#available-formats" id="toc-available-formats" class="nav-link" data-scroll-target="#available-formats">Available Formats</a></li>
-  <li><a href="#generate-html-and-word-files" id="toc-generate-html-and-word-files" class="nav-link" data-scroll-target="#generate-html-and-word-files">Generate HTML And Word Files</a></li>
-  <li><a href="#suggested-student-path" id="toc-suggested-student-path" class="nav-link" data-scroll-target="#suggested-student-path">Suggested Student Path</a></li>
-  <li><a href="#starter-files" id="toc-starter-files" class="nav-link" data-scroll-target="#starter-files">Starter Files</a></li>
-  <li><a href="#scaffolding-across-chapters" id="toc-scaffolding-across-chapters" class="nav-link" data-scroll-target="#scaffolding-across-chapters">Scaffolding Across Chapters</a></li>
-  <li><a href="#using-practice-and-check-your-work" id="toc-using-practice-and-check-your-work" class="nav-link" data-scroll-target="#using-practice-and-check-your-work">Using Practice And Check Your Work</a></li>
-  <li><a href="#supporting-novice-r-users" id="toc-supporting-novice-r-users" class="nav-link" data-scroll-target="#supporting-novice-r-users">Supporting Novice R Users</a></li>
-  <li><a href="#accessibility" id="toc-accessibility" class="nav-link" data-scroll-target="#accessibility">Accessibility</a></li>
-  <li><a href="#adapting-the-materials" id="toc-adapting-the-materials" class="nav-link" data-scroll-target="#adapting-the-materials">Adapting The Materials</a></li>
+  <li><a href="#download-the-complete-instructor-materials" id="toc-download-the-complete-instructor-materials" class="nav-link active" data-scroll-target="#download-the-complete-instructor-materials">Download The Complete Instructor Materials</a></li>
+  <li><a href="#choose-a-workbook-format" id="toc-choose-a-workbook-format" class="nav-link" data-scroll-target="#choose-a-workbook-format">Choose A Workbook Format</a></li>
+  <li><a href="#what-students-need" id="toc-what-students-need" class="nav-link" data-scroll-target="#what-students-need">What Students Need</a></li>
+  <li><a href="#use-the-student-starter-files" id="toc-use-the-student-starter-files" class="nav-link" data-scroll-target="#use-the-student-starter-files">Use The Student Starter Files</a></li>
+  <li><a href="#follow-the-chapter-structure" id="toc-follow-the-chapter-structure" class="nav-link" data-scroll-target="#follow-the-chapter-structure">Follow The Chapter Structure</a></li>
+  <li><a href="#r-packages-and-supplied-helpers" id="toc-r-packages-and-supplied-helpers" class="nav-link" data-scroll-target="#r-packages-and-supplied-helpers">R Packages And Supplied Helpers</a></li>
+  <li><a href="#important-data-and-analysis-decisions" id="toc-important-data-and-analysis-decisions" class="nav-link" data-scroll-target="#important-data-and-analysis-decisions">Important Data And Analysis Decisions</a></li>
+  <li><a href="#adapt-the-materials" id="toc-adapt-the-materials" class="nav-link" data-scroll-target="#adapt-the-materials">Adapt The Materials</a></li>
+  <li><a href="#troubleshoot-common-problems" id="toc-troubleshoot-common-problems" class="nav-link" data-scroll-target="#troubleshoot-common-problems">Troubleshoot Common Problems</a></li>
+  <li><a href="#data-and-documentation" id="toc-data-and-documentation" class="nav-link" data-scroll-target="#data-and-documentation">Data And Documentation</a></li>
   </ul>
 </nav>
     </div>
@@ -342,7 +343,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    A general guide to the workbook formats, student workflow, starter files, solutions, and instructional support.
+    A guide to adopting, distributing, teaching, and adapting the R workbook.
   </div>
 </div>
 
@@ -359,120 +360,117 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><em>Exploring Statistics with R</em> is a companion workbook for <em>Exploring Statistics: Tales of Distributions</em>. It preserves the textbook’s research questions and statistical emphasis while giving students a structured way to conduct the analyses in R.</p>
-<section id="intended-audience" class="level2">
-<h2 class="anchored" data-anchor-id="intended-audience">Intended Audience</h2>
-<p>The workbook is written for students in an introductory statistics course, including students with no prior programming experience. It may also support instructors who are new to using R in an introductory course.</p>
-<p>The R instruction is intentionally selective. Students learn the code needed to complete and understand each statistical analysis, but the workbook is not designed as a comprehensive programming course.</p>
+<p><em>Exploring Statistics with R</em>, prepared by Erick Axxe, is an R companion to <em>Exploring Statistics: Tales of Distributions</em>. It follows the textbook’s research questions and statistical sequence while replacing menu-based software instructions with guided R and RStudio activities.</p>
+<p>The workbook is written for introductory statistics students, including students who have never programmed. It teaches the R skills needed for the analyses, but it is not intended to be a complete programming course.</p>
+<section id="download-the-complete-instructor-materials" class="level2">
+<h2 class="anchored" data-anchor-id="download-the-complete-instructor-materials">Download The Complete Instructor Materials</h2>
+<p><a href="../downloads/exploring-statistics-r-instructor-materials.zip" class="btn btn-primary" role="button">Download the complete instructor materials (ZIP, approximately 11 MB)</a></p>
+<p>The archive includes the rendered website, editable Quarto source, Word chapters, the combined PDF, student starter files, data, documentation, scripts, assets, and a README.</p>
+<p>For student use, distribute the smaller <a href="../downloads/esr-starter.zip">student starter files</a>. Students need those files regardless of whether they read the workbook online, in Word, or as a PDF.</p>
+<p>The <a href="../downloads/Exploring-Statistics-with-R-Complete-Collection.pdf">combined PDF</a> is also available as a separate download.</p>
 </section>
-<section id="available-formats" class="level2">
-<h2 class="anchored" data-anchor-id="available-formats">Available Formats</h2>
-<p>The Quarto source supports two primary formats:</p>
+<section id="choose-a-workbook-format" class="level2">
+<h2 class="anchored" data-anchor-id="choose-a-workbook-format">Choose A Workbook Format</h2>
+<p>The three editions contain the same instructional substance:</p>
 <ul>
-<li>HTML provides navigation, searchable content, code-copy controls, and expandable material where appropriate.</li>
-<li>Word provides an editable and printable document that can be distributed through a learning-management system.</li>
+<li><strong>HTML</strong> is the most convenient teaching edition. It includes sidebar navigation, search, code-copy controls, and links to the codebook and reference pages.</li>
+<li><strong>PDF</strong> combines the complete workbook into one fixed-layout document with a table of contents and PDF bookmarks. It is useful for printing, archiving, or distributing one file.</li>
+<li><strong>Word</strong> provides one editable file for each start page, chapter, reference page, and the instructor guide. Instructors may add local directions, adjust pacing, or upload selected chapters to a learning-management system.</li>
 </ul>
-<p>Required instructional content should remain available in both formats. HTML-only interaction is not necessary to complete an activity. In Word, solutions should appear in a final <strong>Check Your Work</strong> section so students encounter the questions before the sample answers.</p>
-<p>Links between workbook pages remain clickable in HTML. Because Word chapters may be downloaded or distributed as separate files, those internal website links appear as readable text in Word rather than as links tied to one computer’s file location. External web links remain clickable in both formats.</p>
+<p>Internal website links are removed from the Word edition because a link tied to a website folder may fail after an individual document is downloaded or moved. External links, including the starter-file download, remain active.</p>
 </section>
-<section id="generate-html-and-word-files" class="level2">
-<h2 class="anchored" data-anchor-id="generate-html-and-word-files">Generate HTML And Word Files</h2>
-<p>The editable workbook pages are the <code>.qmd</code> files in the project folders. To generate new files after editing them:</p>
+<section id="what-students-need" class="level2">
+<h2 class="anchored" data-anchor-id="what-students-need">What Students Need</h2>
+<p>Students need:</p>
 <ol type="1">
-<li>Install R, RStudio, and Quarto, then open <code>exploring-statistics-r.Rproj</code>.</li>
-<li>Run <code>scripts/00-open-and-check-data.R</code> once to install the required R packages and confirm that the data open correctly.</li>
-<li>To rebuild the complete HTML website, select <strong>Render Website</strong> in RStudio or run <code>quarto render</code> from the project folder. The finished website is saved in <code>_site</code>.</li>
-<li>To rebuild the complete collection of Word documents, run <code>python tools/render_word.py</code> from the project folder. The finished documents are saved in <code>output/word</code>. This helper requires Python and the <code>lxml</code> package; if Python reports that <code>lxml</code> is missing, run <code>python -m pip install lxml</code> once and try again.</li>
+<li>a computer on which they can install or access R and RStudio;</li>
+<li>the complete, unzipped student starter folder;</li>
+<li>the workbook in HTML, PDF, or Word; and</li>
+<li>permission to install the required R packages if those packages are not already available.</li>
 </ol>
-<p>The project already includes rendered HTML and Word files, so instructors only need these steps when they edit the Quarto sources. Keep the project folders together so the data, images, setup file, and Word formatting file remain available during rendering.</p>
+<p>The <a href="../start/01-set-up-rstudio.html">Set Up RStudio</a> page provides installation, download, and unzip directions. Students should begin every work session by opening <code>exploring-statistics-r.Rproj</code>, not by opening a script alone. Opening the project gives R a consistent starting location for the data and scripts.</p>
 </section>
-<section id="suggested-student-path" class="level2">
-<h2 class="anchored" data-anchor-id="suggested-student-path">Suggested Student Path</h2>
-<p>Students new to R should complete the four Start Here pages before Chapter 1:</p>
+<section id="use-the-student-starter-files" class="level2">
+<h2 class="anchored" data-anchor-id="use-the-student-starter-files">Use The Student Starter Files</h2>
+<p>The student archive contains:</p>
+<ul>
+<li><code>exploring-statistics-r.Rproj</code>, which opens the project;</li>
+<li><code>data/EAMMi2-REDUCED.csv</code>, the reduced teaching dataset;</li>
+<li><code>scripts/_setup.R</code>, which prepares packages, data, graph styling, and helper functions;</li>
+<li><code>scripts/00-open-and-check-data.R</code>, the first-run check;</li>
+<li>one annotated R script for each workbook chapter; and</li>
+<li><code>resources/EAMMI2_Survey_withcodes.pdf</code>, the survey and coding documentation.</li>
+</ul>
+<p>Ask students to extract the entire ZIP archive and keep its folders together. They should then:</p>
 <ol type="1">
-<li>Choose Your Path.</li>
-<li>Set Up RStudio.</li>
-<li>Run Your First Script.</li>
-<li>Understanding EAMMi2.</li>
+<li>open <code>exploring-statistics-r.Rproj</code>;</li>
+<li>open <code>scripts/00-open-and-check-data.R</code> from the <strong>Files</strong> tab in RStudio;</li>
+<li>run that script one section at a time; and</li>
+<li>open the script named in each assigned chapter.</li>
 </ol>
-<p>Students with prior R experience may review the starter-file instructions, run the setup check, and begin Chapter 1.</p>
-<p>Each chapter uses a consistent routine:</p>
-<ol type="1">
-<li>identify the research question and variables;</li>
-<li>plan what the analysis must show;</li>
-<li>predict a feature of the output;</li>
-<li>run the analysis in the chapter script;</li>
-<li>inspect tables, figures, or model output;</li>
-<li>write a statistical interpretation; and</li>
-<li>compare the work with the final Check Your Work section.</li>
-</ol>
+<p>The first run may take several minutes while R installs any missing packages. Later sessions should start more quickly.</p>
 </section>
-<section id="starter-files" class="level2">
-<h2 class="anchored" data-anchor-id="starter-files">Starter Files</h2>
-<p>All students need the <a href="https://axxe.netlify.app/exploring-statistics-r/downloads/esr-starter.zip">starter files</a>. The folder contains the RStudio project, EAMMi2 teaching data, shared setup file, chapter scripts, and survey documentation.</p>
-<p>Ask students to:</p>
+<section id="follow-the-chapter-structure" class="level2">
+<h2 class="anchored" data-anchor-id="follow-the-chapter-structure">Follow The Chapter Structure</h2>
+<p>Most chapters begin with one or more research questions from the textbook. A worked question typically moves through preparation, analysis, investigation of the output, and interpretation. Practice questions gradually ask students to reuse familiar code with less guidance.</p>
+<p>Every chapter ends with <strong>Check Your Work</strong>. Instructors can ask students to delay that section until they have run the analysis and written their own interpretation. Sample responses demonstrate an acceptable answer, but another answer may also be defensible when a prompt asks students to describe a graph or explain a data decision.</p>
+<p>The chapters deliberately reduce support over time. Early chapters explain file navigation and each major part of a command. Later chapters expect students to copy a familiar pattern, change object or variable names, check the resulting output, and describe the statistics in context. The <a href="../reference/r-command-index.html">R Command Index</a> shows where each command is first explained.</p>
+</section>
+<section id="r-packages-and-supplied-helpers" class="level2">
+<h2 class="anchored" data-anchor-id="r-packages-and-supplied-helpers">R Packages And Supplied Helpers</h2>
+<p>The workbook uses <code>tidyverse</code> for data preparation, summaries, and graphs. Chapter 15 also uses <code>PMCMRplus</code> for Dwass-Steel-Critchlow-Fligner post hoc comparisons after a Kruskal-Wallis test. The setup script installs missing packages and loads them; students do not need separate package-management instructions.</p>
+<p>The setup script also supplies small helper functions so students can focus on the statistical idea without repeatedly reconstructing a long calculation. These helpers:</p>
 <ul>
-<li>unzip the complete folder;</li>
-<li>keep its contents together;</li>
-<li>begin each session by opening <code>exploring-statistics-r.Rproj</code>; and</li>
-<li>run chapter scripts one section at a time while reading the matching workbook chapter.</li>
+<li>calculate the statistical mode and sample skewness;</li>
+<li>calculate Cohen’s <em>d</em> for one-sample, independent-group, repeated, and Tukey comparisons;</li>
+<li>calculate eta-squared measures for analysis of variance;</li>
+<li>calculate rank-biserial correlations and epsilon squared for nonparametric tests;</li>
+<li>calculate Cramer’s <em>V</em>; and</li>
+<li>organize selected repeated-measures and two-way ANOVA results.</li>
 </ul>
-<p>The shared setup file prepares the R tools used throughout the workbook, including <code>tidyverse</code>, and creates the main data frame named <code>eammi</code>. Package installation is handled there so chapters can remain focused on statistical analysis.</p>
-<p>Chapter 15 also uses <code>PMCMRplus</code> to conduct the DSCF post hoc comparisons that follow a significant Kruskal-Wallis test. The setup file installs and loads this package automatically. Students do not need to install or load it separately. If package installation is restricted on institution-managed computers, install <code>PMCMRplus</code> before distributing the starter files or ask the institution’s technical support team to make it available.</p>
+<p>The <a href="../reference/r-command-index.html">R Command Index</a> labels supplied helpers and identifies the chapter in which each is introduced. Instructors may show the definitions in <code>scripts/_setup.R</code> when a class would benefit from seeing how a calculation is assembled.</p>
 </section>
-<section id="scaffolding-across-chapters" class="level2">
-<h2 class="anchored" data-anchor-id="scaffolding-across-chapters">Scaffolding Across Chapters</h2>
-<p>Support fades as students encounter repeated R patterns:</p>
+<section id="important-data-and-analysis-decisions" class="level2">
+<h2 class="anchored" data-anchor-id="important-data-and-analysis-decisions">Important Data And Analysis Decisions</h2>
+<p>The R edition uses the included reduced EAMMi2 data as its canonical source. Most results reproduce the jamovi and SPSS modules closely. The following decisions are worth knowing.</p>
+<p><strong>Chapter 2.</strong> A Satisfaction With Life Scale value of 0 is retained and discussed as a reason to inspect a frequency table before interpreting a distribution.</p>
+<p><strong>Chapters 3 and 4.</strong> One <code>IMPcareer</code> value of 180 falls outside the stated 0–100 scale. Students identify it, set that observation aside for the chapter analysis, and report the decision.</p>
+<p><strong>Chapter 6.</strong> The special-someone support correlation is reported as positive because that is the sign produced by the included data; some source prose gives the opposite sign.</p>
+<p><strong>Chapter 10.</strong> Political-group counts and belonging results are calculated from the included data. The source modules contain inconsistent values, so the R output controls where the printed statistics cannot all be reconciled.</p>
+<p><strong>Chapter 11.</strong> Bartlett’s test checks equality of variances across the three groups. The earlier two-group F test is not reused because it compares only two variances.</p>
+<p><strong>Chapter 12.</strong> The repeated-measures analysis and Tukey-adjusted comparisons are calculated from the included data with the supplied R helpers.</p>
+<p><strong>Chapter 13.</strong> The interaction is interpreted as nonsignificant because that is the result produced by the included data. The significant interaction described in a source module is not supported by the analysis.</p>
+<p><strong>Chapter 14.</strong> Political identity categories and counts follow the included data and its codebook. Missing <code>PoliticsDichotomous</code> and <code>PartyDichotomous</code> values represent participants outside the two retained categories and are excluded only from analyses that require those dichotomous variables.</p>
+<p><strong>Chapter 15.</strong> <code>PMCMRplus</code> supplies the DSCF post hoc procedure. The workbook reports the independent-samples Wilcoxon statistic as <em>U</em> and the paired statistic as <em>V</em>, matching the conventions taught in the chapter.</p>
+<p>The analyses are instructional demonstrations. Any data-quality decision should be described in a student report rather than treated as an invisible correction.</p>
+</section>
+<section id="adapt-the-materials" class="level2">
+<h2 class="anchored" data-anchor-id="adapt-the-materials">Adapt The Materials</h2>
+<p>Word chapters may be edited directly for local use. Instructors can remove unassigned research questions, add course-specific directions, or move Check Your Work to a separate answer document. Keep the student starter scripts synchronized with any changed variable names or analysis steps.</p>
+<p>The editable source pages are Quarto <code>.qmd</code> files. After editing:</p>
 <ul>
-<li>The opening materials and Chapters 1–2 use complete examples, explicit navigation, and immediate output checks.</li>
-<li>Chapters 3–5 ask students to adapt familiar summaries and plots after a worked example.</li>
-<li>Chapters 6, 9, and 10 place more emphasis on choosing a model and reading its output.</li>
-<li>Chapters 11–15 provide structured multi-step workflows while asking students to reuse established code patterns more independently.</li>
+<li>render the HTML site by selecting <strong>Render Website</strong> in RStudio or running <code>quarto render</code>;</li>
+<li>render the Word collection by running <code>python tools/render_word.py</code>; and</li>
+<li>rebuild the combined PDF by running <code>python tools/build_combined_pdf.py</code>.</li>
 </ul>
-<p>New R structures should still receive full explanation when they first appear. Later placement in the workbook does not make an unfamiliar command self-explanatory.</p>
+<p>Open <code>exploring-statistics-r.Rproj</code> before rendering. The complete instructor archive includes the required configuration, filters, styles, assets, data, and helper tools.</p>
 </section>
-<section id="using-practice-and-check-your-work" class="level2">
-<h2 class="anchored" data-anchor-id="using-practice-and-check-your-work">Using Practice And Check Your Work</h2>
-<p>Practice activities may be completed individually, in pairs, or as guided class work. A useful sequence is:</p>
-<ol type="1">
-<li>ask students to identify what they will copy from the worked example;</li>
-<li>have them mark the object and variable names that must change;</li>
-<li>ask them to predict one output feature;</li>
-<li>let them run and revise their analysis; and</li>
-<li>delay the Check Your Work section until they have written an interpretation.</li>
-</ol>
-<p>Sample answers demonstrate an acceptable analysis and interpretation. They are not necessarily the only defensible wording, particularly when students are asked to describe a graph or discuss a data decision.</p>
-</section>
-<section id="supporting-novice-r-users" class="level2">
-<h2 class="anchored" data-anchor-id="supporting-novice-r-users">Supporting Novice R Users</h2>
-<p>When a student encounters an error, ask for:</p>
+<section id="troubleshoot-common-problems" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshoot-common-problems">Troubleshoot Common Problems</h2>
+<p>When a student reports an error, ask for the script name, the exact section run, and the first complete error message. Common fixes include:</p>
 <ul>
-<li>the script and section being used;</li>
-<li>the exact code that was run;</li>
-<li>the first complete error message;</li>
-<li>the expected result; and</li>
-<li>what appeared instead.</li>
+<li>Open <code>exploring-statistics-r.Rproj</code> and keep the starter folders together.</li>
+<li>Run <code>source("scripts/_setup.R")</code> before chapter code.</li>
+<li>If the Console shows <code>+</code>, press Esc and look for a missing parenthesis or quotation mark.</li>
+<li>If an object is missing, rerun the section that creates it before running later code.</li>
+<li>If output differs from the workbook, restart R and run the chapter script from the beginning in order.</li>
+<li>On institution-managed computers, ask technical support to preinstall <code>tidyverse</code> and <code>PMCMRplus</code>.</li>
 </ul>
-<p>Encourage students to use the workbook’s <a href="../reference/troubleshooting.html">Troubleshooting page</a> and restart the analysis from a clean R session when the sequence of previously run code is unclear.</p>
+<p>The student-facing <a href="../reference/troubleshooting.html">Troubleshooting page</a> provides a longer plain-language guide.</p>
 </section>
-<section id="accessibility" class="level2">
-<h2 class="anchored" data-anchor-id="accessibility">Accessibility</h2>
-<p>The HTML site uses semantic headings, keyboard-accessible navigation, descriptive links, and text explanations alongside figures. Figures should include captions, meaningful alt text, and readable axis labels. Important distinctions should never depend on color alone.</p>
-<p>The pane screenshot is accompanied by a text table and numbered directions. Students should be able to complete the setup without interpreting the image.</p>
-<p>For Word distribution, check heading structure, table headers, alternative text, page breaks, and the placement of Check Your Work after every render.</p>
-</section>
-<section id="adapting-the-materials" class="level2">
-<h2 class="anchored" data-anchor-id="adapting-the-materials">Adapting The Materials</h2>
-<p>Instructors may adjust pacing, assign only selected research questions, or demonstrate early examples in class. When modifying student code, preserve these conventions:</p>
-<ul>
-<li>use the native pipe <code>|&gt;</code>;</li>
-<li>keep the main data frame named <code>eammi</code>;</li>
-<li>keep meaningful statistical and plotting code visible;</li>
-<li>use readable object names with underscores;</li>
-<li>retain consistent category labels and ordering; and</li>
-<li>explain new syntax before students need to adapt it.</li>
-</ul>
-<p>The <a href="../reference/r-command-index.html">R Command Index</a> records where commands are first taught and can help instructors avoid introducing later code patterns without preparation.</p>
+<section id="data-and-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-documentation">Data And Documentation</h2>
+<p>The EAMMi2 project is available through the <a href="https://osf.io/te54b/">Open Science Framework study page</a>, and the <a href="https://osf.io/t3w2p/">survey with variable codes</a> is included in the student starter files. The project record identifies the study materials with a CC0 1.0 license. The workbook uses a reduced teaching copy containing only the variables needed for its analyses.</p>
 
 
 </section>
@@ -551,7 +549,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/axxe\.netlify\.app\/exploring-statistics-r\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -896,7 +894,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
+<p>Prepared by Erick Axxe · Companion resource for <em>Exploring Statistics: Tales of Distributions</em></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
