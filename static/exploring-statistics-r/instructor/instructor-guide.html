@@ -325,7 +325,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#use-the-student-starter-files" id="toc-use-the-student-starter-files" class="nav-link" data-scroll-target="#use-the-student-starter-files">Use The Student Starter Files</a></li>
   <li><a href="#follow-the-chapter-structure" id="toc-follow-the-chapter-structure" class="nav-link" data-scroll-target="#follow-the-chapter-structure">Follow The Chapter Structure</a></li>
   <li><a href="#r-packages-and-supplied-helpers" id="toc-r-packages-and-supplied-helpers" class="nav-link" data-scroll-target="#r-packages-and-supplied-helpers">R Packages And Supplied Helpers</a></li>
-  <li><a href="#important-data-and-analysis-decisions" id="toc-important-data-and-analysis-decisions" class="nav-link" data-scroll-target="#important-data-and-analysis-decisions">Important Data And Analysis Decisions</a></li>
   <li><a href="#adapt-the-materials" id="toc-adapt-the-materials" class="nav-link" data-scroll-target="#adapt-the-materials">Adapt The Materials</a></li>
   <li><a href="#troubleshoot-common-problems" id="toc-troubleshoot-common-problems" class="nav-link" data-scroll-target="#troubleshoot-common-problems">Troubleshoot Common Problems</a></li>
   <li><a href="#data-and-documentation" id="toc-data-and-documentation" class="nav-link" data-scroll-target="#data-and-documentation">Data And Documentation</a></li>
@@ -429,20 +428,6 @@ ul.task-list li input[type="checkbox"] {
 <li>organize selected repeated-measures and two-way ANOVA results.</li>
 </ul>
 <p>The <a href="../reference/r-command-index.html">R Command Index</a> labels supplied helpers and identifies the chapter in which each is introduced. Instructors may show the definitions in <code>scripts/_setup.R</code> when a class would benefit from seeing how a calculation is assembled.</p>
-</section>
-<section id="important-data-and-analysis-decisions" class="level2">
-<h2 class="anchored" data-anchor-id="important-data-and-analysis-decisions">Important Data And Analysis Decisions</h2>
-<p>The R edition uses the included reduced EAMMi2 data as its canonical source. Most results reproduce the jamovi and SPSS modules closely. The following decisions are worth knowing.</p>
-<p><strong>Chapter 2.</strong> A Satisfaction With Life Scale value of 0 is retained and discussed as a reason to inspect a frequency table before interpreting a distribution.</p>
-<p><strong>Chapters 3 and 4.</strong> One <code>IMPcareer</code> value of 180 falls outside the stated 0–100 scale. Students identify it, set that observation aside for the chapter analysis, and report the decision.</p>
-<p><strong>Chapter 6.</strong> The special-someone support correlation is reported as positive because that is the sign produced by the included data; some source prose gives the opposite sign.</p>
-<p><strong>Chapter 10.</strong> Political-group counts and belonging results are calculated from the included data. The source modules contain inconsistent values, so the R output controls where the printed statistics cannot all be reconciled.</p>
-<p><strong>Chapter 11.</strong> Bartlett’s test checks equality of variances across the three groups. The earlier two-group F test is not reused because it compares only two variances.</p>
-<p><strong>Chapter 12.</strong> The repeated-measures analysis and Tukey-adjusted comparisons are calculated from the included data with the supplied R helpers.</p>
-<p><strong>Chapter 13.</strong> The interaction is interpreted as nonsignificant because that is the result produced by the included data. The significant interaction described in a source module is not supported by the analysis.</p>
-<p><strong>Chapter 14.</strong> Political identity categories and counts follow the included data and its codebook. Missing <code>PoliticsDichotomous</code> and <code>PartyDichotomous</code> values represent participants outside the two retained categories and are excluded only from analyses that require those dichotomous variables.</p>
-<p><strong>Chapter 15.</strong> <code>PMCMRplus</code> supplies the DSCF post hoc procedure. The workbook reports the independent-samples Wilcoxon statistic as <em>U</em> and the paired statistic as <em>V</em>, matching the conventions taught in the chapter.</p>
-<p>The analyses are instructional demonstrations. Any data-quality decision should be described in a student report rather than treated as an invisible correction.</p>
 </section>
 <section id="adapt-the-materials" class="level2">
 <h2 class="anchored" data-anchor-id="adapt-the-materials">Adapt The Materials</h2>
