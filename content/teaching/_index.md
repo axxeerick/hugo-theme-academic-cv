@@ -4,17 +4,9 @@ title: "Teaching"
 
 I teach sociology as a way of understanding how individual lives are shaped by social structures, institutions, and relationships. Across my courses, I ask students to move between sociological ideas and empirical evidence: developing questions, evaluating claims, analyzing data, and communicating what they find.
 
-My teaching combines rigorous expectations with structured opportunities to develop the skills needed to meet them. I use explicit learning goals, scaffolded assignments, low-stakes practice, feedback, and revision to help students build increasingly independent analytical skills. In methods-oriented courses, this includes hands-on experience working with quantitative and qualitative data and learning tools such as R.
+My teaching combines rigorous expectations with structured opportunities to develop the skills needed to meet them. I use explicit learning goals, scaffolded assignments, low-stakes practice, feedback, and revision to help students build increasingly independent analytical skills. In methods-oriented courses and independent research, this includes hands-on experience working with quantitative and qualitative data and learning tools such as R.
 
 I also want students to leave my courses able to use sociology beyond the classroom. Whether we are studying inequality, education, the environment, race and ethnicity, or statistical methods, I emphasize how sociological reasoning can help students understand institutions, evaluate evidence, and make sense of the social conditions shaping people's lives.
-
-## Undergraduate Research and Mentoring
-
-Undergraduate research is an important part of my teaching. I mentor students through independent studies, senior thesis research, Odyssey projects, Sociological Research Methods, and Advanced Research and Writing.
-
-My mentoring emphasizes the full research process: developing a tractable research question, connecting that question to existing scholarship, selecting appropriate methods, analyzing evidence, and communicating findings. I have supervised student work using qualitative, quantitative, and mixed-method approaches and particularly enjoy helping students develop the confidence to conduct increasingly independent research.
-
-I also advise students as they consider graduate school, community-based work, policy, and analytically oriented careers. I view advising as an extension of teaching: an opportunity to help students identify their goals, understand the opportunities available to them, and make informed decisions about their academic and professional pathways.
 
 ## Meet With Me
 
@@ -29,6 +21,7 @@ I also advise students as they consider graduate school, community-based work, p
 
 ### Social Statistics (SOCI 210)
 [Syllabus (PDF)](/teaching/presentations/SOCI210_Spring2026_Syllabus_20260113.pdf)
+[R Statistical Workbook](https://axxe.netlify.app/exploring-statistics-r/) — A workbook I developed to accompany *Exploring Statistics: Tales of Distributions* (13th ed.), with scaffolded R exercises for applying statistical concepts to data.
 
 ### Race and Ethnicity (SOCI 270)
 [Syllabus (PDF)](/teaching/presentations/RaceEthn_Fall2025_Axxe_20240827.pdf)  
