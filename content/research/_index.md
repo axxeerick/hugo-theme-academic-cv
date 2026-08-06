@@ -4,8 +4,6 @@ title: "Research"
 
 I study how social structures shape people's perceived possibilities, identities, decisions, and trajectories over time, with a particular focus on the transition to adulthood. My research uses longitudinal and mixed methods across educational, family, and migration contexts.
 
-## Research Program
-
 A central question connects my research: **How do people develop understandings of what is possible for their lives, and how are those possibilities shaped by the social contexts in which they are embedded?** I examine how institutions, families, social relationships, and unequal access to resources structure both the opportunities people encounter and how they interpret them. This perspective allows me to connect individual decision-making and identity development to the broader social structures in which they unfold.
 
 My methodological approach reflects my interest in understanding these processes as they unfold over time. I use longitudinal and mixed methods to connect broader social patterns with changes within individuals and with people's interpretations of their own experiences. My quantitative work includes longitudinal and panel-data analysis, regression-based approaches, multilevel modeling, latent-variable methods, and demographic analysis. I complement these approaches with qualitative interviews and mixed-method designs that integrate qualitative evidence with longitudinal survey data.
