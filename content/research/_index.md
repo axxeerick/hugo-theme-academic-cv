@@ -39,7 +39,7 @@ sections:
       text: |
         My research on migration and family life examines how young people develop aspirations, identities, and plans for adulthood within changing social and family contexts.
 
-        I am especially interested in how migration reshapes the resources, relationships, and perceived possibilities that young people draw on as they make decisions about education, work, mobility, marriage, and family life. Much of this work uses comparative longitudinal data to examine how life-course transitions unfold differently across institutional and cultural settings.
+        I am especially interested in how young people’s resources, relationships, expectations, and perceived possibilities shape decisions about education, work, mobility, marriage, and family life. Much of this work uses comparative longitudinal data to examine how these processes unfold over time and vary across institutional, family, and cultural contexts.
 
         A central source for this research is **Family Migration and Early Life Outcomes (FAMELO)**, a collaborative project examining how family migration shapes children's and adolescents' educational trajectories, wellbeing, aspirations, and family formation across distinct migration contexts.
 
