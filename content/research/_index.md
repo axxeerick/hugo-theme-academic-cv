@@ -1,11 +1,10 @@
 ---
-title: Research
+title: "Research"
 type: landing
 
 sections:
   - block: markdown
     content:
-      title: "Research Program"
       text: |
         I am a life course sociologist who studies how social structures shape people’s perceived possibilities, identities, decisions, and trajectories over time. I am especially interested in the transition to adulthood, when decisions about education, work, mobility, relationships, and family life can have lasting consequences for subsequent pathways.
 

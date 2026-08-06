@@ -4,8 +4,6 @@ title: "Contact"
 
 I welcome inquiries about research collaborations, invited talks, workshops, and other opportunities related to my research and teaching. For more information about my scholarly interests and current work, see my [research page](/research/).
 
-## Contact
-
 - **Email:** [axxe@hendrix.edu](mailto:axxe@hendrix.edu)  
 - **Office phone:** 501-450-1445  
 
