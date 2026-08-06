@@ -2,42 +2,53 @@
 title: "Teaching"
 ---
 
-I design courses that help students connect sociological theory to concrete social problems through structured analytical practice: interpreting evidence, evaluating claims, and communicating findings clearly. My teaching emphasizes rigorous expectations with clear scaffolding, frequent low-stakes feedback, and opportunities to revise work over time.
+I teach sociology as a way of understanding how individual lives are shaped by social structures, institutions, and relationships. Across my courses, I ask students to move between sociological ideas and empirical evidence: developing questions, evaluating claims, analyzing data, and communicating what they find.
 
-Across courses, I foreground how race, class, and gender structure institutions and life chances. I treat the classroom as a space for serious inquiry where students can test ideas, develop methodological confidence, and build durable habits of sociological reasoning.
+My teaching combines rigorous expectations with structured opportunities to develop the skills needed to meet them. I use explicit learning goals, scaffolded assignments, low-stakes practice, feedback, and revision to help students build increasingly independent analytical skills. In methods-oriented courses, this includes hands-on experience working with quantitative and qualitative data and learning tools such as R.
 
-## Mentoring and Advising
+I also want students to leave my courses able to use sociology beyond the classroom. Whether we are studying inequality, education, the environment, race and ethnicity, or statistical methods, I emphasize how sociological reasoning can help students understand institutions, evaluate evidence, and make sense of the social conditions shaping people's lives.
 
-I support students who are considering graduate school, policy work, community research, and analytically oriented careers. Mentoring often focuses on building research questions, strengthening writing, and developing practical strategies for navigating academic institutions.
+## Undergraduate Research and Mentoring
 
-- **Appointments:** [Meet with me](https://outlook.office.com/bookings/homepage?src=calendar)
-- **Recommendation letter:** [Request a recommendation letter](https://forms.office.com/Pages/ResponsePage.aspx?id=jMH2DNLQP0qD0GY9Ygpj0-lseRVHZktNvOh2--nTyS1UNU1ETEZVRFpLMEJFM0NVQzlSRkU4UFVSMy4u)
-  - Former students should send me an email: [axxe@hendrix.edu](mailto:axxe@hendrix.edu)
-  
-## Syllabi and Materials
+Undergraduate research is an important part of my teaching. I mentor students through independent studies, senior thesis research, Odyssey projects, Sociological Research Methods, and Advanced Research and Writing.
 
-- **Introduction to Sociology (SOCI 110)**  
-  [Syllabus (PDF)](/teaching/presentations/SOCI110_Syllabus_Axxe_20260116.pdf)
+My mentoring emphasizes the full research process: developing a tractable research question, connecting that question to existing scholarship, selecting appropriate methods, analyzing evidence, and communicating findings. I have supervised student work using qualitative, quantitative, and mixed-method approaches and particularly enjoy helping students develop the confidence to conduct increasingly independent research.
 
-- **Social Statistics (SOCI 210)**  
-  [Syllabus (PDF)](/teaching/presentations/SOCI210_Spring2026_Syllabus_20260113.pdf)
+I also advise students as they consider graduate school, community-based work, policy, and analytically oriented careers. I view advising as an extension of teaching: an opportunity to help students identify their goals, understand the opportunities available to them, and make informed decisions about their academic and professional pathways.
 
-- **Race and Ethnicity (SOCI 270)**  
-  [Syllabus (PDF)](/teaching/presentations/RaceEthn_Fall2025_Axxe_20240827.pdf)  
-  [Course Timeline (XLSX)](/teaching/presentations/RaceEthn_Timeline_20251008.xlsx)
+## Meet With Me
 
-- **Sociological Research Methods (SOCI 335)**  
-  [Syllabus (PDF)](/teaching/presentations/SocResearchMethods_Axxe_20250130.pdf)  
-  [Course Timeline (XLSX)](/teaching/presentations/CourseTimeline_Clean_20250404.xlsx)
+- **Appointments:** [Schedule a meeting](https://outlook.office.com/bookings/homepage?src=calendar)
+- **Recommendation letters:** [Request a recommendation letter](https://forms.office.com/Pages/ResponsePage.aspx?id=jMH2DNLQP0qD0GY9Ygpj0-lseRVHZktNvOh2--nTyS1UNU1ETEZVRFpLMEJFM0NVQzlSRkU4UFVSMy4u)
+- **Former students:** [Email me](mailto:axxe@hendrix.edu)
 
-- **Environmental Sociology (SOCI 375)**  
-  [Syllabus (PDF)](/teaching/presentations/EnvironmentalSoc_Syllabus_Axxe_20250218.pdf)  
-  [Course Timeline (XLSX)](/teaching/presentations/EnvSoc_Timeline_20250218.xlsx)
+## Courses and Materials
 
-- **Sociology of Education (SOCI 385)**  
-  [Syllabus (PDF)](/teaching/presentations/SocOfEd_Syllabus_20251016.pdf)  
-  [Course Timeline (XLSX)](/teaching/presentations/SocOfEd_Timeline_20251016.xlsx)
+### Introduction to Sociology (SOCI 110)
+[Syllabus (PDF)](/teaching/presentations/SOCI110_Syllabus_Axxe_20260116.pdf)
 
-- **Social Inequality and Identity (SOCI 390)**  
-  [Syllabus (PDF)](/teaching/presentations/IneqIdentity_Syllabus_Axxe_20260117.pdf)  
-  [Course Timeline (XLSX)](/teaching/presentations/IneqIdentity_Timeline_20260122.xlsx)
+### Social Statistics (SOCI 210)
+[Syllabus (PDF)](/teaching/presentations/SOCI210_Spring2026_Syllabus_20260113.pdf)
+
+### Race and Ethnicity (SOCI 270)
+[Syllabus (PDF)](/teaching/presentations/RaceEthn_Fall2025_Axxe_20240827.pdf)  
+[Course Timeline (XLSX)](/teaching/presentations/RaceEthn_Timeline_20251008.xlsx)
+
+### Sociological Research Methods (SOCI 335)
+[Syllabus (PDF)](/teaching/presentations/SocResearchMethods_Axxe_20250130.pdf)  
+[Course Timeline (XLSX)](/teaching/presentations/CourseTimeline_Clean_20250404.xlsx)
+
+### Environmental Sociology (SOCI 375)
+[Syllabus (PDF)](/teaching/presentations/EnvironmentalSoc_Syllabus_Axxe_20250218.pdf)  
+[Course Timeline (XLSX)](/teaching/presentations/EnvSoc_Timeline_20250218.xlsx)
+
+### Sociology of Education (SOCI 385)
+[Syllabus (PDF)](/teaching/presentations/SocOfEd_Syllabus_20251016.pdf)  
+[Course Timeline (XLSX)](/teaching/presentations/SocOfEd_Timeline_20251016.xlsx)
+
+### Social Inequality and Identity (ANTH/SOCI 390)
+[Syllabus (PDF)](/teaching/presentations/IneqIdentity_Syllabus_Axxe_20260117.pdf)  
+[Course Timeline (XLSX)](/teaching/presentations/IneqIdentity_Timeline_20260122.xlsx)
+
+### Advanced Research and Writing (ANTH/SOCI 497)
+[Syllabus (PDF)](/teaching/presentations/Practicum_Axxe_20251022.pdf)
