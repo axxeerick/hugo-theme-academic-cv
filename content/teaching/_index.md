@@ -8,12 +8,6 @@ My teaching combines rigorous expectations with structured opportunities to deve
 
 I also want students to leave my courses able to use sociology beyond the classroom. Whether we are studying inequality, education, the environment, race and ethnicity, or statistical methods, I emphasize how sociological reasoning can help students understand institutions, evaluate evidence, and make sense of the social conditions shaping people's lives.
 
-## Meet With Me
-
-- **Appointments:** [Schedule a meeting](https://outlook.office.com/bookings/homepage?src=calendar)
-- **Recommendation letters:** [Request a recommendation letter](https://forms.office.com/Pages/ResponsePage.aspx?id=jMH2DNLQP0qD0GY9Ygpj0-lseRVHZktNvOh2--nTyS1UNU1ETEZVRFpLMEJFM0NVQzlSRkU4UFVSMy4u)
-- **Former students:** [Email me](mailto:axxe@hendrix.edu)
-
 ## Courses and Materials
 
 ### Introduction to Sociology (SOCI 110)
