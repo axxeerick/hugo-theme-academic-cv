@@ -12,23 +12,11 @@
     ]
   },
   {
-    "objectID": "instructor/instructor-guide.html#download-the-complete-instructor-materials",
-    "href": "instructor/instructor-guide.html#download-the-complete-instructor-materials",
+    "objectID": "instructor/instructor-guide.html#how-to-navigate-this-workbook",
+    "href": "instructor/instructor-guide.html#how-to-navigate-this-workbook",
     "title": "Instructor Guide",
-    "section": "Download The Complete Instructor Materials",
-    "text": "Download The Complete Instructor Materials\nDownload the complete instructor materials (ZIP, approximately 11 MB)\nThe archive includes the rendered website, editable Quarto source, Word chapters, the combined PDF, student starter files, data, documentation, scripts, assets, and a README.\nFor student use, distribute the smaller student starter files. Students need those files regardless of whether they read the workbook online, in Word, or as a PDF.\nThe combined PDF is also available as a separate download.",
-    "crumbs": [
-      "Home",
-      "Instructor resources",
-      "Instructor Guide"
-    ]
-  },
-  {
-    "objectID": "instructor/instructor-guide.html#choose-a-workbook-format",
-    "href": "instructor/instructor-guide.html#choose-a-workbook-format",
-    "title": "Instructor Guide",
-    "section": "Choose A Workbook Format",
-    "text": "Choose A Workbook Format\nThe three editions contain the same instructional substance:\n\nHTML is the most convenient teaching edition. It includes sidebar navigation, search, code-copy controls, and links to the codebook and reference pages.\nPDF combines the complete workbook into one fixed-layout document with a table of contents and PDF bookmarks. It is useful for printing, archiving, or distributing one file.\nWord provides one editable file for each start page, chapter, reference page, and the instructor guide. Instructors may add local directions, adjust pacing, or upload selected chapters to a learning-management system.\n\nInternal website links are removed from the Word edition because a link tied to a website folder may fail after an individual document is downloaded or moved. External links, including the starter-file download, remain active.",
+    "section": "How To Navigate This Workbook",
+    "text": "How To Navigate This Workbook\nThe workbook is available in HTML, PDF, and Word. Each format contains the same instructional substance, so instructors may choose the version that best fits their course.\nStudents need the student starter files regardless of which workbook format they use. Distribute this ZIP file before students begin, and ask them to extract the entire folder rather than opening files from inside the ZIP.\n\nHTML is the most convenient teaching edition. It includes sidebar navigation, search, code-copy controls, and links to the codebook and reference pages.\nYou can access it here: https://axxe.netlify.app/exploring-statistics-r/\nPDF combines the complete workbook into one fixed-layout document with a table of contents and PDF bookmarks. It is useful for printing, archiving, or distributing one file.\nWord provides one editable file for each start page, chapter, reference page, and the instructor guide. Use the Word files when you want to alter the workbook, add course-specific directions, adjust pacing, or distribute selected chapters through a learning-management system.\n\nInternal website links are removed from the Word edition because a link tied to a website folder may fail after an individual document is downloaded or moved. External links, including the starter-file download, remain active.",
     "crumbs": [
       "Home",
       "Instructor resources",
@@ -77,18 +65,6 @@
     "title": "Instructor Guide",
     "section": "R Packages And Supplied Helpers",
     "text": "R Packages And Supplied Helpers\nThe workbook uses tidyverse for data preparation, summaries, and graphs. Chapter 15 also uses PMCMRplus for Dwass-Steel-Critchlow-Fligner post hoc comparisons after a Kruskal-Wallis test. The setup script installs missing packages and loads them; students do not need separate package-management instructions.\nThe setup script also supplies small helper functions so students can focus on the statistical idea without repeatedly reconstructing a long calculation. These helpers:\n\ncalculate the statistical mode and sample skewness;\ncalculate Cohen’s d for one-sample, independent-group, repeated, and Tukey comparisons;\ncalculate eta-squared measures for analysis of variance;\ncalculate rank-biserial correlations and epsilon squared for nonparametric tests;\ncalculate Cramer’s V; and\norganize selected repeated-measures and two-way ANOVA results.\n\nThe R Command Index labels supplied helpers and identifies the chapter in which each is introduced. Instructors may show the definitions in scripts/_setup.R when a class would benefit from seeing how a calculation is assembled.",
-    "crumbs": [
-      "Home",
-      "Instructor resources",
-      "Instructor Guide"
-    ]
-  },
-  {
-    "objectID": "instructor/instructor-guide.html#adapt-the-materials",
-    "href": "instructor/instructor-guide.html#adapt-the-materials",
-    "title": "Instructor Guide",
-    "section": "Adapt The Materials",
-    "text": "Adapt The Materials\nWord chapters may be edited directly for local use. Instructors can remove unassigned research questions, add course-specific directions, or move Check Your Work to a separate answer document. Keep the student starter scripts synchronized with any changed variable names or analysis steps.\nThe editable source pages are Quarto .qmd files. After editing:\n\nrender the HTML site by selecting Render Website in RStudio or running quarto render;\nrender the Word collection by running python tools/render_word.py; and\nrebuild the combined PDF by running python tools/build_combined_pdf.py.\n\nOpen exploring-statistics-r.Rproj before rendering. The complete instructor archive includes the required configuration, filters, styles, assets, data, and helper tools.",
     "crumbs": [
       "Home",
       "Instructor resources",

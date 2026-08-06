@@ -319,13 +319,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#download-the-complete-instructor-materials" id="toc-download-the-complete-instructor-materials" class="nav-link active" data-scroll-target="#download-the-complete-instructor-materials">Download The Complete Instructor Materials</a></li>
-  <li><a href="#choose-a-workbook-format" id="toc-choose-a-workbook-format" class="nav-link" data-scroll-target="#choose-a-workbook-format">Choose A Workbook Format</a></li>
+  <li><a href="#how-to-navigate-this-workbook" id="toc-how-to-navigate-this-workbook" class="nav-link active" data-scroll-target="#how-to-navigate-this-workbook">How To Navigate This Workbook</a></li>
   <li><a href="#what-students-need" id="toc-what-students-need" class="nav-link" data-scroll-target="#what-students-need">What Students Need</a></li>
   <li><a href="#use-the-student-starter-files" id="toc-use-the-student-starter-files" class="nav-link" data-scroll-target="#use-the-student-starter-files">Use The Student Starter Files</a></li>
   <li><a href="#follow-the-chapter-structure" id="toc-follow-the-chapter-structure" class="nav-link" data-scroll-target="#follow-the-chapter-structure">Follow The Chapter Structure</a></li>
   <li><a href="#r-packages-and-supplied-helpers" id="toc-r-packages-and-supplied-helpers" class="nav-link" data-scroll-target="#r-packages-and-supplied-helpers">R Packages And Supplied Helpers</a></li>
-  <li><a href="#adapt-the-materials" id="toc-adapt-the-materials" class="nav-link" data-scroll-target="#adapt-the-materials">Adapt The Materials</a></li>
   <li><a href="#troubleshoot-common-problems" id="toc-troubleshoot-common-problems" class="nav-link" data-scroll-target="#troubleshoot-common-problems">Troubleshoot Common Problems</a></li>
   <li><a href="#data-and-documentation" id="toc-data-and-documentation" class="nav-link" data-scroll-target="#data-and-documentation">Data And Documentation</a></li>
   </ul>
@@ -361,20 +359,15 @@ ul.task-list li input[type="checkbox"] {
 
 <p><em>Exploring Statistics with R</em>, prepared by Erick Axxe, is an R companion to <em>Exploring Statistics: Tales of Distributions</em>. It follows the textbook’s research questions and statistical sequence while replacing menu-based software instructions with guided R and RStudio activities.</p>
 <p>The workbook is written for introductory statistics students, including students who have never programmed. It teaches the R skills needed for the analyses, but it is not intended to be a complete programming course.</p>
-<section id="download-the-complete-instructor-materials" class="level2">
-<h2 class="anchored" data-anchor-id="download-the-complete-instructor-materials">Download The Complete Instructor Materials</h2>
-<p><a href="../downloads/exploring-statistics-r-instructor-materials.zip" class="btn btn-primary" role="button">Download the complete instructor materials (ZIP, approximately 11 MB)</a></p>
-<p>The archive includes the rendered website, editable Quarto source, Word chapters, the combined PDF, student starter files, data, documentation, scripts, assets, and a README.</p>
-<p>For student use, distribute the smaller <a href="../downloads/esr-starter.zip">student starter files</a>. Students need those files regardless of whether they read the workbook online, in Word, or as a PDF.</p>
-<p>The <a href="../downloads/Exploring-Statistics-with-R-Complete-Collection.pdf">combined PDF</a> is also available as a separate download.</p>
-</section>
-<section id="choose-a-workbook-format" class="level2">
-<h2 class="anchored" data-anchor-id="choose-a-workbook-format">Choose A Workbook Format</h2>
-<p>The three editions contain the same instructional substance:</p>
+<section id="how-to-navigate-this-workbook" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-navigate-this-workbook">How To Navigate This Workbook</h2>
+<p>The workbook is available in HTML, PDF, and Word. Each format contains the same instructional substance, so instructors may choose the version that best fits their course.</p>
+<p>Students need the <a href="https://axxe.netlify.app/exploring-statistics-r/downloads/esr-starter.zip">student starter files</a> regardless of which workbook format they use. Distribute this ZIP file before students begin, and ask them to extract the entire folder rather than opening files from inside the ZIP.</p>
 <ul>
-<li><strong>HTML</strong> is the most convenient teaching edition. It includes sidebar navigation, search, code-copy controls, and links to the codebook and reference pages.</li>
-<li><strong>PDF</strong> combines the complete workbook into one fixed-layout document with a table of contents and PDF bookmarks. It is useful for printing, archiving, or distributing one file.</li>
-<li><strong>Word</strong> provides one editable file for each start page, chapter, reference page, and the instructor guide. Instructors may add local directions, adjust pacing, or upload selected chapters to a learning-management system.</li>
+<li><p><strong>HTML</strong> is the most convenient teaching edition. It includes sidebar navigation, search, code-copy controls, and links to the codebook and reference pages.</p>
+<p>You can access it here: <a href="https://axxe.netlify.app/exploring-statistics-r/">https://axxe.netlify.app/exploring-statistics-r/</a></p></li>
+<li><p><strong>PDF</strong> combines the complete workbook into one fixed-layout document with a table of contents and PDF bookmarks. It is useful for printing, archiving, or distributing one file.</p></li>
+<li><p><strong>Word</strong> provides one editable file for each start page, chapter, reference page, and the instructor guide. Use the Word files when you want to alter the workbook, add course-specific directions, adjust pacing, or distribute selected chapters through a learning-management system.</p></li>
 </ul>
 <p>Internal website links are removed from the Word edition because a link tied to a website folder may fail after an individual document is downloaded or moved. External links, including the starter-file download, remain active.</p>
 </section>
@@ -428,17 +421,6 @@ ul.task-list li input[type="checkbox"] {
 <li>organize selected repeated-measures and two-way ANOVA results.</li>
 </ul>
 <p>The <a href="../reference/r-command-index.html">R Command Index</a> labels supplied helpers and identifies the chapter in which each is introduced. Instructors may show the definitions in <code>scripts/_setup.R</code> when a class would benefit from seeing how a calculation is assembled.</p>
-</section>
-<section id="adapt-the-materials" class="level2">
-<h2 class="anchored" data-anchor-id="adapt-the-materials">Adapt The Materials</h2>
-<p>Word chapters may be edited directly for local use. Instructors can remove unassigned research questions, add course-specific directions, or move Check Your Work to a separate answer document. Keep the student starter scripts synchronized with any changed variable names or analysis steps.</p>
-<p>The editable source pages are Quarto <code>.qmd</code> files. After editing:</p>
-<ul>
-<li>render the HTML site by selecting <strong>Render Website</strong> in RStudio or running <code>quarto render</code>;</li>
-<li>render the Word collection by running <code>python tools/render_word.py</code>; and</li>
-<li>rebuild the combined PDF by running <code>python tools/build_combined_pdf.py</code>.</li>
-</ul>
-<p>Open <code>exploring-statistics-r.Rproj</code> before rendering. The complete instructor archive includes the required configuration, filters, styles, assets, data, and helper tools.</p>
 </section>
 <section id="troubleshoot-common-problems" class="level2">
 <h2 class="anchored" data-anchor-id="troubleshoot-common-problems">Troubleshoot Common Problems</h2>
