@@ -20,8 +20,8 @@ I also want students to leave my courses able to use sociology beyond the classr
 [Syllabus (PDF)](/teaching/presentations/SOCI110_Syllabus_Axxe_20260116.pdf)
 
 ### Social Statistics (SOCI 210)
-[Syllabus (PDF)](/teaching/presentations/SOCI210_Spring2026_Syllabus_20260113.pdf)
-[R Statistical Workbook](https://axxe.netlify.app/exploring-statistics-r/) — A workbook I developed to accompany *Exploring Statistics: Tales of Distributions* (13th ed.), with scaffolded R exercises for applying statistical concepts to data.
+[Syllabus (PDF)](/teaching/presentations/SOCI210_Spring2026_Syllabus_20260113.pdf)<br>
+[R Statistical Workbook](https://axxe.netlify.app/exploring-statistics-r/) — A workbook I developed to accompany *Exploring Statistics: Tales of Distributions* (13th ed.).
 
 ### Race and Ethnicity (SOCI 270)
 [Syllabus (PDF)](/teaching/presentations/RaceEthn_Fall2025_Axxe_20240827.pdf)  

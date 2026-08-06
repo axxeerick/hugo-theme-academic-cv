@@ -1,6 +1,7 @@
 ---
 title: ""
 type: landing
+
 sections:
   - block: hero
     content:
@@ -25,9 +26,9 @@ sections:
           <img class="home-profile-photo" src="/uploads/headshot.jpg" alt="Headshot of Erick Axxe" />
           <div>
             <h2>About</h2>
-            <p>I study inequality, institutions, and the transition to adulthood using longitudinal and mixed-method research.</p>
-            <p>My work examines how organizational contexts shape educational and life-course decisions, with particular attention to race, class, and gender.</p>
-            <p><a href="/research/">Explore research projects</a>, <a href="/teaching/">view my teaching materials</a>, or <a href="/contact/">get in touch</a>.</p>
+            <p>I am a life course sociologist who studies how social structures shape people's possibilities, decisions, identities, and trajectories over time.</p>
+            <p>My research focuses especially on the transition to adulthood, examining how institutions and social relationships shape experiences of education, migration, and family life. I use longitudinal and mixed methods to connect individual experiences with the broader social contexts in which they unfold.</p>
+            <p><a href="/research/">Explore my research</a>, <a href="/teaching/">view my teaching materials</a>, or <a href="/contact/">get in touch</a>.</p>
           </div>
         </section>
 
