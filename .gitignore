@@ -32,10 +32,28 @@ node_modules/
 # Environment & Configuration
 # ============================================================================
 
-# Environment variables
+# Environment variables and local credentials
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+!.env.sample
+.npmrc
+.netrc
+.pypirc
+credentials.json
+secrets.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Interactive R session state can contain commands, paths, or credentials
+.Rhistory
+**/.Rhistory
+.RData
+.Ruserdata
 
 # ============================================================================
 # Generated Content

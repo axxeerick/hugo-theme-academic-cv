@@ -1,0 +1,8 @@
+overrides:
+  picomatch: 2.3.2
+
+onlyBuiltDependencies:
+  - "@parcel/watcher"
+
+allowBuilds:
+  "@parcel/watcher": true
