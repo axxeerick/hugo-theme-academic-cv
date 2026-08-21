@@ -14,20 +14,21 @@ I also want students to leave my courses able to use sociology beyond the classr
 [Syllabus (PDF)](/teaching/presentations/SOCI110_Syllabus_Axxe_20260116.pdf)
 
 ### Social Statistics (SOCI 210)
-[Syllabus (PDF)](/teaching/presentations/SOCI210_Spring2026_Syllabus_20260113.pdf)<br>
+[Syllabus (PDF)](/teaching/presentations/SOCI210_Fall2026_Syllabus_20260820.pdf)<br>
+[Course Timeline (XLSX)](/teaching/presentations/SOCI210_Fall2026_Schedule_20260820.xlsx)
 [R Statistical Workbook](https://axxe.netlify.app/exploring-statistics-r/) — A workbook I developed to accompany *Exploring Statistics: Tales of Distributions* (13th ed.).
 
 ### Race and Ethnicity (SOCI 270)
-[Syllabus (PDF)](/teaching/presentations/RaceEthn_Fall2025_Axxe_20240827.pdf)  
-[Course Timeline (XLSX)](/teaching/presentations/RaceEthn_Timeline_20251008.xlsx)
+[Syllabus (PDF)](/teaching/presentations/SOCI270_RaceEthn_Fall2026_Axxe_20260819.pdf)  
+[Course Timeline (XLSX)](/teaching/presentations/SOCI270_RaceEthnicity_Fall2026_20260819.xlsx)
 
 ### Sociological Research Methods (SOCI 335)
 [Syllabus (PDF)](/teaching/presentations/SocResearchMethods_Axxe_20250130.pdf)  
 [Course Timeline (XLSX)](/teaching/presentations/CourseTimeline_Clean_20250404.xlsx)
 
 ### Environmental Sociology (SOCI 375)
-[Syllabus (PDF)](/teaching/presentations/EnvironmentalSoc_Syllabus_Axxe_20250218.pdf)  
-[Course Timeline (XLSX)](/teaching/presentations/EnvSoc_Timeline_20250218.xlsx)
+[Syllabus (PDF)](/teaching/presentations/SOCI375_EnvSoc_Syllabus_Axxe_20260821pdf)  
+[Course Timeline (XLSX)](/teaching/presentations/SOCI375_EnvSoc_Timeline_Axxe_20260821.xlsx)
 
 ### Sociology of Education (SOCI 385)
 [Syllabus (PDF)](/teaching/presentations/SocOfEd_Syllabus_20251016.pdf)  
