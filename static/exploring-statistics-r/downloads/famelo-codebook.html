@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>FAMELO Teaching Dataset Codebook</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #212529;
+    }
+
+    main {
+      width: min(100% - 3rem, 960px);
+      margin: 0 auto;
+      padding: 3.5rem 0 5rem;
+    }
+
+    h1,
+    h2 {
+      color: #212529;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    h1 {
+      margin: 0 0 0.4rem;
+      font-size: 2.45rem;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      margin: 2.6rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #dee2e6;
+      font-size: 1.7rem;
+    }
+
+    p {
+      margin: 0 0 1rem;
+    }
+
+    .subtitle {
+      margin: 0 0 2.5rem;
+      color: #495057;
+      font-size: 1.12rem;
+    }
+
+    code {
+      padding: 0.08rem 0.25rem;
+      border-radius: 0.2rem;
+      background: #f1f3f5;
+      color: #343a40;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.88em;
+      overflow-wrap: anywhere;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      border-top: 1px solid #dee2e6;
+      border-bottom: 1px solid #dee2e6;
+      font-size: 0.95rem;
+    }
+
+    th,
+    td {
+      padding: 0.68rem 0.75rem;
+      border-bottom: 1px solid #dee2e6;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      border-bottom-width: 2px;
+      font-weight: 600;
+    }
+
+    tbody tr.even {
+      background: #f8f9fa;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    @media (max-width: 700px) {
+      main {
+        width: min(100% - 2rem, 960px);
+        padding-top: 2.25rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.45rem;
+      }
+
+      th,
+      td {
+        padding: 0.58rem 0.65rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- FAMELO CODEBOOK START -->
+<main class="content famelo-codebook">
+  <h1>FAMELO Teaching Dataset Codebook</h1>
+  <p class="subtitle">Background and codebook for the SOCI 210 FAMELO teaching dataset.</p>
+
+  <section id="about-the-famelo-data" class="level2">
+    <h2>About the FAMELO data</h2>
+    <p>The Family Migration and Early Life Outcomes (FAMELO) project is a household-based study of children, young people, and their families in three settings: Jalisco, Mexico; Gaza Province, Mozambique; and the Chitwan Valley, Nepal. The study was designed to examine young people’s lives in places experiencing substantial social and economic change and high levels of migration.</p>
+    <p>FAMELO collected information from focal children and their primary caregivers, as well as information about their households. The SOCI 210 teaching dataset uses Wave 2 data only and contains a selected set of variables focused on the transition to adulthood, including education, work, health, family circumstances, migration, relationships, marriage, and young people’s orientations toward adulthood. The study sites are not intended to be nationally representative, so findings should be interpreted as describing these study settings rather than Mexico, Mozambique, or Nepal as a whole.</p>
+  </section>
+
+  <section id="the-soci-210-data-file" class="level2">
+    <h2>The SOCI 210 data file</h2>
+    <p>The SOCI 210 data file is a reduced teaching dataset rather than the complete FAMELO dataset. Each row represents one focal child. The dataframe contains 7,876 observations and 42 variables selected for the analyses used in the course. Variables may come from the focal child’s interview, the caregiver interview, household information, or constructed measures.</p>
+  </section>
+
+  <section id="reading-coded-categories" class="level2">
+    <h2>Reading coded categories</h2>
+    <p>Some variables use numbers to represent categories. These numbers are category codes rather than measured quantities. You do not need to memorize the codes; use this codebook to check what they represent.</p>
+    <p>Education variables ending in <code>_isced</code> use ordered categories based on the International Standard Classification of Education (ISCED). These numbers are not years of schooling and should not be treated as an equal-interval quantitative measure. The corresponding labeled education variables are usually easier to use in tables and graphs.</p>
+  </section>
+
+  <section id="missing-values" class="level2">
+    <h2>Missing values</h2>
+    <p>Missing values appear as <code>NA</code> in R. <code>NA</code> means that information is not available for that observation. For some variables, especially questions about romantic relationships and later adolescent experiences, a value may be missing because the question did not apply to that respondent.</p>
+  </section>
+
+  <section id="famelo-codebook" class="level2">
+    <h2>FAMELO codebook</h2>
+    <div class="table-wrap">
+    <table class="caption-top table">
+      <colgroup>
+        <col style="width: 33%">
+        <col style="width: 33%">
+        <col style="width: 33%">
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th>Variable</th>
+          <th>Brief description</th>
+          <th>Response options</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr class="odd" data-variable="child_id">
+        <td><code>child_id</code></td>
+        <td>Unique identifier for the focal child</td>
+        <td>Identifier rather than a measured quantity</td>
+      </tr>
+      <tr class="even" data-variable="household_id">
+        <td><code>household_id</code></td>
+        <td>Identifier linking focal children who live in the same household</td>
+        <td>Identifier rather than a measured quantity; may be shared by more than one focal child</td>
+      </tr>
+      <tr class="odd" data-variable="country">
+        <td><code>country</code></td>
+        <td>Country containing the FAMELO study site for the focal child</td>
+        <td>Mexico; Mozambique; Nepal</td>
+      </tr>
+      <tr class="even" data-variable="sex">
+        <td><code>sex</code></td>
+        <td>Sex of the focal child, recorded as boy or girl.</td>
+        <td>Boy; Girl</td>
+      </tr>
+      <tr class="odd" data-variable="age">
+        <td><code>age</code></td>
+        <td>Age of the focal child at Wave 2</td>
+        <td>Years</td>
+      </tr>
+      <tr class="even" data-variable="household_assets">
+        <td><code>household_assets</code></td>
+        <td>Household assets relative to other households in the same country</td>
+        <td>Standardized separately within each country; higher scores indicate greater relative household assets. Do not use this variable to compare absolute wealth across countries.</td>
+      </tr>
+      <tr class="odd" data-variable="any_household_migrant">
+        <td><code>any_household_migrant</code></td>
+        <td>Whether at least one household member has migration experience</td>
+        <td>No; Yes</td>
+      </tr>
+      <tr class="even" data-variable="number_household_migrants">
+        <td><code>number_household_migrants</code></td>
+        <td>Number of household members with migration experience</td>
+        <td>Count of household members</td>
+      </tr>
+      <tr class="odd" data-variable="any_international_migrant">
+        <td><code>any_international_migrant</code></td>
+        <td>Whether at least one household member has international migration experience</td>
+        <td>No; Yes</td>
+      </tr>
+      <tr class="even" data-variable="number_international_migrants">
+        <td><code>number_international_migrants</code></td>
+        <td>Number of household members with international migration experience</td>
+        <td>Count of household members</td>
+      </tr>
+      <tr class="odd" data-variable="household_relative_conditions">
+        <td><code>household_relative_conditions</code></td>
+        <td>Caregiver&#039;s comparison of the household&#039;s living conditions with most households in the community</td>
+        <td>1 = Better; 2 = Worse; 3 = About the same</td>
+      </tr>
+      <tr class="even" data-variable="household_food_worry">
+        <td><code>household_food_worry</code></td>
+        <td>How often the caregiver worried that the household would not have enough food</td>
+        <td>1 = Never; 2 = A few times; 3 = Many times</td>
+      </tr>
+      <tr class="odd" data-variable="household_ran_out_food">
+        <td><code>household_ran_out_food</code></td>
+        <td>How often the caregiver reported that the household ran out of food</td>
+        <td>1 = Never; 2 = A few times; 3 = Many times</td>
+      </tr>
+      <tr class="even" data-variable="subjective_adulthood">
+        <td><code>subjective_adulthood</code></td>
+        <td>How often the focal child feels like an adult</td>
+        <td>Never/Rarely; Sometimes; Often/Always</td>
+      </tr>
+      <tr class="odd" data-variable="self_rated_health">
+        <td><code>self_rated_health</code></td>
+        <td>The focal child&#039;s rating of their overall health</td>
+        <td>0 = Very good; 1 = Good; 2 = Okay; 3 = Bad</td>
+      </tr>
+      <tr class="even" data-variable="food_insecurity">
+        <td><code>food_insecurity</code></td>
+        <td>How often the focal child worried that there would not be enough food</td>
+        <td>0 = Never; 1 = A few times; 2 = Many times</td>
+      </tr>
+      <tr class="odd" data-variable="paid_work">
+        <td><code>paid_work</code></td>
+        <td>Whether the focal child did work for cash or in-kind payment during roughly the past six months</td>
+        <td>No; Yes</td>
+      </tr>
+      <tr class="even" data-variable="enrolled_school">
+        <td><code>enrolled_school</code></td>
+        <td>Whether the focal child attended school within the past 30 days</td>
+        <td>No; Yes</td>
+      </tr>
+      <tr class="odd" data-variable="education_attainment_isced">
+        <td><code>education_attainment_isced</code></td>
+        <td>Highest education level completed by the focal child, reported by the caregiver and harmonized using ISCED</td>
+        <td>0 = Less than primary; 1 = Primary; 2 = Lower secondary; 3 = Upper secondary; 4 = Post-secondary non-tertiary; 5 = Short-cycle tertiary; 6 = Bachelor&#039;s; 7 = Master&#039;s; 8 = Doctoral. Ordered categories; not years of schooling or equal-interval measurements.</td>
+      </tr>
+      <tr class="even" data-variable="caregiver_education_aspiration_isced">
+        <td><code>caregiver_education_aspiration_isced</code></td>
+        <td>Highest education level the caregiver would like the focal child to attain, harmonized using ISCED</td>
+        <td>0 = Less than primary; 1 = Primary; 2 = Lower secondary; 3 = Upper secondary; 4 = Post-secondary non-tertiary; 5 = Short-cycle tertiary; 6 = Bachelor&#039;s; 7 = Master&#039;s; 8 = Doctoral. Ordered categories; not years of schooling or equal-interval measurements.</td>
+      </tr>
+      <tr class="odd" data-variable="caregiver_education_expectation_isced">
+        <td><code>caregiver_education_expectation_isced</code></td>
+        <td>Highest education level the caregiver thinks the focal child will attain, harmonized using ISCED</td>
+        <td>0 = Less than primary; 1 = Primary; 2 = Lower secondary; 3 = Upper secondary; 4 = Post-secondary non-tertiary; 5 = Short-cycle tertiary; 6 = Bachelor&#039;s; 7 = Master&#039;s; 8 = Doctoral. Ordered categories; not years of schooling or equal-interval measurements.</td>
+      </tr>
+      <tr class="even" data-variable="ever_romantic_relationship">
+        <td><code>ever_romantic_relationship</code></td>
+        <td>Whether the focal child reported ever having a romantic relationship</td>
+        <td>No; Yes; asked only of respondents for whom the relationship questions applied</td>
+      </tr>
+      <tr class="odd" data-variable="number_romantic_relationships">
+        <td><code>number_romantic_relationships</code></td>
+        <td>Number of romantic relationships reported by respondents who said they had ever had a romantic relationship.</td>
+        <td>Count; applies only to respondents who reported romantic relationship experience</td>
+      </tr>
+      <tr class="even" data-variable="considered_marrying_partner">
+        <td><code>considered_marrying_partner</code></td>
+        <td>Whether the focal child had considered marrying the partner discussed in the relationship questions</td>
+        <td>No; Yes; follow-up question for respondents to whom the relationship questions applied</td>
+      </tr>
+      <tr class="odd" data-variable="caregiver_knew_relationship">
+        <td><code>caregiver_knew_relationship</code></td>
+        <td>Whether the focal child&#039;s caregiver knew about the partner discussed in the relationship questions</td>
+        <td>No; Yes; follow-up question for respondents to whom the relationship questions applied</td>
+      </tr>
+      <tr class="even" data-variable="importance_job">
+        <td><code>importance_job</code></td>
+        <td>How important having a salaried or good job someday is to the focal child</td>
+        <td>1 = Not at all important; 2 = Somewhat important; 3 = Neither important nor unimportant; 4 = Important; 5 = Very important</td>
+      </tr>
+      <tr class="odd" data-variable="importance_education">
+        <td><code>importance_education</code></td>
+        <td>How important completing secondary school is to the focal child</td>
+        <td>1 = Not at all important; 2 = Somewhat important; 3 = Neither important nor unimportant; 4 = Important; 5 = Very important</td>
+      </tr>
+      <tr class="even" data-variable="importance_marriage">
+        <td><code>importance_marriage</code></td>
+        <td>How important getting married someday is to the focal child</td>
+        <td>1 = Not at all important; 2 = Somewhat important; 3 = Neither important nor unimportant; 4 = Important; 5 = Very important</td>
+      </tr>
+      <tr class="odd" data-variable="life_aspiration">
+        <td><code>life_aspiration</code></td>
+        <td>Which life priority the focal child selected as most important</td>
+        <td>School; Job; Marriage</td>
+      </tr>
+      <tr class="even" data-variable="importance_caring_for_parents">
+        <td><code>importance_caring_for_parents</code></td>
+        <td>How important helping care for parents or a caregiver when they are older is to the focal child</td>
+        <td>1 = Not at all important; 2 = Somewhat important; 3 = Neither important nor unimportant; 4 = Important; 5 = Very important</td>
+      </tr>
+      <tr class="odd" data-variable="desired_marriage_age">
+        <td><code>desired_marriage_age</code></td>
+        <td>Age at which the focal child would like to marry or, where applicable, live with a partner</td>
+        <td>Years</td>
+      </tr>
+      <tr class="even" data-variable="earliest_marriage_age">
+        <td><code>earliest_marriage_age</code></td>
+        <td>Earliest age at which the focal child thinks they might marry or, where applicable, live with a partner</td>
+        <td>Years</td>
+      </tr>
+      <tr class="odd" data-variable="latest_marriage_age">
+        <td><code>latest_marriage_age</code></td>
+        <td>Latest age by which the focal child thinks they might marry or, where applicable, live with a partner</td>
+        <td>Years</td>
+      </tr>
+      <tr class="even" data-variable="caregiver_asks_plans">
+        <td><code>caregiver_asks_plans</code></td>
+        <td>How often the caregiver asks about the focal child&#039;s plans for the coming day</td>
+        <td>1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always</td>
+      </tr>
+      <tr class="odd" data-variable="caregiver_asks_activities">
+        <td><code>caregiver_asks_activities</code></td>
+        <td>How often the caregiver talks with the focal child about what the child did during the day</td>
+        <td>1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always</td>
+      </tr>
+      <tr class="even" data-variable="curfew">
+        <td><code>curfew</code></td>
+        <td>How often the focal child has a specific time to be home at night</td>
+        <td>1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always</td>
+      </tr>
+      <tr class="odd" data-variable="tells_caregiver_where_going">
+        <td><code>tells_caregiver_where_going</code></td>
+        <td>How often the focal child tells the caregiver where they are going when leaving home</td>
+        <td>1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always</td>
+      </tr>
+      <tr class="even" data-variable="caregiver_knows_companions">
+        <td><code>caregiver_knows_companions</code></td>
+        <td>How often the caregiver knows who the focal child is with when the child is away from home</td>
+        <td>1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always</td>
+      </tr>
+      <tr class="odd" data-variable="caregiver_monitoring">
+        <td><code>caregiver_monitoring</code></td>
+        <td>Average of five child-reported caregiver-monitoring items</td>
+        <td>Average score from 1 to 5; higher scores indicate more frequent monitoring</td>
+      </tr>
+      <tr class="even" data-variable="education_attainment">
+        <td><code>education_attainment</code></td>
+        <td>Labeled version of the focal child&#039;s highest completed education level</td>
+        <td>Less than primary; Primary; Lower secondary; Upper secondary; Post-secondary non-tertiary; Short-cycle tertiary; Bachelor&#039;s; Master&#039;s; Doctoral. Usually easier to use in tables and graphs than the numeric ISCED version.</td>
+      </tr>
+      <tr class="odd" data-variable="caregiver_education_aspiration">
+        <td><code>caregiver_education_aspiration</code></td>
+        <td>Labeled version of the highest education level the caregiver would like the focal child to attain</td>
+        <td>Less than primary; Primary; Lower secondary; Upper secondary; Post-secondary non-tertiary; Short-cycle tertiary; Bachelor&#039;s; Master&#039;s; Doctoral. Usually easier to use in tables and graphs than the numeric ISCED version.</td>
+      </tr>
+      <tr class="even" data-variable="caregiver_education_expectation">
+        <td><code>caregiver_education_expectation</code></td>
+        <td>Labeled version of the highest education level the caregiver thinks the focal child will attain</td>
+        <td>Less than primary; Primary; Lower secondary; Upper secondary; Post-secondary non-tertiary; Short-cycle tertiary; Bachelor&#039;s; Master&#039;s; Doctoral. Usually easier to use in tables and graphs than the numeric ISCED version.</td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+</main>
+<!-- FAMELO CODEBOOK END -->
+</body>
+</html>
