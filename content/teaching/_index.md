@@ -22,6 +22,10 @@ I also want students to leave my courses able to use sociology beyond the classr
 [Syllabus (PDF)](/teaching/presentations/SOCI270_RaceEthn_Fall2026_Axxe_20260819.pdf)  
 [Course Timeline (XLSX)](/teaching/presentations/SOCI270_RaceEthnicity_Fall2026_20260819.xlsx)
 
+### Sociology of Education (SOCI 310)
+[Syllabus (PDF)](/teaching/presentations/SocOfEd_Syllabus_20251016.pdf)  
+[Course Timeline (XLSX)](/teaching/presentations/SocOfEd_Timeline_20251016.xlsx)
+
 ### Sociological Research Methods (SOCI 335)
 [Syllabus (PDF)](/teaching/presentations/SocResearchMethods_Axxe_20250130.pdf)  
 [Course Timeline (XLSX)](/teaching/presentations/CourseTimeline_Clean_20250404.xlsx)
@@ -29,10 +33,6 @@ I also want students to leave my courses able to use sociology beyond the classr
 ### Environmental Sociology (SOCI 375)
 [Syllabus (PDF)](/teaching/presentations/SOCI375_EnvSoc_Syllabus_Axxe_20260821.pdf)  
 [Course Timeline (XLSX)](/teaching/presentations/SOCI375_EnvSoc_Timeline_Axxe_20260821.xlsx)
-
-### Sociology of Education (SOCI 385)
-[Syllabus (PDF)](/teaching/presentations/SocOfEd_Syllabus_20251016.pdf)  
-[Course Timeline (XLSX)](/teaching/presentations/SocOfEd_Timeline_20251016.xlsx)
 
 ### Social Inequality and Identity (ANTH/SOCI 390)
 [Syllabus (PDF)](/teaching/presentations/IneqIdentity_Syllabus_Axxe_20260117.pdf)  
